@@ -1,0 +1,57 @@
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <section class="content" >
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                          <h3 class="box-title">{{heading_title}}</h3>
+                        </div>
+                        <div class="box-body">
+                            <div ng-if="refresh == 1" class="overlay">
+                              <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                            <div class="row">
+                              <form method="POST" id="fileupload" enctype="multipart/form-data">
+                                <div class="col-sm-12 btn-group">
+                                  <span class="btn btn-success fileinput-button" ng-class="{disabled: disabled}">
+                                      <i class="glyphicon glyphicon-plus"></i>
+                                      <span>Add files...</span>
+                                      <input onchange="angular.element(this).scope().addFile(this)" id="file" type="file" name="files[]" multiple="" ng-disabled="disabled" >
+                                  </span>
+                                  <button  disabled type="button" class="btn btn-primary start" data-ng-click="submit()">
+                                      <i class="glyphicon glyphicon-upload"></i>
+                                      <span>Start upload</span>
+                                  </button>
+                                  
+                                </div>
+                              </form>
+                            </div>
+                            <hr>
+                            <div ng-if="success == 1"  alert-success ></div>
+                            <div ng-if="error == 1"  alert-error ></div>
+                            <div id="image-holder" class="timeline-body row">
+                              <div class="padding-5px col-sm-4">
+                                <img src="" class="margin thumb-image">
+                              </div>
+                              <div class="col-sm-6">
+                                <b><span id="file_name"></span></b>
+                              </div>
+                              <div class="col-sm-2">
+                                <span id="file_size"></span>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row show_image">
+                                <div class="col-xs-3 col-sm-3 col-md-2 child_image" ng-repeat="image in images | orderBy:'image' ">
+                                  <img class="img-responsive pad" src="../storage/app/{{image}}" onClick="angular.element(this).scope().getImage(this)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </section>
+        
+
+      </div><!-- /.content-wrapper -->

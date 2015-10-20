@@ -1,0 +1,291 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use DB;
+use Auth;
+use App\User;
+use App\Layout;
+use App\Widget;
+use Validator;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Request;
+
+class ModulesController extends Controller
+{
+    public $_config;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Registration & Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users, as well as the
+    | authentication of existing users. By default, this controller uses
+    | a simple trait to add these behaviors. Why don't you explore it?
+    |
+    */
+
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    public function __construct()
+    {
+        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->_config = app('App\Http\Controllers\CommonController')->get_config();
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function singin_validator(array $data)
+    {
+        return Validator::make($data, [
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6',
+        ]);
+    }
+
+    protected function singup_validator(array $data)
+    {
+        return Validator::make($data, [
+            'fullname' => 'required|max:255|min:6',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6'
+        ]);
+    }
+
+    protected function forgot_validator(array $data)
+    {
+        return Validator::make($data, [
+            'email' => 'required|email|max:255|unique:users'
+        ]);
+    }
+
+    protected function contact_validator(array $data)
+    {
+        return Validator::make($data, [
+            'email' => 'required|email|max:255',
+            'title' => 'required|min:6',
+            'message' => 'required|min:50'  
+        ]);
+    }
+
+    /**
+    * Show the loader template
+    */
+    public function loader()
+    {
+    	$data['first_text']  = 'Hotel';
+        $data['second_text'] = '-Booking';
+        return view('modules.loader', $data);
+    }
+
+    /**
+    * Show the main slider template
+    */
+    public function main_slider($visible = 0, $booking = 0, $bookingwithspecial = 0)
+    {
+        $data['module_hotel_booking_area'] = $this->hotel_booking_area($booking, $bookingwithspecial );
+        $data['config'] = Widget::getMainSliderConfig();
+        if($visible == 1)
+        {
+           return view('modules.main_slider', $data); 
+        }
+        
+    }
+
+    /**
+    * Show the hotel booking area
+    */
+    public function hotel_booking_area($booking, $bookingwithspecial)
+    {
+        if($booking == 1)
+        {
+            $data['bookingwithspecial'] = $bookingwithspecial;
+            return view('modules.hotel_booking_area', $data);
+        }
+    }
+
+    /** 
+    * Show the welcome section template
+    */
+    public function welcome_section($visible = 1)
+    {
+        if($visible == 1)
+        {
+            return view('modules.welcome_section');
+        }
+    }
+
+    /**
+    * Show the hotel facilities section template
+    */
+    public function hotel_facilities_section($visible = 1)
+    {
+        if($visible == 1)
+        {
+            return view('modules.hotel_facilities_section');
+        }
+    }
+
+    /**
+    * Show the about us section template
+    */
+    public function about_us_section($visible = 1)
+    {
+        if($visible == 1)
+        {
+            return view('modules.about_us_section');
+        }
+    }
+
+    /**
+    * Show the contact bottom template
+    */ 
+    public function contact_bottom($visible = 1)
+    {
+        if($visible == 1)
+        {
+            return view('modules.contact_bottom');
+        }
+    }
+
+    /**
+    * Show the button login with facebook
+    */
+    public function button_login_facebook()
+    {
+        return view('modules.button_login_facebook');
+    }
+
+    protected $registrar;
+
+    /** 
+    * Show the customer login form
+    */
+    public function customer_login_form()
+    {
+        $data['forgot_url'] = action('SignController@forgot');
+        $data['form_action'] = action('SignController@in');
+        if( Request::method() == 'POST' && Request::input('_token') == Request::session()->token() )
+        {
+            $validator = $this->singin_validator(Request::all());
+            if ($validator->fails())
+            {
+                return view('modules.customer_login_form', $data)->withErrors($validator->errors());
+                
+            }
+           if (Auth::attempt(['email' => Request::input('email'), 'password' => Request::input('password')])) {
+                // Authentication passed...
+                return redirect()->action('HomeController@index');
+            }
+
+
+        }
+
+        return view('modules.customer_login_form', $data);
+    }
+
+    /** 
+    * Show the customer forgot form
+    */
+    public function customer_forgot_form()
+    {
+        $data['sign_up_url'] = action('SignController@up');
+        $data['form_action'] = action('SignController@forgot');
+        if( Request::method() == 'POST' && Request::input('_token') == Request::session()->token() )
+        {
+            //var_dump(Request::all());
+        }
+
+        return view('modules.customer_forgot_form', $data); 
+    }
+
+    /** 
+    * Show the customer register form
+    */
+    public function customer_register_form()
+    {
+        $data['sign_in_url'] = action('SignController@in');
+        $data['form_action'] = action('SignController@up');
+        if( Request::method() == 'POST' && Request::input('_token') == Request::session()->token() )
+        {
+            $validator = $this->singup_validator(Request::all());
+            if ($validator->fails())
+            {
+                return view('modules.customer_register_form', $data)->withErrors($validator->errors());
+            }
+            $user = DB::table('users')->where('email', Request::input('email'))
+            ->first();
+            if(!isset($user) || $user == NULL)
+            {
+                $insert = array(
+                                'name'     => Request::input('fullname'),
+                                'email'    => Request::input('email'),
+                                'password' => bcrypt(Request::input('password'))
+                 );
+                User::create($insert);
+                return redirect('login')->with('success_message', trans('messages.user_created_success'));
+            }else
+            {
+                $data['error_message'] = trans('messages.user_exists');
+            }
+
+        }
+
+        return view('modules.customer_register_form', $data); 
+    }
+
+    /** 
+    * Show the customer contact form
+    */
+    public function customer_contact_form()
+    {
+        $data['email'] = '';
+        if(Auth::check())
+        {
+            $data['email'] = Auth::user()->email;
+        }
+
+        $data['form_action'] = action('PagesController@contact');
+        if( Request::method() == 'POST' && Request::input('_token') == Request::session()->token() )
+        {
+            //var_dump(Request::all());
+            $validator = $this->contact_validator(Request::all());
+            if ($validator->fails())
+            {
+                return view('modules.customer_contact_form', $data)->withErrors($validator->errors());
+                
+            }
+        }
+        return view('modules.customer_contact_form', $data); 
+    }
+
+    /** 
+    * Show the addresss module
+    */
+    public function address()
+    {
+        $data['site_name']       = $this->_config['site_name'];
+        $data['site_email']      = $this->_config['site_email'];
+        $data['site_address']    = htmlentities($this->_config['site_address'], ENT_QUOTES);
+        return view('modules.address', $data); 
+    }
+
+    /** 
+    * Show the social media module
+    */
+    public function social_media()
+    {
+        $data['site_facebook']   = $this->_config['site_facebook'];
+        $data['site_google']     = $this->_config['site_google'];
+        $data['site_twitter']    = $this->_config['site_twitter'];
+        return view('modules.social_media', $data); 
+    }
+
+}

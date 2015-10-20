@@ -1,0 +1,100 @@
+        <!-- Main content -->
+        <section  class="content" ng-controller="GeneralSettingsController" >
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                    <div ng-if="success == 1"  alert-success ></div>
+                    <form id="form" ng-submit="submit()"  method="post">
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Site Title</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <input ng-model="formdata.sitetitle" name="sitetitle" type="text" class="form-control" placeholder="Site Title" >
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Tagline</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <input ng-model="formdata.tagline" name="tagline" type="text" class="form-control"  placeholder="Tagline" >
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Description</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <textarea ng-model="formdata.description" name="description" rows="5" class="form-control"  placeholder="Description"></textarea>
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>E-mail Address</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <input ng-model="formdata.email" name="email" type="email" class="form-control"  placeholder="E-mail Address" >
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Address</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <textarea ng-model="formdata.address" name="address" rows="5" class="form-control"  placeholder="Address"></textarea>
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Number Phone</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <input ng-model="formdata.numberphone" name="numberphone" type="text" class="form-control"  placeholder="Number Phone" >
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Facebook</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <input ng-model="formdata.facebook" name="facebook" type="text" class="form-control"  placeholder="Facebook" >
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Google+</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <input ng-model="formdata.google" name="google" type="text" class="form-control"  placeholder="Google+" >
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Twitter</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <input ng-model="formdata.twitter" name="twitter" type="text" class="form-control"  placeholder="Twitter" >
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-2"></div>  
+                          <div class="col-sm-2">
+                            <button type="submit" id="submit" class="btn btn-primary">Save</button>
+                          </div>  
+                      </div>              
+                    </form> 
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+              
+            </div><!-- /.col (RIGHT) -->
+          
+
+        </section><!-- /.content -->

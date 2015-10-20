@@ -1,0 +1,298 @@
+			.form-customer
+			{
+				width: 100%;
+				height: auto;
+				padding-top: 30px;
+				padding-bottom: 30px;
+				position: relative;
+			    background: #f5f6f7;
+			    overflow: hidden;
+			}
+			.form-customer-light
+			{
+				width: 100%;
+				height: auto;
+				padding-top: 30px;
+				padding-bottom: 30px;
+				position: relative;
+			    background: #FFF;
+			    overflow: hidden;
+			    border-top: 1px solid #c2c6cc;
+			}
+			.div-customer-form
+			{
+				width: 80%;
+				margin: auto;
+				text-align: center;
+			}
+			.btn-facebook {
+			    background-color: #3B5998;
+			    background-image: none ;
+			    color: #f5f6f7 !important;
+			    box-sizing: border-box;
+			    font-family: "Karla",sans-serif;
+			    font-size: 20px;
+			    font-weight: 700;
+			    line-height: 15px;
+			    padding: 13px 25px;
+			    border: none;
+			    outline: none;
+			    width: 380px;
+			}
+			.btn-facebook:hover
+			{
+				background-color: #344e86 ;
+			}
+			svg.flicon-facebook
+			{
+				font-size: 16px;
+				line-height: 12px;
+			}
+			.hr {
+			    position: relative;
+			    width: 70%;
+			    max-width: 545px;
+			    height: 8px;
+			    margin: 20px auto 30px;
+			    box-shadow: 0 1px 0 #fff,transparent 0 0 0;
+			    border-bottom: 1px solid #e3e5e8;
+			    text-align: center;
+			}
+			.hr .inner {
+			    background: #f5f6f7;
+			    border-radius: 100px;
+			    display: inline-block;
+			    width: auto;
+			    padding: 9px 10px;
+			    font-family: "Georgia","Times","Times New Roman",serif;
+			    font-size: 15px;
+			    font-size: .9375rem;
+			    font-style: italic;
+			    line-height: 0;
+			}
+			.div-customer-login .hr
+			{
+				max-width: 819px;
+			}
+			.form-block 
+			{
+				width: 400px;
+			    padding: 20px;
+			    margin: 0 auto;
+			    padding-top: 0px;
+			}
+			.form-block input {
+			    width: 100%;
+			    height: 42px;
+			    box-sizing: border-box;
+			    border: 1px solid #c2c6cc;
+			    margin-bottom: 20px;
+			    font-size: 14px;
+			    font-family: Montserrat;
+			    padding: 0 20px 0 50px;
+			    outline: none;
+			}
+
+			.form-block input#username {
+			    background: #fff url('../images/u0XmBmv.png') 20px top no-repeat;
+			    background-size: 16px 80px;
+			}
+
+			.form-block input#username:focus {
+			    background: #fff url('../images/u0XmBmv.png') 20px bottom no-repeat;
+			    background-size: 16px 80px;
+			}
+
+			.form-block input#password {
+			    background: #fff url('../images/Qf83FTt.png') 20px top no-repeat;
+			    background-size: 16px 80px;
+			}
+
+			.form-block input#password:focus {
+			    background: #fff url('../images/Qf83FTt.png') 20px bottom no-repeat;
+			    background-size: 16px 80px;
+			}
+
+			.form-block input:active, .form-block input:focus, .form-block input#email:active {
+			    border: 1px solid #ff656c;
+			}
+
+			::-webkit-input-placeholder {
+			   color: #9E9E9E;
+			}
+
+			:-moz-placeholder { /* Firefox 18- */
+			   color: #9E9E9E;  
+			}
+
+			::-moz-placeholder {  /* Firefox 19+ */
+			   color: #9E9E9E;  
+			}
+
+			:-ms-input-placeholder {  
+			   color: #9E9E9E;  
+			}
+			.btn-customer-submit
+			{
+				background-color: #f77d0e;
+			    background-image: none !important;
+			    color: #f5f6f7 !important;
+			    border: 1px solid #f77d0e;
+			    font-weight: bold !important;
+			    padding: 10px 16px;
+    			font-size: 16px !important;
+			}
+			.btn-customer-submit:hover
+			{
+				background-color: #F4511E;
+			}
+			.link
+			{
+				height: 42px;
+				line-height: 42px;
+				
+			}
+			.link a
+			{
+				color: #227dc4;
+			}
+			.link a:hover
+			{
+				text-decoration: underline;
+			}
+			
+			.form-contact-us
+			{
+				color: #363f4d;
+			}
+			.form-contact-us input, .form-contact-us textarea
+			{
+				margin-bottom: 15px;
+				border-radius: 0px;
+			}
+			.form-contact-us label
+			{
+				font-weight: 500;
+			}
+			.no-padding
+			{
+				padding-left: 0px;
+				padding-right: 0px;
+				z-index: 999;
+			}
+			.border-left
+			{
+				border-left: 1px solid #ccc;
+				
+			}
+			.contactInfo
+			{
+				min-height: 360px;
+				display: table-cell;
+			    min-width: 277px;
+			    padding-left: 7%;
+			}
+			h5.contactInfo-title
+			{
+				margin-bottom: 16px;
+    			font-size: 18px;
+    			font-weight: bold;
+			}
+			h6.contactInfo-subTitle {
+			    display: block;
+			    font-weight: bold;
+			    margin-bottom: 0;
+			    font-size: 14px;
+			    text-transform: none;
+			}
+			.contactInfo-address{
+			    font-size: 1.1rem;
+			    font-style: normal;
+			    line-height: 1.6;
+			    color: #363f4d;
+			}
+			.contactInfo-link {
+			    display: inline-block;
+			    font-size: 15px;
+			    font-size: 1.1rem;
+			    margin-bottom: 20px;
+			    color: #227dc4;
+			}
+			.contactInfo-link:hover
+			{
+				text-decoration: underline;
+			}
+			.fl-social-media-links {
+			    display: block;
+			    padding-top: 55px;
+			    padding: 0;
+   				margin: 0;
+   				list-style-type: none;
+			}
+			.fl-social-media-links>li
+			{
+				width: 50px;
+				height: 50px;
+				float: left;
+				margin-right: 10px;
+			}
+			.fl-social-media-links>li:first-child {
+			    margin-left: 0;
+			}
+			.fl-social-media-icon 
+			{
+				border-radius: 50%;
+				display: block;
+			    text-align: center;
+			    position: relative;
+			    -webkit-animation-duration: .3s;
+			    -moz-animation-duration: .3s;
+			    -o-animation-duration: .3s;
+			    animation-duration: .3s;
+			    -webkit-animation-fill-mode: both;
+			    -moz-animation-fill-mode: both;
+			    -o-animation-fill-mode: both;
+			    animation-fill-mode: both;
+
+			}
+			.fl-social-media-icon.is-iconLight {
+			    background-color: #ccc;
+			}
+			.fl-social-media-icon.is-iconLarge {
+			    width: 50px;
+			    height: 50px;
+			}
+			.flicon-facebook-o, .flicon-twitter, .flicon-google-plus
+			{
+				margin-top: 8px;
+			}
+
+			@media (max-width: 500px) {
+				.form-block {
+					width: 100%;
+				}
+				.btn-facebook
+				{
+					width: 98%;
+				}
+				.hr {
+					width: 98%;
+				}
+				.contactInfo
+				{
+					padding-left: 0;
+					padding-top: 10px;
+				}
+				.border-left
+				{
+					border-left: none;
+				}
+				.form-contact-us
+				{
+					margin-bottom: 20px;
+					border-bottom: 1px solid #ccc;
+					padding-bottom: 20px;
+				}
+
+			}
+			

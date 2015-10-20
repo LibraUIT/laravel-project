@@ -1,0 +1,108 @@
+        <!-- Main content -->
+        <section  class="content" ng-controller="HomePageLayoutOptionsController" >
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Setting home page -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">{{heading_title}}</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                    <div ng-if="refresh == 1" class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <div ng-if="success == 1"  alert-success ></div>
+                    <form>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="checkbox icheck">
+                                  <label>
+                                    <input icheck ng-model="formcheck.main_slider" type="checkbox"> Main slider
+                                  </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="checkbox icheck">
+                                  <label>
+                                    <input icheck ng-model="formcheck.welcome_section" type="checkbox"> Welcome section
+                                  </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="checkbox icheck">
+                                  <label>
+                                    <input icheck ng-model="formcheck.hotel_facilities_section" type="checkbox"> Hotel facilities section
+                                  </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="checkbox icheck">
+                                  <label>
+                                    <input icheck ng-model="formcheck.about_us_section" type="checkbox"> About us section
+                                  </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="checkbox icheck">
+                                  <label>
+                                    <input icheck ng-model="formcheck.contact_bottom" type="checkbox"> Contact bottom
+                                  </label>
+                                </div>
+                            </div>
+                            <div ng-if="formcheck.main_slider==1" class="col-xs-6">
+                                <div class="checkbox icheck">
+                                  <label>
+                                    <input icheck ng-model="formcheck.booking" type="checkbox"> 
+                                    Booking
+                                  </label>
+                                </div>
+                            </div>
+                            <div ng-if="formcheck.main_slider==1 && formcheck.booking == 1" class="col-xs-6">
+                                <div class="checkbox icheck">
+                                  <label>
+                                    <input icheck ng-model="formcheck.bookingwithspecial" type="checkbox"> 
+                                    Booking with Special
+                                  </label>
+                                </div>
+                            </div>
+                        </div>    
+                    </form>
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                    <button ng-click="submit()" type="submit" class="btn btn-primary">Save</button>                   
+                </div>
+              </div><!-- /.box -->
+              
+            </div><!-- /.col (RIGHT) -->
+            <div class="col-md-12">
+              <!-- Setting home page -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Review</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body">
+                    <img id="header_img" class="img-responsive pad" src="dist/img/reviews/home_page_header.png" alt="Photo">
+                    <img ng-if="formcheck.main_slider==1 && formcheck.booking != 1 " id="main_slider_img" class="img-responsive pad" src="dist/img/reviews/none_booking.png" alt="Photo">
+                    <img ng-if="formcheck.main_slider==1 && formcheck.booking == 1 && formcheck.bookingwithspecial !=1 " id="main_slider_img" class="img-responsive pad" src="dist/img/reviews/booking.png" alt="Photo">
+                    <img ng-if="formcheck.main_slider==1 && formcheck.booking == 1 && formcheck.bookingwithspecial ==1 " id="main_slider_img" class="img-responsive pad" src="dist/img/reviews/booking_with_special.png" alt="Photo">
+                    <img ng-if="formcheck.welcome_section==1" id="welcome_section_img" class="img-responsive pad" src="dist/img/reviews/home_page_welcome_section.png" alt="Photo">
+                    <img ng-if="formcheck.hotel_facilities_section==1" id="hotel_facilties_img" class="img-responsive pad" src="dist/img/reviews/home_page_hotel_facilties.png" alt="Photo">
+                    <img ng-if="formcheck.about_us_section==1" id="about_section_img" class="img-responsive pad" src="dist/img/reviews/home_page_about_section.png" alt="Photo">
+                    <img ng-if="formcheck.contact_bottom==1" id="contact_bottom_img" class="img-responsive pad" src="dist/img/reviews/home_page_contact_bottom.png" alt="Photo">
+                    <img id="footer_img" class="img-responsive pad" src="dist/img/reviews/home_page_footer.png" alt="Photo" style="padding:0px">
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
+            </div><!-- /.col (RIGHT) -->
+          </div><!-- /.row -->
+
+        </section><!-- /.content -->

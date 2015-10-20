@@ -1,0 +1,9 @@
+.uiviewlogin
+{
+	height: 100vh;
+	overflow: hidden;
+}
+.login-box .login-logo a
+{
+	color: #FFF;
+}
