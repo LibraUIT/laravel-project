@@ -88,6 +88,9 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/widgets/add_gallery', [
             'as' => 'add_gallery','uses' => 'WidgetsController@addGallery'
         ]);
+        Route::post('/api/widgets/delete_gallery_by_id', [
+            'as' => 'delete_gallery_by_id','uses' => 'WidgetsController@delGalleryById'
+        ]);
         Route::get('/api/widgets/get_all_gallery', [
             'as' => 'get_all_gallery','uses' => 'WidgetsController@getAllGallery'
         ]);

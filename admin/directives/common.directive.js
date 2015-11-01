@@ -281,11 +281,12 @@
     transclude: true,
         link: function($scope, element, attrs)
         {
-                
+            var $isVisible = function(){ $('.cd-popup').addClass('is-visible'); }    
+            var $isNotVisible = function(){ $('.cd-popup').removeClass('is-visible'); }
             $scope.showPopup = function(input)
             {
                 $elementId = $(input).attr('id');
-                $('.cd-popup').addClass('is-visible');
+                $isVisible();
             }
             
             $scope.confirmYes = function()
@@ -294,10 +295,11 @@
                 var elements = $elementId.split('-');
                 switch(elements[0])
                 {
-                    case "gallery":
+                    case "gallery": // Delete gallery 
                         var galleryId = parseInt(elements[1]);
                         WidgetsServices.deleteGallery(galleryId).success(function(res){
                             console.log(res);
+                            $isNotVisible();
                         });
                         break;
                 }
@@ -305,7 +307,7 @@
             $scope.confirmNo = function()
             {
                 event.preventDefault();
-                $('.cd-popup').removeClass('is-visible');
+                $isNotVisible();
             }
 
             jQuery(document).ready(function($){
@@ -319,13 +321,13 @@
             $('.cd-popup').on('click', function(event){
                 if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
                     event.preventDefault();
-                    $(this).removeClass('is-visible');
+                    $isNotVisible();
                 }
             });
             //close popup when clicking the esc keyboard button
             $(document).keyup(function(event){
                 if(event.which=='27'){
-                    $('.cd-popup').removeClass('is-visible');
+                    $isNotVisible();
                 }
             });
           });

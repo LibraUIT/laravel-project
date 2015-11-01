@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Widget;
 
 use DB;
+use File;
 use App\Widget;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
@@ -78,21 +79,35 @@ class WidgetsController extends Controller
        return response()->json($output);
     }
 
+    // get all gallery by @limit param
     public function getAllGallery()
     {
         $limit = $_GET['limit'];
         return Widget::getallGallery($limit);
     }
-    public function getPaginationGallery()
+
+    // Delete gallery by  id
+    public function delGalleryById()
     {
-        $limit = $_GET['limit'];
-        $gallerys = Widget::getpagiantionGallery($limit)->toArray();
-        $data = array(
-                  "draw" => 4,
-                  "recordsTotal" => 57,
-                  "recordsFiltered" => 57,
-                  "data" => $gallerys['data']
-            );
-        return response()->json($data);
+        $id = file_get_contents('php://input');
+        $gallery =  DB::table('gallerys')->where('id', (int)$id )->first();
+        $output = array(
+                'status' => 'NO',
+                'message' => 'Image not exist.'
+        );
+        if($gallery)
+        {
+            $image = $gallery->image;
+            $image = str_replace('../storage/app', storage_path('app'), $image);
+            if(File::exists( $image ))
+            {
+                File::delete($image);
+                $output = array(
+                    'status' => 'OK',
+                    'message' => 'Deleted has been success'
+                );
+            }
+        }
+        return response()->json($output);
     }
 }
