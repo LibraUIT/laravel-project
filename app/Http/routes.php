@@ -71,6 +71,9 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/file_manager/get_all', [
             'as' => 'file_manager_get_all','uses' => 'FilemanagerController@getAll'
         ]);
+        Route::post('/api/file_manager/delete_single_file', [
+            'as' => 'delete_single_file','uses' => 'FilemanagerController@deleteSingleFile'
+        ]);
         
     });
     Route::group(['namespace' => 'Widget'], function()
@@ -81,6 +84,15 @@ Route::group(['namespace' => 'Api'], function()
         ]);
         Route::post('/api/widgets/set_main_slider', [
             'as' => 'set_main_slider','uses' => 'WidgetsController@setMainSlider'
+        ]);
+        Route::post('/api/widgets/add_gallery', [
+            'as' => 'add_gallery','uses' => 'WidgetsController@addGallery'
+        ]);
+        Route::get('/api/widgets/get_all_gallery', [
+            'as' => 'get_all_gallery','uses' => 'WidgetsController@getAllGallery'
+        ]);
+        Route::get('/api/widgets/get_pagination_gallery', [
+            'as' => 'get_pagination_gallery','uses' => 'WidgetsController@getPaginationGallery'
         ]);
     });
     Route::group(['namespace' => 'Setting'], function()

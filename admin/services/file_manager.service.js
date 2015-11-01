@@ -34,6 +34,17 @@ laravelAdminApp.factory('FileManagerServices', ['$http', function ($http) {
           });
     };
 
+    FileManagerServices.deleteSingleFile = function (input) {
+        var params = [urlBaseApi, 'file_manager', 'delete_single_file'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined},
+            data: input
+          });
+    };
+
     return FileManagerServices;
 
 }]);

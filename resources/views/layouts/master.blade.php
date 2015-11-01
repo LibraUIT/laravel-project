@@ -7,6 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" href="{{ asset('public/images/favicon.ico')}}" sizes="16x16">
+
+        <meta name="description" content="Free Web tutorials">
+        <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+        <meta name="author" content="Hege Refsnes">
 		
         <!-- fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>

@@ -26,7 +26,8 @@ class Layout extends Model
                              'about_us_section' => FALSE,
                              'contact_bottom' => FALSE,
                              'booking'  => FALSE,
-                             'bookingwithspecial' => FALSE
+                             'bookingwithspecial' => FALSE,
+                             'pinterest'    =>  FALSE
                               ];
         if(isset($data) || $data != NULL)
         {    

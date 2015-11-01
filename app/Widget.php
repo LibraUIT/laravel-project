@@ -35,4 +35,32 @@ class Widget extends Model
         return DB::table('widgets')->insert($create);
     }
 
+    /**
+    * add new gallery
+    */
+
+    static public function addGallery($input)
+    {
+        return DB::table('gallerys')->insert($input);
+    }
+
+    /**
+    * get all gallery
+    */
+
+    static public function getallGallery($limit = 1)
+    {
+        $gallerys = DB::table('gallerys')->orderBy('id', 'desc')->paginate($limit);      
+        return $gallerys->toJson();
+    }
+    /**
+    * get pagination gallery
+    */
+
+    static public function getpagiantionGallery($limit = 1)
+    {
+        $gallerys = DB::table('gallerys')->orderBy('id', 'desc')->paginate($limit);      
+        return $gallerys;
+    }
+
 }

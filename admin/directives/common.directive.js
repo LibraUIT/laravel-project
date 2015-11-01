@@ -41,6 +41,25 @@
 	    "</div>"
  	}
  })
+ // Column Left Menu
+ .directive('columnLeft', function($rootScope, $location, $route) {
+    return {
+        restrict: 'A',
+        transclude: true,
+        scope: {},
+        link: function(scope, element, attrs)
+        {
+            scope.loadView = function(input)
+            {
+              $rootScope.$apply(function() {
+
+                $location.path("/");
+              });
+            }
+        },
+        templateUrl: 'views/layout/left_menu.html'
+    }
+ })
 // iCheck 
  .directive('icheck', function ($timeout, $parse) {
     return {
@@ -126,7 +145,8 @@
                                      '<img  class="result_image" src="../storage/app/'+image.file_path+'" onClick="angular.element(this).scope().getImage(this)">'+
                                      '</td>'+
                                      '<td class="second-column resultHTML"><b>'+image.file_name+'</b></td>'+
-                                     '<td class="last-column resultHTML">'+image.file_size+'</td>'+
+                                     '<td class="tree-column resultHTML">'+image.file_size+'</td>'+
+                                     '<td class="last-column resultHTML"><button type="button" onclick="angular.element(this).scope().deleteImage(\''+image.file_path+'\')" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash"></i></button></td>'+
                                      '</tr>';   
                     }
                     resultHTML += '</table>';
@@ -177,7 +197,8 @@
                                                  '<img  class="result_image" src="../storage/app/'+image.file_path+'" onClick="angular.element(this).scope().getImage(this)">'+
                                                  '</td>'+
                                                  '<td class="second-column resultHTML"><b>'+image.file_name+'</b></td>'+
-                                                 '<td class="last-column resultHTML">'+image.file_size+'</td>'+
+                                                 '<td class="tree-column resultHTML">'+image.file_size+'</td>'+
+                                                 '<td class="last-column resultHTML"><button type="button" onclick="angular.element(this).scope().deleteImage(\''+image.file_path+'\')" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash"></i></button></td>'+
                                                  '</tr>';    
                                 }
                                 resultHTML += '</table>';
@@ -195,10 +216,120 @@
                     }
                 });
             }
-            FileManager($scope);    
+            FileManager($scope);
+            $scope.deleteImage =  function(image)
+            {
+                image = image.split('/');
+
+                var data = new FormData();
+                data.append('folder', folder);
+                data.append('image', image[image.length-1]);
+                FileManagerServices.deleteSingleFile(data).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        FileManagerServices.getAll(folder).success(function(res){      
+                            if(res.length > 0)
+                            {
+                                resultHTML = '<table class="result_image_manager">'
+                                for(var i = 0 ; i < res.length; i++)
+                                {
+                                    var image = res[i];
+                                    resultHTML +='<tr>'+
+                                                 '<td class="first-column resultHTML">'+
+                                                 '<img  class="result_image" src="../storage/app/'+image.file_path+'" onClick="angular.element(this).scope().getImage(this)">'+
+                                                 '</td>'+
+                                                 '<td class="second-column resultHTML"><b>'+image.file_name+'</b></td>'+
+                                                 '<td class="tree-column resultHTML">'+image.file_size+'</td>'+
+                                                 '<td class="last-column resultHTML"><button type="button" onclick="angular.element(this).scope().deleteImage(\''+image.file_path+'\')" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash"></i></button></td>'+
+                                                 '</tr>';    
+                                }
+                                resultHTML += '</table>';
+                                $('.show_image').html(resultHTML)
+                            }else
+                            {
+                                $('.show_image').html('<h3>Empty ! Please upload image.</h3>')
+                            }
+
+                        });
+                    }
+                });
+            }    
            
         },
         templateUrl: 'views/modules/single_upload.html'
         
     }
- })
+ }).directive('myLink', function() {
+  return {
+    restrict: 'A',
+    scope: {
+      enabled: '=myLink'
+    },
+    link: function(scope, element, attrs) {
+      element.bind('click', function(event) {
+        if(!scope.enabled) {
+          event.preventDefault();
+        }
+      });
+    }
+  };
+})
+ // Directive using https://codyhouse.co/gem/simple-confirmation-popup/
+ .directive('cdPopup', function(WidgetsServices) {
+  return {
+    restrict: 'A',
+    transclude: true,
+        link: function($scope, element, attrs)
+        {
+                
+            $scope.showPopup = function(input)
+            {
+                $elementId = $(input).attr('id');
+                $('.cd-popup').addClass('is-visible');
+            }
+            
+            $scope.confirmYes = function()
+            {
+                event.preventDefault();
+                var elements = $elementId.split('-');
+                switch(elements[0])
+                {
+                    case "gallery":
+                        var galleryId = parseInt(elements[1]);
+                        WidgetsServices.deleteGallery(galleryId).success(function(res){
+                            console.log(res);
+                        });
+                        break;
+                }
+            }
+            $scope.confirmNo = function()
+            {
+                event.preventDefault();
+                $('.cd-popup').removeClass('is-visible');
+            }
+
+            jQuery(document).ready(function($){
+            //open popup
+            /*$('.cd-popup-trigger').on('click', function(event){
+                event.preventDefault();
+                $('.cd-popup').addClass('is-visible');
+            });*/
+            
+            //close popup
+            $('.cd-popup').on('click', function(event){
+                if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+                    event.preventDefault();
+                    $(this).removeClass('is-visible');
+                }
+            });
+            //close popup when clicking the esc keyboard button
+            $(document).keyup(function(event){
+                if(event.which=='27'){
+                    $('.cd-popup').removeClass('is-visible');
+                }
+            });
+          });
+        },
+        templateUrl: 'views/modules/cd_popup.html'
+  };
+})

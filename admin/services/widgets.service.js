@@ -31,6 +31,34 @@ laravelAdminApp.factory('WidgetsServices', ['$http', function ($http) {
           });
     };
 
+    WidgetsServices.addGallery = function (input) {
+        var params = [urlBaseApi, 'widgets', 'add_gallery'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
+    WidgetsServices.getAllGallery = function (input) {
+        var params = [urlBaseApi, 'widgets', 'get_all_gallery', input ].join('/')
+        return $http({
+            method: 'GET',
+            url: params,
+            data: {}
+          });
+    };
+
+    WidgetsServices.deleteGallery =  function(input)
+    {
+        var params = [urlBaseApi, 'widgets', 'delete_gallery_by_id'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+        });
+    };
+
     return WidgetsServices;
 
 }]);

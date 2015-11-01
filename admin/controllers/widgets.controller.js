@@ -27,8 +27,15 @@ laravelAdminApp.controller("WidgetsController", function($scope, $rootScope, $ti
                 $scope.breacum_active = 'Main slider'
     	break;
 
-    }         
-               
+        case 'gallery':
+                $scope.subtemplate = {
+                name: 'widgets.gallery.html',
+                url: 'views/pages/widgets/widgets.gallery.html'};
+                $scope.breacum_active = 'Gallery'
+        break;
+
+    }
+                 
 
 });
 
@@ -98,4 +105,104 @@ laravelAdminApp.controller("MainSliderWidgetController", function($scope, $rootS
             });
         }
     });
+});
+
+/**
+* Gallery widget controller
+*/
+laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScope, $timeout ,WidgetsServices, DTOptionsBuilder, DTColumnBuilder , DTColumnDefBuilder ) {
+    $modal = $('.image_manager_modal')
+    folder = 'gallery'
+    var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
+    getAllGalleryByPanigation(pagination);
+    var rowHTML =  function(row, column1, column2, column3)
+    {
+        var html =              '<tr class="rowitem rowitem2 " id="row'+row+'">'+
+                                '<td><input value="'+column1+'" type="text" name="text" class="form-control" placeholder="Title" ></td>'+
+                                '<td style="width: 130px">'+
+                                '<a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title="">'+
+                                '<img style="width:100px;height:100px;cursor: pointer;" src="'+column3+'" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg">'+
+                                '<input value="'+column3+'" style="display:none" type="text" name="image" >'+
+                                '</a>'+                                  
+                                '</td>'+
+                                '<td style="width: 50px">'+
+                                '<button type="button" onclick="angular.element(this).scope().removeRow(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Remove"><i class="fa fa-minus-circle"></i></button>'+
+                                '</td>'+
+                                '</tr>';
+       return html; 
+    }
+    $scope.createNewGallery = function()
+    {
+        $(rowHTML(0, '', '', '../storage/app/default/images/image_not_found.jpg')).insertAfter( $(".rowitem").last());
+        checkIssetRow();
+    }
+    $scope.removeRow = function(input)
+    {
+        $(input).parent().parent().remove();
+        checkIssetRow();
+    }
+    $scope.showModal = function(input)
+    {
+        $modal.modal('show')
+        $viewImage = input
+    }
+    $scope.saveNewGallery = function()
+    {
+        $scope.refresh = 1
+        var form_string = $("#form" ).serialize();
+        WidgetsServices.addGallery(form_string).success(function(res){
+            if(res.status == 'OK')
+            {
+                $scope.refresh = 0
+                $scope.success = 1
+                $(".rowitem2").remove()
+                $timeout(function() {
+                    $scope.success = 0
+                    getAllGalleryByPanigation(pagination);
+                }, 2000);  
+            }
+        });
+    }
+
+    $scope.goToPage = function(input)
+    {   
+        event.preventDefault();
+        var p = $(input).attr('data');
+        pagination = '?limit=' + limit +'&page=' + p;
+        getAllGalleryByPanigation(pagination);
+    }
+    $scope.nextOrPrev =  function(input)
+    {
+        event.preventDefault();
+        var p = $(input).attr('data').split('=');
+        pagination = '?limit=' + limit +'&page=' + parseInt(p[1]);
+        getAllGalleryByPanigation(pagination);
+    }
+    
+    // Functions of gallery widget controller
+    function getAllGalleryByPanigation(pagination)
+    {
+        WidgetsServices.getAllGallery(pagination).success(function(res){
+            if(res.data.length > 0)
+            {
+                $scope.gallerys = res.data;
+                if(res.prev_page_url != null ){ $scope.prev_page_url = res.prev_page_url }
+                if(res.next_page_url != null ){ $scope.next_page_url = res.next_page_url }
+                $scope.last_page     = res.last_page;
+                $scope.current_page  = res.current_page;
+                $scope.total         = Math.floor(res.total / limit );
+            }
+        });
+    }
+    function checkIssetRow()
+    {
+        var countItem = $('.rowitem').length;
+        if(countItem > 1)
+        {
+            $('.save').removeAttr('disabled')
+        }else
+        {
+            $('.save').attr('disabled', '')
+        }
+    }
 });

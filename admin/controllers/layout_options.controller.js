@@ -59,7 +59,8 @@ laravelAdminApp.controller("HomePageLayoutOptionsController", function($scope, $
     	about_us_section : false,
     	contact_bottom : false,
         booking : false,
-        bookingwithspecial : 0
+        bookingwithspecial : false,
+        pinterest : false
     }
     getHomePageLayoutOption()
 

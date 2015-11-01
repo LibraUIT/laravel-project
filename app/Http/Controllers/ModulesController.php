@@ -114,7 +114,7 @@ class ModulesController extends Controller
     /** 
     * Show the welcome section template
     */
-    public function welcome_section($visible = 1)
+    public function welcome_section($visible = 0)
     {
         if($visible == 1)
         {
@@ -125,7 +125,7 @@ class ModulesController extends Controller
     /**
     * Show the hotel facilities section template
     */
-    public function hotel_facilities_section($visible = 1)
+    public function hotel_facilities_section($visible = 0)
     {
         if($visible == 1)
         {
@@ -136,7 +136,7 @@ class ModulesController extends Controller
     /**
     * Show the about us section template
     */
-    public function about_us_section($visible = 1)
+    public function about_us_section($visible = 0)
     {
         if($visible == 1)
         {
@@ -147,11 +147,13 @@ class ModulesController extends Controller
     /**
     * Show the contact bottom template
     */ 
-    public function contact_bottom($visible = 1)
+    public function contact_bottom($visible = 0)
     {
         if($visible == 1)
         {
-            return view('modules.contact_bottom');
+            $data['site_email']      = $this->_config['site_email'];
+            $data['site_numberphone']= $this->_config['site_numberphone'];
+            return view('modules.contact_bottom', $data);
         }
     }
 
@@ -286,6 +288,17 @@ class ModulesController extends Controller
         $data['site_google']     = $this->_config['site_google'];
         $data['site_twitter']    = $this->_config['site_twitter'];
         return view('modules.social_media', $data); 
+    }
+
+    /**
+    * Show the pinterest module
+    */
+    public function pinterest($visible = 0)
+    {
+        if($visible == 1)
+        {
+            return view('modules.pinterest');
+        }        
     }
 
 }

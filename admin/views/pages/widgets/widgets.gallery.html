@@ -1,0 +1,114 @@
+        <!-- Main content -->
+        <section  class="content" ng-controller="GalleryWidgetController" >
+          <div class="row">
+            <div class="col-md-12">
+              
+              <div class="box box-success">
+                <div class="box-header with-border">
+                    <div class="col-sm-12 btn-group">
+                        <button type="button" class="btn btn-success start" ng-click="createNewGallery()">
+                            <i class="fa fa-plus"></i>
+                            <span>Create New</span>
+                        </button>
+                        <button disabled type="button" class="btn btn-primary save" ng-click="saveNewGallery()">
+                            <i class="fa fa-floppy-o"></i>
+                            <span>Save changes</span>
+                        </button>                      
+                    </div>
+                  
+                </div>
+                <div class="box-body">
+                    <div ng-if="refresh == 1" class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <div ng-if="success == 1"  alert-success ></div>
+                    <form id="form"  method="post">
+                        <table id="table" class="table table-bordered">
+                          <tbody>
+                            <tr class="rowitem" id="row0"></tr>
+                          </tbody>
+                        </table>
+                    </form>
+                    
+                    <table class="row-border hover table table-bordered">
+                        <thead>
+                          <tr>
+                              <th>Title</th>
+                              <th style="width: 130px">Image</th>
+                              <th style="width: 50px"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="(key, gallery) in gallerys  | orderBy: '-id' " >
+                              <td style="vertical-align: middle;">{{gallery.title}}</td>
+                              <td style="vertical-align: middle;">
+                                  <a onclick="angular.element(this).scope().editGallery(this)" id="gallery-{{gallery.id}}" data-toggle="image" class="img-thumbnail" data-original-title="" title="">
+                                  <img style="width:100px;height:100px;cursor: pointer;" src="{{gallery.image}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg">
+                                  </a>
+                              </td>
+                              <td style="vertical-align: middle;">
+                                <button id="gallery-{{gallery.id}}" type="button" onclick="angular.element(this).scope().showPopup(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+                              </td>
+                          </tr>
+                        </tbody>
+                    </table>             
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                  <!-- Pagination -->
+                  <ul class="pagination pagination-sm no-margin pull-left">
+                    <li>
+                        <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="prev_page_url" data-ng-class="{'disabled': !prev_page_url}" data ="{{prev_page_url}}" href="#">«</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="1" href="#">First</a>
+                    </li>
+                    <li ng-if="current_page > 2">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page - 2}}" href="#">{{current_page - 2}}</a>
+                    </li>
+                    <li ng-if="current_page > 1">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page - 1}}" href="#">{{current_page - 1}}</a>
+                    </li>
+                    <li>
+                        <a my-link="current_page" style="background-color: #F5F5F5" data-ng-class="{'disabled': current_page}">{{current_page}}</a>
+                    </li>
+                    <li ng-if="current_page + 1 < total">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page + 1}}" href="#">{{current_page + 1}}</a>
+                    </li>
+                    <li ng-if="current_page + 2 < total ">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page + 2}}" href="#">{{current_page + 2}}</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{total}}" href="#">Last</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="next_page_url" data-ng-class="{'disabled': !next_page_url}" data = "{{next_page_url}}" href="#">»</a>
+                    </li>
+                  </ul>
+                  <!-- End pagination -->
+                </div>
+              </div><!-- /.box -->
+              
+            </div><!-- /.col (RIGHT) -->
+          
+
+        </section><!-- /.content -->
+
+        <!-- Modal -->
+        <div class="modal fade bs-example-modal-lg image_manager_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Image Manager</h4>
+                </div>
+                <div class="modal-body">
+                  <div image-manager class="image_manager" style="height:500px;overflow-x: hidden;overflow-y: auto;">
+                      
+                  </div>    
+                </div>                
+            </div>
+          </div>
+        </div>
+        <!-- End  modal -->
+        <!-- Cd popup -->
+        <div cd-popup></div>

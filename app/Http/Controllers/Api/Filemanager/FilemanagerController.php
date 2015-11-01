@@ -48,6 +48,10 @@ class FilemanagerController extends Controller
         }
     }
 
+
+    /**
+    * Get all files
+    */
     public function getAll()
     {
         $request_body = file_get_contents('php://input');
@@ -71,6 +75,34 @@ class FilemanagerController extends Controller
                         'file_path' => $filePath,
                         'file_size' => $fileSize
                     );
+            }
+        }
+        return response()->json($output);
+    }
+
+    /**
+    * Delete single file
+    */ 
+    public function deleteSingleFile()
+    {
+        $output = array(
+                    'status' => 'NOOK'
+                );
+        if(Request::input('image') && Request::input('folder') )
+        {
+            $destinationPath = storage_path('app').'/uploads/images/';
+        
+            if(Request::input('folder'))
+            {
+                $destinationPath = storage_path('app').'/uploads/images/'.Request::input('folder').'/';
+            }
+            $image = $destinationPath.Request::input('image');
+            if(File::exists( $image ))
+            {
+                File::delete($image);
+                $output = array(
+                    'status' => 'OK'
+                );
             }
         }
         return response()->json($output);

@@ -15,7 +15,7 @@
  */
  var urlBase    = 'http://localhost/lar5';
  var urlBaseApi = [urlBase, 'api'].join('/');
- var folder , $modal, $viewImage;
+ var folder , $modal, $viewImage, $elementId;
  localStorage.setItem("selectImage", "");
  
  /**
@@ -24,14 +24,14 @@
  var laravelAdminApp = angular.module('laravelAdminApp',[
  		'oc.lazyLoad',
  		'ui.router',
-        'ngRoute'
+        'ngRoute',
+        'datatables'
  ]).config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider', function($stateProvider,$urlRouterProvider,$ocLazyLoadProvider){
 
  	$ocLazyLoadProvider.config({
       debug:true,
       events:true,
     });
-
  	/**
  	* Default route for laravelAdminApp
  	*/
@@ -107,6 +107,11 @@
                 url: '/main_slider'
             })
 
+            // Gallery widget
+            .state('widgets.gallery', {
+                url: '/gallery'
+            })
+
         // File manager
         .state('file_manager', {
             url: '/file_manager',
@@ -130,6 +135,7 @@
                 url: '/general'
             })
  }]);
+
 
 /**
 *   Code Awesome Function
