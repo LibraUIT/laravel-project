@@ -40,6 +40,15 @@ laravelAdminApp.factory('WidgetsServices', ['$http', function ($http) {
           });
     };
 
+    WidgetsServices.editGallery = function (input) {
+        var params = [urlBaseApi, 'widgets', 'edit_gallery'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
     WidgetsServices.getAllGallery = function (input) {
         var params = [urlBaseApi, 'widgets', 'get_all_gallery', input ].join('/')
         return $http({

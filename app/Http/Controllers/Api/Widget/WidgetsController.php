@@ -79,6 +79,43 @@ class WidgetsController extends Controller
        return response()->json($output);
     }
 
+    public function editGallery()
+    {
+       $request_body = file_get_contents('php://input');
+       $params = explode('&', $request_body);
+       $i = 0;
+       if(count($params) >= 3 && count($params) % 3 == 0)
+        {
+            while($i < count($params))
+            {
+                $text = explode('=', $params[$i])[1];
+                $image= explode('=', $params[++$i])[1];
+                $id   = explode('=', $params[++$i])[1];
+                if( stripos( $image , 'image_not_found.jpg') == FALSE)
+                {
+                    $data = array(
+                        'title' => urldecode ($text),
+                        'image'=> urldecode ($image)
+                    );  
+                }
+                
+                $i++;
+            }
+       };
+       $res = Widget::editGallery($data, $id);
+       $output = array(
+                'status' => 'NO'
+            );
+       if($res)
+       {
+            $output = array(
+                'status' => 'OK'
+            );
+       }
+       
+       return response()->json($output);
+    }
+
     // get all gallery by @limit param
     public function getAllGallery()
     {

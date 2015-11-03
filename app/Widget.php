@@ -45,6 +45,15 @@ class Widget extends Model
     }
 
     /**
+    * edit gallery
+    */
+
+    static public function editGallery($data, $id)
+    {
+        return DB::table('gallerys')->where('id', $id)->update($data);
+    }
+
+    /**
     * get all gallery
     */
 

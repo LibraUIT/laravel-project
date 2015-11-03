@@ -10,7 +10,7 @@
                             <i class="fa fa-plus"></i>
                             <span>Create New</span>
                         </button>
-                        <button disabled type="button" class="btn btn-primary save" ng-click="saveNewGallery()">
+                        <button disabled datatype="new" type="button" class="btn btn-primary save" ng-click="saveNewGallery()">
                             <i class="fa fa-floppy-o"></i>
                             <span>Save changes</span>
                         </button>                      
@@ -42,7 +42,7 @@
                           <tr ng-repeat="(key, gallery) in gallerys  | orderBy: '-id' " >
                               <td style="vertical-align: middle;">{{gallery.title}}</td>
                               <td style="vertical-align: middle;">
-                                  <a onclick="angular.element(this).scope().editGallery(this)" id="gallery-{{gallery.id}}" data-toggle="image" class="img-thumbnail" data-original-title="" title="">
+                                  <a onclick="angular.element(this).scope().editGallery(this)" id="gallery-{{gallery.id}}" data-toggle="tooltip" class="img-thumbnail" data-original-title="Edit" gallery-title="{{gallery.title}}">
                                   <img style="width:100px;height:100px;cursor: pointer;" src="{{gallery.image}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg">
                                   </a>
                               </td>

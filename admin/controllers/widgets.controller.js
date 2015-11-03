@@ -111,6 +111,7 @@ laravelAdminApp.controller("MainSliderWidgetController", function($scope, $rootS
 * Gallery widget controller
 */
 laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScope, $timeout ,WidgetsServices, DTOptionsBuilder, DTColumnBuilder , DTColumnDefBuilder ) {
+    var galleryId, galleryImg, galleryTitle;
     $modal = $('.image_manager_modal')
     folder = 'gallery'
     var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
@@ -140,6 +141,14 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
     {
         $(input).parent().parent().remove();
         checkIssetRow();
+        var datatype = $('.save').attr('datatype');
+        switch(datatype)
+        {
+            case "edit":
+                $('.start').removeAttr('disabled');
+                $('.save').attr('datatype', 'new');
+                break;
+        }
     }
     $scope.showModal = function(input)
     {
@@ -148,21 +157,66 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
     }
     $scope.saveNewGallery = function()
     {
+        var datatype = $('.save').attr('datatype');
         $scope.refresh = 1
         var form_string = $("#form" ).serialize();
-        WidgetsServices.addGallery(form_string).success(function(res){
-            if(res.status == 'OK')
-            {
-                $scope.refresh = 0
-                $scope.success = 1
-                $(".rowitem2").remove()
-                $timeout(function() {
-                    $scope.success = 0
-                    $('.save').attr('disabled', '');
-                    getAllGalleryByPanigation(pagination);
-                }, 2000);  
-            }
-        });
+        switch(datatype)
+        {
+            case "new":
+                WidgetsServices.addGallery(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.refresh = 0
+                        $scope.success = 1
+                        $(".rowitem2").remove()
+                        $timeout(function() {
+                            $scope.success = 0
+                            $('.save').attr('disabled', '');
+                            getAllGalleryByPanigation(pagination);
+                        }, 2000);  
+                    }
+                });
+                break;
+            case "edit":
+                form_string = form_string + '&id=' + galleryId;
+                WidgetsServices.editGallery(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.refresh = 0
+                        $scope.success = 1
+                        $(".rowitem2").remove()
+                        $timeout(function() {
+                            $scope.success = 0
+                            $('.start').removeAttr('disabled');
+                            $('.save').attr('disabled', '');
+                            $('.save').attr('datatype', 'new');
+                            getAllGalleryByPanigation(pagination);
+                        }, 2000); 
+                        
+                    }
+                });
+                break;    
+        }
+        
+    }
+
+    $scope.editGallery = function(input)
+    {
+        var datatype = $('.save').attr('datatype');
+        if(datatype == 'new')
+        {
+            galleryId = parseInt( $(input).attr('id').split('-')[1] );
+            galleryImg = $(input).find('img').attr('src');
+            galleryTitle = $(input).attr('gallery-title');
+            $(rowHTML(0, galleryTitle, '', galleryImg )).insertAfter( $(".rowitem").last());
+            checkIssetRow();
+            $('.save').attr('datatype', 'edit');
+            $('.start').attr('disabled', '');
+        }else
+        {
+            event.preventDefault();
+        }
+        
     }
 
     $scope.goToPage = function(input)
