@@ -30,7 +30,7 @@
                         </table>
                     </form>
                     
-                    <table class="row-border hover table table-bordered">
+                    <table ng-if="gallerys" class="row-border hover table table-bordered">
                         <thead>
                           <tr>
                               <th>Title</th>
@@ -53,7 +53,7 @@
                         </tbody>
                     </table>             
                 </div><!-- /.box-body -->
-                <div class="box-footer clearfix">
+                <div ng-if="gallerys" class="box-footer clearfix">
                   <!-- Pagination -->
                   <ul class="pagination pagination-sm no-margin pull-left">
                     <li>

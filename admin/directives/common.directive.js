@@ -275,7 +275,7 @@
   };
 })
  // Directive using https://codyhouse.co/gem/simple-confirmation-popup/
- .directive('cdPopup', function(WidgetsServices) {
+ .directive('cdPopup', function(WidgetsServices, $route) {
   return {
     restrict: 'A',
     transclude: true,
@@ -299,6 +299,7 @@
                         var galleryId = parseInt(elements[1]);
                         WidgetsServices.deleteGallery(galleryId).success(function(res){
                             console.log(res);
+                            $('#'+$elementId).parent().parent().remove();
                             $isNotVisible();
                         });
                         break;

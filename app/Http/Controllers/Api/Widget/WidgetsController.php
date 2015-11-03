@@ -90,24 +90,31 @@ class WidgetsController extends Controller
     public function delGalleryById()
     {
         $id = file_get_contents('php://input');
-        $gallery =  DB::table('gallerys')->where('id', (int)$id )->first();
+        /*$gallery =  DB::table('gallerys')->where('id', (int)$id )->first();
         $output = array(
                 'status' => 'NO',
                 'message' => 'Image not exist.'
         );
         if($gallery)
         {
+            
             $image = $gallery->image;
             $image = str_replace('../storage/app', storage_path('app'), $image);
             if(File::exists( $image ))
             {
                 File::delete($image);
+                DB::table('gallerys')->where('id', (int)$id )->delete();
                 $output = array(
                     'status' => 'OK',
                     'message' => 'Deleted has been success'
                 );
             }
-        }
+        }*/
+        DB::table('gallerys')->where('id', (int)$id )->delete();
+        $output = array(
+                    'status' => 'OK',
+                    'message' => 'Deleted has been success'
+        );
         return response()->json($output);
     }
 }

@@ -1991,4 +1991,16 @@ section.content
 	max-width: 1200px;
     margin: 0 auto;
 }
+.my-gallery img {
+  width: 100%;
+  height: auto;
+}
+.my-gallery figure {
+  display: block;
+  margin: 0 5px 5px 0;
+  width: 100%;
+}
+.my-gallery figcaption {
+  display: none;
+}
 

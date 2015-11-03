@@ -158,6 +158,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
                 $(".rowitem2").remove()
                 $timeout(function() {
                     $scope.success = 0
+                    $('.save').attr('disabled', '');
                     getAllGalleryByPanigation(pagination);
                 }, 2000);  
             }

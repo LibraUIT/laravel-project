@@ -297,8 +297,18 @@ class ModulesController extends Controller
     {
         if($visible == 1)
         {
-            return view('modules.pinterest');
+            $data['gallerys'] = DB::table('gallerys')->orderBy('id', 'desc')->get();
+            $data['pswp']     = app('App\Http\Controllers\ModulesController')->pswp();
+            return view('modules.pinterest', $data);
         }        
+    }
+
+    /**
+    * Show the pswp template
+    */
+    public function pswp()
+    {
+        return view('modules.pswp');
     }
 
 }
