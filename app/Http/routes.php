@@ -38,6 +38,10 @@ Route::match(['get', 'post'], '/contact', [
 	'as' => 'contact', 'uses' => 'PagesController@contact'
 ]);
 
+Route::get('/gallery', [
+    'as' => 'gallery','uses' => 'PagesController@gallery'
+]);
+
 Route::get('/about', [
 	'as' => 'about','uses' => 'PagesController@about'
 ]);

@@ -112,6 +112,7 @@ laravelAdminApp.controller("MainSliderWidgetController", function($scope, $rootS
 */
 laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScope, $timeout ,WidgetsServices, DTOptionsBuilder, DTColumnBuilder , DTColumnDefBuilder ) {
     var galleryId, galleryImg, galleryTitle;
+    var datatype = $('.save').attr('datatype');
     $modal = $('.image_manager_modal')
     folder = 'gallery'
     var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
@@ -141,7 +142,6 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
     {
         $(input).parent().parent().remove();
         checkIssetRow();
-        var datatype = $('.save').attr('datatype');
         switch(datatype)
         {
             case "edit":
@@ -157,7 +157,6 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
     }
     $scope.saveNewGallery = function()
     {
-        var datatype = $('.save').attr('datatype');
         $scope.refresh = 1
         var form_string = $("#form" ).serialize();
         switch(datatype)
@@ -202,7 +201,6 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
 
     $scope.editGallery = function(input)
     {
-        var datatype = $('.save').attr('datatype');
         if(datatype == 'new')
         {
             galleryId = parseInt( $(input).attr('id').split('-')[1] );

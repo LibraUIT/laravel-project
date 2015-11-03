@@ -45,7 +45,7 @@
                                     </li>-->
                                     <li @if(session('active_menu') == 'home') class="active_menu" @endif ><a href="{{$home_url}}">Home</a></li>        
                                     <li><a href="accomodation.html">Accomodation</a></li>
-                                    <li><a href="gallery.html">Gallery</a></li>
+                                    <li @if(session('active_menu') == 'gallery') class="active_menu" @endif><a href="{{$gallery_url}}">Gallery</a></li>
                                     <li role="presentation" class="dropdown">
                                         <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                           Features

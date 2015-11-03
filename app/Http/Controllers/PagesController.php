@@ -54,6 +54,22 @@ class PagesController extends Controller
 	}
 
 	/**
+	* Show the gallery page template
+	*/
+	public function gallery()
+	{
+		$data['heading_title'] = $this->_config['site_name'].' | Gallery';
+		Request::session()->put('active_menu', 'gallery');
+		$data['modules'][] = app('App\Http\Controllers\ModulesController')->pinterest($visible = 1);
+		/**
+        * Include common template
+        */
+        $data['header'] = app('App\Http\Controllers\CommonController')->header();
+        $data['footer'] = app('App\Http\Controllers\CommonController')->footer();
+        return view('pages.gallery', $data);
+	}
+
+	/**
 	* Show the 404 page template
 	*/
 	public function page_404()
