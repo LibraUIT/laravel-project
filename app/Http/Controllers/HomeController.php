@@ -32,6 +32,7 @@ class HomeController extends Controller
         $data['modules'][] = $ModulesController->main_slider((int)$config_modules['main_slider'], (int)$config_modules['booking'], (int)$config_modules['bookingwithspecial'] );
         $data['modules'][] = $ModulesController->welcome_section((int)$config_modules['welcome_section']);
         $data['modules'][] = $ModulesController->hotel_facilities_section((int)$config_modules['hotel_facilities_section']);
+        $data['modules'][] = $ModulesController->pinterest((int)$config_modules['pinterest']);
         $data['modules'][] = $ModulesController->about_us_section((int)$config_modules['about_us_section']);
         $data['modules'][] = $ModulesController->contact_bottom((int)$config_modules['contact_bottom']);
 
