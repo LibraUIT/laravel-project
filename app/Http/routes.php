@@ -54,6 +54,17 @@ Route::group(['namespace' => 'Api'], function()
 {
     // Controllers Within The "App\Http\Controllers\Api" Namespace
 
+    Route::group(['namespace' => 'Authenticate'], function()
+    {
+        // Controllers Within The "App\Http\Controllers\Api\Authenticate" Namespace
+        Route::post('/api/token', [
+            'as' => 'api_token','uses' => 'AuthenticateController@getToken'
+        ]);
+        Route::post('/api/authenticate', [
+            'as' => 'api_authenticate','uses' => 'AuthenticateController@login'
+        ]);
+    });
+
     Route::group(['namespace' => 'Layout'], function()
     {
         // Controllers Within The "App\Http\Controllers\Api\Layout" Namespace

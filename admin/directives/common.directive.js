@@ -19,7 +19,7 @@
 	    scope: {},
 	    link: function(scope, element, attrs)
 	    {
-	    	/**
+            /**
 	    	* Toggle control-siderbar-dark function
 	    	*/
 	    	scope.headerSlidebarToggle = function()
@@ -34,6 +34,7 @@
 	    		}
 	    		
 	    	}
+
 	    },
 	    template: 
 	    "<div class=\"wrapper\">"+
@@ -42,13 +43,21 @@
  	}
  })
  // Column Left Menu
- .directive('columnLeft', function($rootScope, $location, $route) {
+ .directive('columnLeft', function($rootScope, $location, $route , $auth, $state) {
     return {
         restrict: 'A',
         transclude: true,
         scope: {},
         link: function(scope, element, attrs)
         {
+            /**
+            * Check isset Authenticate
+            */
+            if($auth.isAuthenticated() != true)
+            {
+                $state.go('login', {});
+            }
+            
             scope.loadView = function(input)
             {
               $rootScope.$apply(function() {

@@ -16,6 +16,7 @@
  var urlBase    = 'http://localhost/lar5';
  var urlBaseApi = [urlBase, 'api'].join('/');
  var folder , $modal, $viewImage, $elementId;
+ var quan;
  localStorage.setItem("selectImage", "");
  
  /**
@@ -25,17 +26,24 @@
  		'oc.lazyLoad',
  		'ui.router',
         'ngRoute',
-        'datatables'
- ]).config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider', function($stateProvider,$urlRouterProvider,$ocLazyLoadProvider){
+        'datatables',
+        'satellizer',
+        'ngMessages'
+ ]).config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $authProvider){
+    
+    /**
+    * config authenticate api
+    */
+    $authProvider.loginUrl = urlBase + '/api/authenticate';
 
- 	$ocLazyLoadProvider.config({
-      debug:true,
+    $ocLazyLoadProvider.config({
+      debug:false,
       events:true,
     });
  	/**
  	* Default route for laravelAdminApp
  	*/
- 	$urlRouterProvider.otherwise('/dashboard');
+ 	$urlRouterProvider.otherwise('/login');
 
  	$stateProvider
 
@@ -171,3 +179,11 @@ function FileManager($scope)
         $modal.modal('hide');
     }
 }
+
+
+// Validate Email function
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+

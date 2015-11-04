@@ -8,7 +8,7 @@
  *
  * Dashboard controller of the application.
  */
-laravelAdminApp.controller("DashboardController", function($scope, $location) {
+laravelAdminApp.controller("DashboardController", function($scope, $location, $auth , $state) {
 	$('.uiview').removeClass('uiviewlogin')
   	$scope.template = {
         name: 'home.html',
