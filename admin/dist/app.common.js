@@ -187,3 +187,11 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+// Scroll to top
+function scrollToTop()
+{
+    $("html, body").animate({
+        scrollTop: 0
+    }, 600);
+}
+

@@ -210,6 +210,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
             checkIssetRow();
             $('.save').attr('datatype', 'edit');
             $('.start').attr('disabled', '');
+            scrollToTop();
         }else
         {
             event.preventDefault();
