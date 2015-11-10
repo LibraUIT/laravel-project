@@ -6,12 +6,12 @@
         <p class="login-box-msg">Sign in to start your session</p>
         <form>
           <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="Email" ng-model="auth.email" >
+            <input type="text" class="form-control" placeholder="Email" ng-model="auth.email" value="quanmn.libra@gmail.com" >
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             <span ng-if="auth.email_fail" class="help-inline"><label for="email" class="error"><i class="fa fa-exclamation-circle"></i>&nbsp;{{auth.email_fail}}</label></span>
           </div>
           <div class="form-group has-feedback">
-            <input type="password" class="form-control" placeholder="Password" ng-model="auth.password">
+            <input type="password" class="form-control" placeholder="Password" ng-model="auth.password" value="123456">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             <span ng-if="auth.password_fail" class="help-inline"><label for="email" class="error"><i class="fa fa-exclamation-circle"></i>&nbsp;{{auth.password_fail}}</label></span>
           </div>

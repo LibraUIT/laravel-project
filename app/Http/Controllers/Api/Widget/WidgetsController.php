@@ -154,4 +154,36 @@ class WidgetsController extends Controller
         );
         return response()->json($output);
     }
+
+    public function addHotelFacilties()
+    {
+        $request_body = file_get_contents('php://input');
+        $params = explode('&', $request_body);
+        $i = 0;
+            
+        $data['name']           = urldecode( explode('=', $params[$i])[1] );
+        $data['icon']           = urldecode( explode('=', $params[++$i])[1] );
+        $data['big_heading']    = urldecode( explode('=', $params[++$i])[1] );
+        $data['small_heading']  = urldecode( explode('=', $params[++$i])[1] );
+        $data['description']    = urldecode( explode('=', $params[++$i])[1] );
+        $data['start']          = urldecode( explode('=', $params[++$i])[1] );
+        $data['end']            = urldecode( explode('=', $params[++$i])[1] );
+        $data['charge']         = urldecode( explode('=', $params[++$i])[1] );
+        $data['status']         =  ( isset($params[++$i]) ) ? 1 :  0;
+        
+        
+        //$res = Widget::addHotelFacilties($data);
+        $output = array(
+                'status' => 'NO'
+            );
+        /*if($res)
+        {
+            $output = array(
+                'status' => 'OK'
+            );
+        }*/
+       
+        return response()->json($output);
+
+    }
 }

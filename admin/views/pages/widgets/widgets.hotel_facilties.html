@@ -4,57 +4,112 @@
 		<div class="col-md-12">
 			<div class="box box-success">
 				<div class="box-header with-border">
-                    <div class="col-sm-12 btn-group">
                         <button type="button" class="btn btn-success start" ng-click="createNewFacilties()">
                             <i class="fa fa-plus"></i>
                             <span>Create New</span>
                         </button>
-                        <button disabled datatype="new" type="button" class="btn btn-primary save" ng-click="saveNewFacilties()">
-                            <i class="fa fa-floppy-o"></i>
-                            <span>Save changes</span>
-                        </button>                      
-                    </div>                 
+                                                   
                 </div>
                 <div class="box-body">
-                	<form id="form"  method="post">
+                	<div ng-if="refresh == 1" class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                    </div>
+                    <div ng-if="success == 1"  alert-success ></div>
+                	<form ng-submit="addFacilties()" id="form" ng-if="createNewFaciltie == 1">
                 		<div class="row margin-bottomp-10px">
-                			<span class="col-sm-2"><b>Title</b></span>
+                			<span class="col-sm-2"><b>Name</b></span>
                 			<div class="col-sm-10">
-                				<input value="" type="text" name="text" class="form-control" placeholder="Title">
+                				<input value="" type="text" name="name" class="form-control" placeholder="Name" required>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
                 			<span class="col-sm-2"><b>Icon</b></span>
                 			<div class="col-sm-10">
-                				<a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:100px;height:100px;cursor: pointer;" src="../storage/app/default/images/image_not_found.jpg" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="../storage/app/default/images/image_not_found.jpg" style="display:none" type="text" name="image"></a>
+                				<a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:100px;height:100px;cursor: pointer;" src="../storage/app/default/images/image_not_found.jpg" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="../storage/app/default/images/image_not_found.jpg" style="display:none" type="text" name="icon"></a>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
-                			<span class="col-sm-2"><b>Content</b></span>
+                			<span class="col-sm-2"><b>Big Heading</b></span>
                 			<div class="col-sm-10">
-                				<input value="" type="text" name="text" class="form-control" placeholder="Title">
+                				<input value="" type="text" name="big_heading" class="form-control" placeholder="Big Heading" required>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
-                			<span class="col-sm-2"><b>Content</b></span>
+                			<span class="col-sm-2"><b>Small heading</b></span>
                 			<div class="col-sm-10">
-                				<input value="" type="text" name="text" class="form-control" placeholder="Title">
+                				<input value="" type="text" name="small_heading" class="form-control" placeholder="Small Heading" required>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
-                			<span class="col-sm-2"><b>Content</b></span>
+                			<span class="col-sm-2"><b>Description</b></span>
                 			<div class="col-sm-10">
-                				<input value="" type="text" name="text" class="form-control" placeholder="Title">
+                				<textarea rows="5" name="description" class="form-control" placeholder="Description" required></textarea>
                 			</div>
                 		</div>
-                      
+
+                		<div class="row margin-bottomp-10px">
+                			<span class="col-sm-2"><b>Service hours</b></span>
+                			<span class="col-sm-1">Start : </span>
+                			<div class="col-sm-2">
+                				<input type="time" name="service_hours_start" class="form-control" placeholder="HH:mm:ss" min="08:00:00" max="22:00:00" required>
+                			</div>
+                			<span class="col-sm-1">End : </span>
+                			<div class="col-sm-2">
+                				<input type="time" name="service_hours_end" class="form-control" placeholder="HH:mm:ss" min="00:00:00" max="24:00:00" required>
+                			</div>
+                		</div>
+
+                		<div class="row margin-bottomp-10px">
+                			<span class="col-sm-2"><b>Service charge</b></span>
+                			<div class="col-sm-10">
+                				<input type="number" min="0" max="9999" name="service_charge" class="form-control" placeholder="Service charge" required>
+                			</div>
+                		</div>
+
+                		<div class="row margin-bottomp-10px">
+                			<span class="col-sm-2"><b>Status</b></span>
+                			<div class="col-sm-10">
+                				<div class="checkbox icheck">
+                                  <label>
+                                    <input icheck ng-model="form.status" name="status" type="checkbox"> Disabled
+                                  </label>
+                                </div>
+                			</div>
+                		</div>
+
+                		<div class="row margin-bottomp-10px">
+                			<div class="col-sm-2"></div>
+	                      	<div class="col-sm-10">
+		                      	<input class="btn btn-primary" type="submit" id="submit" value="Submit" />
+			                    <button type="button" class="btn btn-danger" ng-click="cancelNewFacilties()">
+		                            <span>Cancel</span>
+	                        	</button>
+	                        </div>
+	                    </div>      
                     </form>
                 </div>
 			</div>
 		</div>
 	</div>
 </section><!-- /.content -->
+		<!-- Modal -->
+        <div class="modal fade bs-example-modal-lg image_manager_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Image Manager</h4>
+                </div>
+                <div class="modal-body">
+                  <div image-manager class="image_manager" style="height:500px;overflow-x: hidden;overflow-y: auto;">
+                      
+                  </div>    
+                </div>                
+            </div>
+          </div>
+        </div>
+        <!-- End  modal -->

@@ -275,6 +275,9 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
 */
 laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $rootScope, $timeout ,WidgetsServices ) {
     var resultHTML = '', rowId = 1;
+    $modal = $('.image_manager_modal')
+    folder = 'facilties'
+    $scope.createNewFaciltie = 0;
     var rowHTML =  function(row, column1, column2, column3)
     {
         var html =              '<tr class="rowitem rowitem2 " id="row'+row+'">'+
@@ -293,8 +296,33 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
     }
     $scope.createNewFacilties = function()
     {
-        $(rowHTML(0, '', '', '../storage/app/default/images/image_not_found.jpg')).insertAfter( $(".rowitem").last());
-        checkIssetRow();
+        $scope.createNewFaciltie = 1;
+    }
+    $scope.cancelNewFacilties = function()
+    {
+        $scope.createNewFaciltie = 0;
+    }
+
+    $scope.showModal = function(input)
+    {
+        $modal.modal('show')
+        $viewImage = input
+    }
+
+    $scope.addFacilties = function()
+    {
+        var form_string = $("#form" ).serialize();
+        $scope.refresh = 1
+        WidgetsServices.addHotelFacilties(form_string).success(function(res){
+            if(res.status == 'OK')
+            {
+                $scope.refresh = 0
+                $scope.success = 1
+                $timeout(function() {
+                    $scope.success = 0
+                }, 2000); 
+            }
+        })
     }
 });
 

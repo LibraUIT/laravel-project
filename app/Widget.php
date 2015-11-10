@@ -72,4 +72,13 @@ class Widget extends Model
         return $gallerys;
     }
 
+    /**
+    * add new hotel facilties
+    */
+
+    static public function addHotelFacilties($input)
+    {
+        return DB::table('hotel_facilties')->insert($input);
+    }
+
 }

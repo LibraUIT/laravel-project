@@ -115,6 +115,9 @@ Route::group(['namespace' => 'Api'], function()
         Route::get('/api/widgets/get_pagination_gallery', [
             'as' => 'get_pagination_gallery','uses' => 'WidgetsController@getPaginationGallery'
         ]);
+        Route::post('/api/widgets/add_hotel_facilties', [
+            'as' => 'add_hotel_facilties','uses' => 'WidgetsController@addHotelFacilties'
+        ]);
     });
     Route::group(['namespace' => 'Setting'], function()
     {

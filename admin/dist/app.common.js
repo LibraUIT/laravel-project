@@ -122,7 +122,19 @@
 
             // Hotel Facilties widget
             .state('widgets.hotel_facilties', {
-                url: '/hotel_facilties'
+                url: '/hotel_facilties',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'hotel_facilties',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js'
+                            ]
+                        })
+                    }
+                }
             })
 
         // File manager

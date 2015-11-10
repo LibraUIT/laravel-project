@@ -68,6 +68,16 @@ laravelAdminApp.factory('WidgetsServices', ['$http', function ($http) {
         });
     };
 
+
+    WidgetsServices.addHotelFacilties = function (input) {
+        var params = [urlBaseApi, 'widgets', 'add_hotel_facilties'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
     return WidgetsServices;
 
 }]);
