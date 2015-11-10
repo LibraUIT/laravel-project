@@ -4,14 +4,26 @@
             <div class="col-md-12">
               <div class="box box-primary">
                 <div class="box-header with-border">
-                  <div class="box-tools pull-right">
-                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div>
                 </div>
                 <div class="box-body">
                     <div ng-if="success == 1"  alert-success ></div>
                     <form id="form" ng-submit="submit()"  method="post">
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Site Logo</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:170px;height:100px;cursor: pointer;" src="../storage/app/default/images/site-logo.png" alt="" title="" data-placeholder="../storage/app/default/images/site-logo.png"><input value="../storage/app/default/images/site-logo.png" style="display:none" type="text" name="image" ng-model="formdata.image" ></a>
+                          </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2">
+                            <span><b>Favicon</b></span>
+                          </div>
+                          <div class="col-sm-6">
+                            <a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:25px;height:25px;cursor: pointer;" src="../storage/app/default/images/favicon.ico" alt="" title="" data-placeholder="../storage/app/default/images/favicon.ico"><input value="../storage/app/default/images/favicon.ico" style="display:none" type="text" name="favicon" ng-model="formdata.favicon" ></a>
+                          </div>
+                      </div>
                       <div class="row margin-bottomp-10px">
                           <div class="col-sm-2">
                             <span><b>Site Title</b></span>
@@ -98,3 +110,21 @@
           
 
         </section><!-- /.content -->
+
+        <!-- Modal -->
+        <div class="modal fade bs-example-modal-lg image_manager_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Image Manager</h4>
+                </div>
+                <div class="modal-body">
+                  <div image-manager class="image_manager" style="height:500px;overflow-x: hidden;overflow-y: auto;">
+                      
+                  </div>    
+                </div>                
+            </div>
+          </div>
+        </div>
+        <!-- End  modal -->

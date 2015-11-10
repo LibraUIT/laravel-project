@@ -120,6 +120,11 @@
                 url: '/gallery'
             })
 
+            // Hotel Facilties widget
+            .state('widgets.hotel_facilties', {
+                url: '/hotel_facilties'
+            })
+
         // File manager
         .state('file_manager', {
             url: '/file_manager',
@@ -194,4 +199,17 @@ function scrollToTop()
         scrollTop: 0
     }, 600);
 }
+
+
+function checkIssetRow()
+    {
+        var countItem = $('.rowitem').length;
+        if(countItem > 1)
+        {
+            $('.save').removeAttr('disabled')
+        }else
+        {
+            $('.save').attr('disabled', '')
+        }
+    }
 

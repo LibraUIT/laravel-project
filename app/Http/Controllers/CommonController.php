@@ -17,6 +17,8 @@ class CommonController extends Controller
         */
         $set = Setting::getGeneral();
         $config = array();
+        $config['site_logo']        = str_replace('..', '', $set['image']) ;
+        $config['site_favicon']     = str_replace('..', '', $set['favicon']) ;
         $config['site_name']        = $set['sitetitle'];
         $config['site_tagline']     = $set['tagline'];
         $config['site_description'] = $set['description'];
@@ -34,6 +36,10 @@ class CommonController extends Controller
     */
     public function header()
     {
+        $get_config = $this->get_config();
+        $data['site_logo'] = $get_config['site_logo'];
+        $data['site_favicon'] = $get_config['site_favicon'];
+        $data['site_title'] = $get_config['site_name'];
         $data['home_url'] = action('HomeController@index');
         $data['register_url'] = action('SignController@up');
         $data['login_url'] = action('SignController@in');

@@ -17,7 +17,7 @@
                                     <span class="icon-bar"></span>
                                   </button>
                                   <div class="site_logo fix">
-                                      <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$home_url}}"><img src="{{asset('public/images/site-logo.png')}}" alt="Trips"></a>
+                                      <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$home_url}}"><img src="{{asset($site_logo)}}" title="{{$site_title}}" alt="{{$site_title}}"></a>
                                       <div class="header_login floatleft">
                                           <ul>
                                               @if(Auth::check())

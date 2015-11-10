@@ -1,0 +1,60 @@
+<!-- Main content -->
+<section  class="content" ng-controller="HotelFaciltiesWidgetController" >
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-success">
+				<div class="box-header with-border">
+                    <div class="col-sm-12 btn-group">
+                        <button type="button" class="btn btn-success start" ng-click="createNewFacilties()">
+                            <i class="fa fa-plus"></i>
+                            <span>Create New</span>
+                        </button>
+                        <button disabled datatype="new" type="button" class="btn btn-primary save" ng-click="saveNewFacilties()">
+                            <i class="fa fa-floppy-o"></i>
+                            <span>Save changes</span>
+                        </button>                      
+                    </div>                 
+                </div>
+                <div class="box-body">
+                	<form id="form"  method="post">
+                		<div class="row margin-bottomp-10px">
+                			<span class="col-sm-2"><b>Title</b></span>
+                			<div class="col-sm-10">
+                				<input value="" type="text" name="text" class="form-control" placeholder="Title">
+                			</div>
+                		</div>
+
+                		<div class="row margin-bottomp-10px">
+                			<span class="col-sm-2"><b>Icon</b></span>
+                			<div class="col-sm-10">
+                				<a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:100px;height:100px;cursor: pointer;" src="../storage/app/default/images/image_not_found.jpg" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="../storage/app/default/images/image_not_found.jpg" style="display:none" type="text" name="image"></a>
+                			</div>
+                		</div>
+
+                		<div class="row margin-bottomp-10px">
+                			<span class="col-sm-2"><b>Content</b></span>
+                			<div class="col-sm-10">
+                				<input value="" type="text" name="text" class="form-control" placeholder="Title">
+                			</div>
+                		</div>
+
+                		<div class="row margin-bottomp-10px">
+                			<span class="col-sm-2"><b>Content</b></span>
+                			<div class="col-sm-10">
+                				<input value="" type="text" name="text" class="form-control" placeholder="Title">
+                			</div>
+                		</div>
+
+                		<div class="row margin-bottomp-10px">
+                			<span class="col-sm-2"><b>Content</b></span>
+                			<div class="col-sm-10">
+                				<input value="" type="text" name="text" class="form-control" placeholder="Title">
+                			</div>
+                		</div>
+                      
+                    </form>
+                </div>
+			</div>
+		</div>
+	</div>
+</section><!-- /.content -->

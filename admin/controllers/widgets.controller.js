@@ -25,14 +25,21 @@ laravelAdminApp.controller("WidgetsController", function($scope, $rootScope, $ti
                 name: 'widgets.main_slider.html',
                 url: 'views/pages/widgets/widgets.main_slider.html'};
                 $scope.breacum_active = 'Main slider'
-    	break;
+    	        break;
 
         case 'gallery':
                 $scope.subtemplate = {
                 name: 'widgets.gallery.html',
                 url: 'views/pages/widgets/widgets.gallery.html'};
                 $scope.breacum_active = 'Gallery'
-        break;
+                break;
+
+        case 'hotel_facilties':
+                $scope.subtemplate = {
+                name: 'widgets.hotel_facilties.html',
+                url: 'views/pages/widgets/widgets.hotel_facilties.html'};
+                $scope.breacum_active = 'Hotel facilties'
+                break;
 
     }
                  
@@ -112,7 +119,6 @@ laravelAdminApp.controller("MainSliderWidgetController", function($scope, $rootS
 */
 laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScope, $timeout ,WidgetsServices, DTOptionsBuilder, DTColumnBuilder , DTColumnDefBuilder ) {
     var galleryId, galleryImg, galleryTitle;
-    var datatype = $('.save').attr('datatype');
     $modal = $('.image_manager_modal')
     folder = 'gallery'
     var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
@@ -142,6 +148,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
     {
         $(input).parent().parent().remove();
         checkIssetRow();
+        var datatype = $('.save').attr('datatype');
         switch(datatype)
         {
             case "edit":
@@ -159,6 +166,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
     {
         $scope.refresh = 1
         var form_string = $("#form" ).serialize();
+        var datatype = $('.save').attr('datatype');
         switch(datatype)
         {
             case "new":
@@ -201,6 +209,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
 
     $scope.editGallery = function(input)
     {
+        var datatype = $('.save').attr('datatype');
         if(datatype == 'new')
         {
             galleryId = parseInt( $(input).attr('id').split('-')[1] );
@@ -260,3 +269,34 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
         }
     }
 });
+
+/**
+* Hotel facilties widget controller
+*/
+laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $rootScope, $timeout ,WidgetsServices ) {
+    var resultHTML = '', rowId = 1;
+    var rowHTML =  function(row, column1, column2, column3)
+    {
+        var html =              '<tr class="rowitem rowitem2 " id="row'+row+'">'+
+                                '<td><input value="'+column1+'" type="text" name="text" class="form-control" placeholder="Title" ></td>'+
+                                '<td style="width: 130px">'+
+                                '<a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title="">'+
+                                '<img style="width:100px;height:100px;cursor: pointer;" src="'+column3+'" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg">'+
+                                '<input value="'+column3+'" style="display:none" type="text" name="image" >'+
+                                '</a>'+                                  
+                                '</td>'+
+                                '<td style="width: 50px">'+
+                                '<button type="button" onclick="angular.element(this).scope().removeRow(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Remove"><i class="fa fa-minus-circle"></i></button>'+
+                                '</td>'+
+                                '</tr>';
+       return html; 
+    }
+    $scope.createNewFacilties = function()
+    {
+        $(rowHTML(0, '', '', '../storage/app/default/images/image_not_found.jpg')).insertAfter( $(".rowitem").last());
+        checkIssetRow();
+    }
+});
+
+
+
