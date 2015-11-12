@@ -299,10 +299,12 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
     $scope.createNewFacilties = function()
     {
         $scope.createNewFaciltie = 1;
+        $scope.error   = 0;
     }
     $scope.cancelNewFacilties = function()
     {
         $scope.createNewFaciltie = 0;
+        $scope.error   = 0;
     }
 
     $scope.showModal = function(input)
