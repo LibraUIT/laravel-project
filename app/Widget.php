@@ -91,4 +91,13 @@ class Widget extends Model
         return $gallerys->toJson();
     }
 
+    /**
+    * edit hotel facilties
+    */
+
+    static public function editHotelFacilties($data, $id)
+    {
+        return DB::table('hotel_facilties')->where('id', $id)->update($data);
+    }
+
 }

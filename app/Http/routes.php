@@ -121,6 +121,9 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/widgets/delete_hotel_facilties_by_id', [
             'as' => 'delete_hotel_facilties_by_id','uses' => 'WidgetsController@delHotelFaciltiesById'
         ]);
+        Route::post('/api/widgets/edit_hotel_facilties', [
+            'as' => 'edit_hotel_facilties','uses' => 'WidgetsController@editHotelFacilties'
+        ]);
     });
     Route::group(['namespace' => 'Setting'], function()
     {

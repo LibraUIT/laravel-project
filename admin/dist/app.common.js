@@ -224,4 +224,11 @@ function checkIssetRow()
             $('.save').attr('disabled', '')
         }
     }
+// Clear console after 5s    
+function clearConsole()
+{
+    console.clear();
+    setTimeout(function(){ console.clear(); }, 5000);
+} 
+clearConsole();   
 

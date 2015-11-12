@@ -100,6 +100,7 @@ laravelAdminApp.controller("MainSliderWidgetController", function($scope, $rootS
                        $scope.success = 0
                     }, 2000);
             }
+            scrollToTop(); 
         });
     }
     WidgetsServices.getMainSlider().success(function(res){
@@ -182,6 +183,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
                             getAllGalleryByPanigation(pagination);
                         }, 2000);  
                     }
+                    scrollToTop(); 
                 });
                 break;
             case "edit":
@@ -201,6 +203,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
                         }, 2000); 
                         
                     }
+                    scrollToTop(); 
                 });
                 break;    
         }
@@ -280,31 +283,33 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
     $scope.createNewFaciltie = 0;
     var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
     getAllHotelFaciltiesByPanigation(pagination)
-    var rowHTML =  function(row, column1, column2, column3)
-    {
-        var html =              '<tr class="rowitem rowitem2 " id="row'+row+'">'+
-                                '<td><input value="'+column1+'" type="text" name="text" class="form-control" placeholder="Title" ></td>'+
-                                '<td style="width: 130px">'+
-                                '<a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title="">'+
-                                '<img style="width:100px;height:100px;cursor: pointer;" src="'+column3+'" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg">'+
-                                '<input value="'+column3+'" style="display:none" type="text" name="image" >'+
-                                '</a>'+                                  
-                                '</td>'+
-                                '<td style="width: 50px">'+
-                                '<button type="button" onclick="angular.element(this).scope().removeRow(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Remove"><i class="fa fa-minus-circle"></i></button>'+
-                                '</td>'+
-                                '</tr>';
-       return html; 
-    }
     $scope.createNewFacilties = function()
     {
+        $scope.form = {
+        name : '',
+        icon : '../storage/app/default/images/image_not_found.jpg',
+        big_heading : '',
+        small_heading : '',
+        description : '',
+        start : '19:00',
+        end : '22:00',
+        charge : 15,
+        status : 0
+    }
+        $('#submit').attr('datatype', 'save');
         $scope.createNewFaciltie = 1;
         $scope.error   = 0;
+        $scope.success = 0
+        scrollToTop();
+        console.clear();
     }
     $scope.cancelNewFacilties = function()
     {
+        $('#submit').attr('datatype', 'save');
         $scope.createNewFaciltie = 0;
         $scope.error   = 0;
+        $scope.success = 0
+        scrollToTop();
     }
 
     $scope.showModal = function(input)
@@ -313,28 +318,84 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
         $viewImage = input
     }
 
-    $scope.addFacilties = function()
+    $scope.submitFacilties = function()
     {
+        var datatype = $('#submit').attr('datatype');
         var form_string = $("#form" ).serialize();
         $scope.refresh = 1
-        WidgetsServices.addHotelFacilties(form_string).success(function(res){
-            if(res.status == 'OK')
-            {
-                $scope.refresh = 0
-                $scope.success = 1
-                $timeout(function() {
-                    $scope.success = 0
-                    getAllHotelFaciltiesByPanigation(pagination)
-                    $scope.createNewFaciltie = 0;
-                }, 2000); 
-            }else
-            {
-                $scope.refresh = 0
-                $scope.error   = 1
-                scrollToTop();
-            }
-        })
+        switch(datatype)
+        {
+            case 'save':
+                WidgetsServices.addHotelFacilties(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.refresh = 0
+                        $scope.success = 1
+                        $timeout(function() {
+                            $scope.success = 0
+                            getAllHotelFaciltiesByPanigation(pagination)
+                            $scope.createNewFaciltie = 0;
+                        }, 2000); 
+                    }else
+                    {
+                        $scope.refresh = 0
+                        $scope.error   = 1
+                        scrollToTop();
+                    }
+                });
+            break;
+
+            case 'edit':
+                var hotel_faciltie_id = $scope.form.id;
+                WidgetsServices.editHotelFacilties(form_string, hotel_faciltie_id).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.refresh = 0
+                        $scope.success = 1
+                        $timeout(function() {
+                            $scope.success = 0
+                            $scope.error = 0
+                            getAllHotelFaciltiesByPanigation(pagination)
+                         
+                        }, 2000); 
+                        
+                    }else
+                    {
+                        $scope.refresh = 0
+                        $scope.error   = 1
+                        $scope.success = 0
+                        
+                    }
+                    scrollToTop(); 
+                });
+            break;
+        }
+        
     }
+
+    $scope.editHotelFacilties = function(input)
+    {
+        scrollToTop();
+        var hotelFaciltiesKey = parseInt( $(input).attr('id').split('-')[1] );
+        $scope.$apply(function() {
+            var hotel_faciltie = $scope.hotel_facilties[hotelFaciltiesKey];
+            $scope.form = hotel_faciltie;
+            $scope.createNewFaciltie = 1;
+            $timeout(function() {
+                $('#submit').attr('datatype', 'edit');
+                if($scope.form.status == 1)
+                {
+                    $('input[type=checkbox]').iCheck('check');
+                }else
+                {
+                    $('input[type=checkbox]').iCheck('uncheck');
+                }
+            }, 0);   
+        });
+
+    }
+
+    
 
     $scope.goToPage = function(input)
     {   
@@ -363,9 +424,11 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
                 $scope.last_page     = res.last_page;
                 $scope.current_page  = res.current_page;
                 $scope.total         = Math.floor(res.total / limit );
+                console.clear();
             }
         })
-    }    
+    }
+    
 });
 
 

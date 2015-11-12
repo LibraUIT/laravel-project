@@ -97,6 +97,15 @@ laravelAdminApp.factory('WidgetsServices', ['$http', function ($http) {
         });
     };
 
+    WidgetsServices.editHotelFacilties = function (input, id) {
+        var params = [urlBaseApi, 'widgets', 'edit_hotel_facilties'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: {input : input, id : id }
+          });
+    };
+
     return WidgetsServices;
 
 }]);

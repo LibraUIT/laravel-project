@@ -205,4 +205,39 @@ class WidgetsController extends Controller
         );
         return response()->json($output);
     }
+
+    // Edit hotel facilties by id
+    public function editHotelFacilties()
+    {
+        $request_body = file_get_contents('php://input');
+        $res_params = explode(',', $request_body);
+        $output = array(
+                'status' => 'NO'
+            );
+        if(count($res_params == 2))
+        {
+            $id =  explode(':', $res_params[1]);
+            $id = (int) str_replace('}', '', $id[1]);
+            $input = explode(':', $res_params[0])[1];
+            $input = str_replace('"', '', $input);
+            $params = explode('&', $input);
+            $i = 0;
+                
+            $data['name']           = urldecode( explode('=', $params[$i])[1] );
+            $data['icon']           = urldecode( explode('=', $params[++$i])[1] );
+            $data['big_heading']    = urldecode( explode('=', $params[++$i])[1] );
+            $data['small_heading']  = urldecode( explode('=', $params[++$i])[1] );
+            $data['description']    = urldecode( explode('=', $params[++$i])[1] );
+            $data['start']          = urldecode( explode('=', $params[++$i])[1] );
+            $data['end']            = urldecode( explode('=', $params[++$i])[1] );
+            $data['charge']         = urldecode( explode('=', $params[++$i])[1] );
+            $data['status']         =  ( isset($params[++$i]) ) ? 1 :  0;
+            $res = Widget::editHotelFacilties($data, $id);
+            $output = array(
+                'status' => 'OK'
+            );
+     
+        }
+        return response()->json($output);
+    }
 }

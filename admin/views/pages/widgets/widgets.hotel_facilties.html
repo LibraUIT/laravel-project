@@ -16,39 +16,39 @@
                     </div>
                     <div ng-if="success == 1"  alert-success ></div>
                     <div ng-if="error == 1"  alert-error ></div>
-                	<form ng-submit="addFacilties()" id="form" ng-if="createNewFaciltie == 1">
+                	<form ng-submit="submitFacilties()" id="form" ng-if="createNewFaciltie == 1">
                 		<div class="row margin-bottomp-10px">
                 			<span class="col-sm-2"><b>Name</b></span>
                 			<div class="col-sm-10">
-                				<input value="" type="text" name="name" class="form-control" placeholder="Name" required>
+                				<input ng-model = "form.name" type="text" name="name" class="form-control" placeholder="Name" required>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
                 			<span class="col-sm-2"><b>Icon</b></span>
                 			<div class="col-sm-10">
-                				<a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:100px;height:100px;cursor: pointer;" src="../storage/app/default/images/image_not_found.jpg" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="../storage/app/default/images/image_not_found.jpg" style="display:none" type="text" name="icon"></a>
+                				<a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:100px;height:100px;cursor: pointer;" src="{{form.icon}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="{{form.icon}}" style="display:none" type="text" name="icon"></a>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
                 			<span class="col-sm-2"><b>Big Heading</b></span>
                 			<div class="col-sm-10">
-                				<input value="" type="text" name="big_heading" class="form-control" placeholder="Big Heading" required>
+                				<input ng-model="form.big_heading" type="text" name="big_heading" class="form-control" placeholder="Big Heading" required>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
                 			<span class="col-sm-2"><b>Small heading</b></span>
                 			<div class="col-sm-10">
-                				<input value="" type="text" name="small_heading" class="form-control" placeholder="Small Heading" required>
+                				<input ng-model="form.small_heading" type="text" name="small_heading" class="form-control" placeholder="Small Heading" required>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
                 			<span class="col-sm-2"><b>Description</b></span>
                 			<div class="col-sm-10">
-                				<textarea rows="5" name="description" class="form-control" placeholder="Description" required></textarea>
+                				<textarea ng-model="form.description" rows="5" name="description" class="form-control" placeholder="Description" required></textarea>
                 			</div>
                 		</div>
 
@@ -56,18 +56,18 @@
                 			<span class="col-sm-2"><b>Service hours</b></span>
                 			<span class="col-sm-1">Start : </span>
                 			<div class="col-sm-2">
-                				<input type="time" name="service_hours_start" class="form-control" placeholder="HH:mm:ss" min="08:00:00" max="22:00:00" required>
+                				<input value="{{form.start}}" type="time" name="service_hours_start" class="form-control" placeholder="HH:mm:ss" min="08:00:00" max="22:00:00" required>
                 			</div>
                 			<span class="col-sm-1">End : </span>
                 			<div class="col-sm-2">
-                				<input type="time" name="service_hours_end" class="form-control" placeholder="HH:mm:ss" min="00:00:00" max="24:00:00" required>
+                				<input value="{{form.end}}" type="time" name="service_hours_end" class="form-control" placeholder="HH:mm:ss" min="00:00:00" max="24:00:00" required>
                 			</div>
                 		</div>
 
                 		<div class="row margin-bottomp-10px">
                 			<span class="col-sm-2"><b>Service charge</b></span>
                 			<div class="col-sm-10">
-                				<input type="number" min="0" max="9999" name="service_charge" class="form-control" placeholder="Service charge" required>
+                				<input ng-model="form.charge" type="number" min="0" max="9999" name="service_charge" class="form-control" placeholder="Service charge" required>
                 			</div>
                 		</div>
 
@@ -85,7 +85,7 @@
                 		<div class="row margin-bottomp-10px">
                 			<div class="col-sm-2"></div>
 	                      	<div class="col-sm-10">
-		                      	<input class="btn btn-primary" type="submit" id="submit" value="Submit" />
+		                      	<input datatype="save" class="btn btn-primary" type="submit" id="submit" value="Submit" />
 			                    <button type="button" class="btn btn-danger" ng-click="cancelNewFacilties()">
 		                            <span>Cancel</span>
 	                        	</button>
@@ -112,7 +112,7 @@
                               <td ng-if="hotel_faciltie.status == 0" style="vertical-align: middle;">Disabled</td>
                               <td ng-if="hotel_faciltie.status == 1" style="vertical-align: middle;">Active</td>
                               <td style="vertical-align: middle;">
-                              	<button id="hotel_faciltie-{{hotel_faciltie.id}}" type="button" onclick="angular.element(this).scope().showPopup(this)" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
+                              	<button id="hotel_faciltie-{{key}}" type="button" onclick="angular.element(this).scope().editHotelFacilties(this)" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
                                 <button id="hotel_faciltie-{{hotel_faciltie.id}}" type="button" onclick="angular.element(this).scope().showPopup(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
                               </td>
                           </tr>
