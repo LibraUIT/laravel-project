@@ -163,6 +163,7 @@ class WidgetsController extends Controller
             
         $data['name']           = urldecode( explode('=', $params[$i])[1] );
         $data['icon']           = urldecode( explode('=', $params[++$i])[1] );
+        $data['image']          = urldecode( explode('=', $params[++$i])[1] );
         $data['big_heading']    = urldecode( explode('=', $params[++$i])[1] );
         $data['small_heading']  = urldecode( explode('=', $params[++$i])[1] );
         $data['description']    = urldecode( explode('=', $params[++$i])[1] );
@@ -225,6 +226,7 @@ class WidgetsController extends Controller
                 
             $data['name']           = urldecode( explode('=', $params[$i])[1] );
             $data['icon']           = urldecode( explode('=', $params[++$i])[1] );
+            $data['image']          = urldecode( explode('=', $params[++$i])[1] );
             $data['big_heading']    = urldecode( explode('=', $params[++$i])[1] );
             $data['small_heading']  = urldecode( explode('=', $params[++$i])[1] );
             $data['description']    = urldecode( explode('=', $params[++$i])[1] );

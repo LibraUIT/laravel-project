@@ -55,6 +55,8 @@
                 </div><!-- /.box-body -->
                 <div ng-if="gallerys" class="box-footer clearfix">
                   <!-- Pagination -->
+                  <div class="row">
+                  <div class="col-sm-3">
                   <ul class="pagination pagination-sm no-margin pull-left">
                     <li>
                         <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="prev_page_url" data-ng-class="{'disabled': !prev_page_url}" data ="{{prev_page_url}}" href="#">«</a>
@@ -84,6 +86,12 @@
                         <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="next_page_url" data-ng-class="{'disabled': !next_page_url}" data = "{{next_page_url}}" href="#">»</a>
                     </li>
                   </ul>
+                  </div>
+                  <div class="col-sm-3" style="padding-top: 7px;">
+                    Page <b>{{current_page}}</b> of <b>{{total}}</b>
+                  </div>
+                  </div>
+
                   <!-- End pagination -->
                 </div>
               </div><!-- /.box -->

@@ -31,6 +31,13 @@
                 			</div>
                 		</div>
 
+                    <div class="row margin-bottomp-10px">
+                      <span class="col-sm-2"><b>Image</b></span>
+                      <div class="col-sm-10">
+                        <a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:200px;height:200px;cursor: pointer;" src="{{form.image}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="{{form.icon}}" style="display:none" type="text" name="image"></a>
+                      </div>
+                    </div>
+
                 		<div class="row margin-bottomp-10px">
                 			<span class="col-sm-2"><b>Big Heading</b></span>
                 			<div class="col-sm-10">
@@ -121,6 +128,8 @@
                 </div>
                 <div ng-if="hotel_facilties" class="box-footer clearfix">
                   <!-- Pagination -->
+                  <div class="row">
+                  <div class="col-sm-3">
                   <ul class="pagination pagination-sm no-margin pull-left">
                     <li>
                         <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="prev_page_url" data-ng-class="{'disabled': !prev_page_url}" data ="{{prev_page_url}}" href="#">«</a>
@@ -150,6 +159,12 @@
                         <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="next_page_url" data-ng-class="{'disabled': !next_page_url}" data = "{{next_page_url}}" href="#">»</a>
                     </li>
                   </ul>
+                  </div>
+                  <div class="col-sm-3" style="padding-top: 7px;">
+                    Page <b>{{current_page}}</b> of <b>{{total}}</b>
+                  </div>
+                  </div>
+
                   <!-- End pagination -->
                 </div>
                 <!-- End box footer -->

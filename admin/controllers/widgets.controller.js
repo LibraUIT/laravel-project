@@ -236,6 +236,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
         var p = $(input).attr('data');
         pagination = '?limit=' + limit +'&page=' + p;
         getAllGalleryByPanigation(pagination);
+        scrollToTop(); 
     }
     $scope.nextOrPrev =  function(input)
     {
@@ -243,6 +244,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
         var p = $(input).attr('data').split('=');
         pagination = '?limit=' + limit +'&page=' + parseInt(p[1]);
         getAllGalleryByPanigation(pagination);
+        scrollToTop(); 
     }
     
     // Functions of gallery widget controller
@@ -256,7 +258,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
                 if(res.next_page_url != null ){ $scope.next_page_url = res.next_page_url }
                 $scope.last_page     = res.last_page;
                 $scope.current_page  = res.current_page;
-                $scope.total         = Math.floor(res.total / limit );
+                $scope.total         = Math.ceil(res.total / limit );
             }
         });
     }
@@ -288,6 +290,7 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
         $scope.form = {
         name : '',
         icon : '../storage/app/default/images/image_not_found.jpg',
+        image : '../storage/app/default/images/image_not_found.jpg',
         big_heading : '',
         small_heading : '',
         description : '',
@@ -340,8 +343,9 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
                     {
                         $scope.refresh = 0
                         $scope.error   = 1
-                        scrollToTop();
+                        
                     }
+                    scrollToTop();
                 });
             break;
 
@@ -403,6 +407,7 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
         var p = $(input).attr('data');
         pagination = '?limit=' + limit +'&page=' + p;
         getAllHotelFaciltiesByPanigation(pagination);
+        scrollToTop(); 
     }
     $scope.nextOrPrev =  function(input)
     {
@@ -410,6 +415,7 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
         var p = $(input).attr('data').split('=');
         pagination = '?limit=' + limit +'&page=' + parseInt(p[1]);
         getAllHotelFaciltiesByPanigation(pagination);
+        scrollToTop(); 
     }
 
     // Function get all hotel facilties
@@ -423,7 +429,7 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
                 if(res.next_page_url != null ){ $scope.next_page_url = res.next_page_url }
                 $scope.last_page     = res.last_page;
                 $scope.current_page  = res.current_page;
-                $scope.total         = Math.floor(res.total / limit );
+                $scope.total         = Math.ceil(res.total / limit );
                 console.clear();
             }
         })
