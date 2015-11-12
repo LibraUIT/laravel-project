@@ -309,6 +309,7 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
     $scope.cancelNewFacilties = function()
     {
         $('#submit').attr('datatype', 'save');
+        $('.edit, .start').removeAttr('disabled');
         $scope.createNewFaciltie = 0;
         $scope.error   = 0;
         $scope.success = 0
@@ -379,7 +380,7 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
 
     $scope.editHotelFacilties = function(input)
     {
-        scrollToTop();
+        $('.edit, .start').attr('disabled', '');
         var hotelFaciltiesKey = parseInt( $(input).attr('id').split('-')[1] );
         $scope.$apply(function() {
             var hotel_faciltie = $scope.hotel_facilties[hotelFaciltiesKey];
@@ -396,7 +397,7 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
                 }
             }, 0);   
         });
-
+        scrollToTop();
     }
 
     

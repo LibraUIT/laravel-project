@@ -10,7 +10,18 @@
 
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active">
+                            <?php 
+                                $i = 1; $j = 1;
+                            ?>
+                            @foreach($hotel_facilities as $k => $hotel_facilitie)
+                            @if($hotel_facilitie->status == 1)
+                                <li role="presentation" @if($i == 1) class="active" @endif >
+                                    <a href="#{{strtolower($hotel_facilitie->name)}}" aria-controls="sports-club" role="tab" data-toggle="tab"><img src="{{asset(URL::to('/').str_replace('..', '',$hotel_facilitie->icon))}}" alt="{{$hotel_facilitie->name}}"><span>{{$hotel_facilitie->name}}</span></a>
+                                </li>
+                                <?php $i++; ?>
+                            @endif    
+                            @endforeach
+                                <!--<li role="presentation" class="active">
                                     <a href="#restaurant" aria-controls="restaurant" role="tab" data-toggle="tab"><img src="{{asset('public/images/home-facilities-icon-eleven.png')}}" alt="restaurant"><span>restaurant</span></a>
                                 </li>
                                 <li role="presentation">
@@ -24,13 +35,50 @@
                                 </li>
                                 <li role="presentation">
                                     <a href="#gym" aria-controls="gym" role="tab" data-toggle="tab"><img src="{{asset('public/images/home-facilities-icon-ten.png')}}" alt="gym"><span>gym</span></a>
-                                </li>
+                                </li>-->
                             </ul>                           
 
                           
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="restaurant">
+                            @foreach($hotel_facilities as $k => $hotel_facilitie)
+                            @if($hotel_facilitie->status == 1)
+                                @if($j == 1)
+                                <div role="tabpanel" class="tab-pane active" id="{{strtolower($hotel_facilitie->name)}}">
+                                @else
+                                <div role="tabpanel" class="tab-pane" id="{{strtolower($hotel_facilitie->name)}}">
+                                @endif
+                                
+                                    <div class="single-tab-content">
+                                        <div class="row">
+                                            <div class="co-lg-5 col-md-5 col-sm-6">
+                                                <div class="single-tab-image">
+                                                    <a href="#"><img src="{{asset(URL::to('/').str_replace('..', '',$hotel_facilitie->image))}}" alt="{{$hotel_facilitie->name}}"></a>
+                                                </div>
+                                            </div>
+                                            <div class="co-lg-7 col-md-7 col-sm-6">
+                                                <div class="single-tab-details">
+                                                    <h6>{{$hotel_facilitie->small_heading}}</h6>
+                                                    <h3>{{$hotel_facilitie->big_heading}}</h3>
+                                                    <p>
+                                                    <?php
+                                                    $text = nl2br($hotel_facilitie->description);
+                                                    print_r($text);
+                                                    ?>
+                                                    </p>                                                    
+                                                    <div class="our_services">
+                                                        <a href="#" class="margin-right-33">Service Hours: {{$hotel_facilitie->start}} - {{$hotel_facilitie->end}} </a>
+                                                        <a href="#">service charge : ${{$hotel_facilitie->charge}}</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php $j++; ?>
+                            @endif  
+                            @endforeach    
+                                <!--<div role="tabpanel" class="tab-pane active" id="restaurant">
                                     <div class="single-tab-content">
                                         <div class="row">
                                             <div class="co-lg-5 col-md-5 col-sm-6">
@@ -164,7 +212,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                                            
                             </div>
 

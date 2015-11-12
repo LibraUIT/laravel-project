@@ -127,9 +127,11 @@ class ModulesController extends Controller
     */
     public function hotel_facilities_section($visible = 0)
     {
+        $data = array();
         if($visible == 1)
         {
-            return view('modules.hotel_facilities_section');
+            $data['hotel_facilities'] = DB::table('hotel_facilties')->orderBy('id', 'desc')->get();
+            return view('modules.hotel_facilities_section', $data);
         }
     }
 
