@@ -322,7 +322,14 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
                 $scope.success = 1
                 $timeout(function() {
                     $scope.success = 0
+                    getAllHotelFaciltiesByPanigation(pagination)
+                    $scope.createNewFaciltie = 0;
                 }, 2000); 
+            }else
+            {
+                $scope.refresh = 0
+                $scope.error   = 1
+                scrollToTop();
             }
         })
     }
