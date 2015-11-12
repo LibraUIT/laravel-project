@@ -75,7 +75,7 @@
                 			<div class="col-sm-10">
                 				<div class="checkbox icheck">
                                   <label>
-                                    <input icheck ng-model="form.status" name="status" type="checkbox"> Disabled
+                                    <input icheck ng-model="form.status" name="status" type="checkbox"> Active
                                   </label>
                                 </div>
                 			</div>
@@ -89,9 +89,69 @@
 		                            <span>Cancel</span>
 	                        	</button>
 	                        </div>
-	                    </div>      
+	                    </div> 
+	                    <hr>     
                     </form>
+                    <table ng-if="hotel_facilties" class="row-border hover table table-bordered">
+                        <thead>
+                          <tr>                              
+                              <th style="width: 130px;text-align:center">Icon</th>
+                              <th>Name</th>
+                              <th style="width:100px;" >Status</th>
+                              <th style="width: 100px"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="(key, hotel_faciltie) in hotel_facilties  | orderBy: '-id' " >     	<td style="vertical-align: middle;">
+                                  <a id="hotel_faciltie-{{hotel_faciltie.id}}" data-toggle="tooltip" class="img-thumbnail" data-original-title="{{hotel_faciltie.name}}" hotel-faciltie-title="{{hotel_faciltie.name}}">
+                                  <img style="width:100px;height:100px;cursor: pointer;" src="{{hotel_faciltie.icon}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg">
+                                  </a>
+                              </td>
+                              <td style="vertical-align: middle;">{{hotel_faciltie.name}}</td>
+                              <td ng-if="hotel_faciltie.status == 0" style="vertical-align: middle;">Disabled</td>
+                              <td ng-if="hotel_faciltie.status == 1" style="vertical-align: middle;">Active</td>
+                              <td style="vertical-align: middle;">
+                              	<button id="hotel_faciltie-{{hotel_faciltie.id}}" type="button" onclick="angular.element(this).scope().showPopup(this)" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
+                                <button id="hotel_faciltie-{{hotel_faciltie.id}}" type="button" onclick="angular.element(this).scope().showPopup(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+                              </td>
+                          </tr>
+                        </tbody>
+                    </table>    
                 </div>
+                <div ng-if="hotel_facilties" class="box-footer clearfix">
+                  <!-- Pagination -->
+                  <ul class="pagination pagination-sm no-margin pull-left">
+                    <li>
+                        <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="prev_page_url" data-ng-class="{'disabled': !prev_page_url}" data ="{{prev_page_url}}" href="#">«</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="1" href="#">First</a>
+                    </li>
+                    <li ng-if="current_page > 2">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page - 2}}" href="#">{{current_page - 2}}</a>
+                    </li>
+                    <li ng-if="current_page > 1">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page - 1}}" href="#">{{current_page - 1}}</a>
+                    </li>
+                    <li>
+                        <a my-link="current_page" style="background-color: #F5F5F5" data-ng-class="{'disabled': current_page}">{{current_page}}</a>
+                    </li>
+                    <li ng-if="current_page + 1 < total">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page + 1}}" href="#">{{current_page + 1}}</a>
+                    </li>
+                    <li ng-if="current_page + 2 < total ">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page + 2}}" href="#">{{current_page + 2}}</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{total}}" href="#">Last</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="next_page_url" data-ng-class="{'disabled': !next_page_url}" data = "{{next_page_url}}" href="#">»</a>
+                    </li>
+                  </ul>
+                  <!-- End pagination -->
+                </div>
+                <!-- End box footer -->
 			</div>
 		</div>
 	</div>
@@ -113,3 +173,5 @@
           </div>
         </div>
         <!-- End  modal -->
+        <!-- Cd popup -->
+        <div cd-popup></div>

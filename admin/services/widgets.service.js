@@ -78,6 +78,25 @@ laravelAdminApp.factory('WidgetsServices', ['$http', function ($http) {
           });
     };
 
+    WidgetsServices.getAllHotelFacilties = function (input) {
+        var params = [urlBaseApi, 'widgets', 'get_all_hotel_facilties', input ].join('/')
+        return $http({
+            method: 'GET',
+            url: params,
+            data: {}
+          });
+    };
+
+    WidgetsServices.deleteHotelFacilties =  function(input)
+    {
+        var params = [urlBaseApi, 'widgets', 'delete_hotel_facilties_by_id'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+        });
+    };
+
     return WidgetsServices;
 
 }]);

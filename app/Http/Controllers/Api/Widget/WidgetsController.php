@@ -172,18 +172,37 @@ class WidgetsController extends Controller
         $data['status']         =  ( isset($params[++$i]) ) ? 1 :  0;
         
         
-        //$res = Widget::addHotelFacilties($data);
+        $res = Widget::addHotelFacilties($data);
         $output = array(
                 'status' => 'NO'
             );
-        /*if($res)
+        if($res)
         {
             $output = array(
                 'status' => 'OK'
             );
-        }*/
+        }
        
         return response()->json($output);
 
+    }
+
+    // get all hotel facilties by @limit param
+    public function getAllHotelFacilties()
+    {
+        $limit = $_GET['limit'];
+        return Widget::getAllHotelFacilties($limit);
+    }
+
+    // Delete hotel facilties by  id
+    public function delHotelFaciltiesById()
+    {
+        $id = file_get_contents('php://input');
+        DB::table('hotel_facilties')->where('id', (int)$id )->delete();
+        $output = array(
+                    'status' => 'OK',
+                    'message' => 'Deleted has been success'
+        );
+        return response()->json($output);
     }
 }

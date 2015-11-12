@@ -112,11 +112,14 @@ Route::group(['namespace' => 'Api'], function()
         Route::get('/api/widgets/get_all_gallery', [
             'as' => 'get_all_gallery','uses' => 'WidgetsController@getAllGallery'
         ]);
-        Route::get('/api/widgets/get_pagination_gallery', [
-            'as' => 'get_pagination_gallery','uses' => 'WidgetsController@getPaginationGallery'
-        ]);
         Route::post('/api/widgets/add_hotel_facilties', [
             'as' => 'add_hotel_facilties','uses' => 'WidgetsController@addHotelFacilties'
+        ]);
+        Route::get('/api/widgets/get_all_hotel_facilties', [
+            'as' => 'get_all_hotel_facilties','uses' => 'WidgetsController@getAllHotelFacilties'
+        ]);
+        Route::post('/api/widgets/delete_hotel_facilties_by_id', [
+            'as' => 'delete_hotel_facilties_by_id','uses' => 'WidgetsController@delHotelFaciltiesById'
         ]);
     });
     Route::group(['namespace' => 'Setting'], function()

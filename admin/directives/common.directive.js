@@ -312,6 +312,14 @@
                             $isNotVisible();
                         });
                         break;
+                    case "hotel_faciltie":
+                        var hotel_faciltieId = parseInt(elements[1]);
+                        WidgetsServices.deleteHotelFacilties(hotel_faciltieId).success(function(res){
+                            console.log(res);
+                            $('#'+$elementId).parent().parent().remove();
+                            $isNotVisible();
+                        });
+                        break;    
                 }
             }
             $scope.confirmNo = function()

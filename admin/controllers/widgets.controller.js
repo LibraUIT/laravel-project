@@ -278,6 +278,8 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
     $modal = $('.image_manager_modal')
     folder = 'facilties'
     $scope.createNewFaciltie = 0;
+    var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
+    getAllHotelFaciltiesByPanigation(pagination)
     var rowHTML =  function(row, column1, column2, column3)
     {
         var html =              '<tr class="rowitem rowitem2 " id="row'+row+'">'+
@@ -324,6 +326,37 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
             }
         })
     }
+
+    $scope.goToPage = function(input)
+    {   
+        event.preventDefault();
+        var p = $(input).attr('data');
+        pagination = '?limit=' + limit +'&page=' + p;
+        getAllHotelFaciltiesByPanigation(pagination);
+    }
+    $scope.nextOrPrev =  function(input)
+    {
+        event.preventDefault();
+        var p = $(input).attr('data').split('=');
+        pagination = '?limit=' + limit +'&page=' + parseInt(p[1]);
+        getAllHotelFaciltiesByPanigation(pagination);
+    }
+
+    // Function get all hotel facilties
+    function getAllHotelFaciltiesByPanigation(pagination)
+    {
+        WidgetsServices.getAllHotelFacilties(pagination).success(function(res){
+            if(res.data.length > 0)
+            {
+                $scope.hotel_facilties = res.data;
+                if(res.prev_page_url != null ){ $scope.prev_page_url = res.prev_page_url }
+                if(res.next_page_url != null ){ $scope.next_page_url = res.next_page_url }
+                $scope.last_page     = res.last_page;
+                $scope.current_page  = res.current_page;
+                $scope.total         = Math.floor(res.total / limit );
+            }
+        })
+    }    
 });
 
 

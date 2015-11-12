@@ -81,4 +81,14 @@ class Widget extends Model
         return DB::table('hotel_facilties')->insert($input);
     }
 
+    /**
+    * get all hotel facilties
+    */
+
+    static public function getAllHotelFacilties($limit = 1)
+    {
+        $gallerys = DB::table('hotel_facilties')->orderBy('id', 'desc')->paginate($limit);      
+        return $gallerys->toJson();
+    }
+
 }
