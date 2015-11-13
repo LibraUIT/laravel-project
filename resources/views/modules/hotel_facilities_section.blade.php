@@ -11,7 +11,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                             <?php 
-                                $i = 1; $j = 1;
+                                $i = 1; $j = 1; $itemwidth = 12;
                             ?>
                             @foreach($hotel_facilities as $k => $hotel_facilitie)
                             @if($hotel_facilitie->status == 1)
@@ -21,6 +21,9 @@
                                 <?php $i++; ?>
                             @endif    
                             @endforeach
+                            <?php 
+                            $totalwidth = ($i - 1 ) * $itemwidth;
+                            ?>
                                 <!--<li role="presentation" class="active">
                                     <a href="#restaurant" aria-controls="restaurant" role="tab" data-toggle="tab"><img src="{{asset('public/images/home-facilities-icon-eleven.png')}}" alt="restaurant"><span>restaurant</span></a>
                                 </li>
@@ -221,4 +224,13 @@
                 </div>
             </div>
         </section>
+        <style type="text/css">
+            .hotel_facilities .nav.nav-tabs {
+                border: medium none;
+                margin: 0 auto;
+                text-align: center;
+                width: <?php echo $totalwidth; ?>%;
+            }
+        </style>
         <!-- end Hotel Facilities section -->
+        

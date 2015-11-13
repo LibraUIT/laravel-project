@@ -371,7 +371,7 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
                         $scope.success = 0
                         
                     }
-                    scrollToTop(); 
+                    scrollToTop();
                 });
             break;
         }
