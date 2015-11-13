@@ -100,4 +100,37 @@ class Widget extends Model
         return DB::table('hotel_facilties')->where('id', $id)->update($data);
     }
 
+    /**
+    * add Background Function
+    */
+    static public function addBackground($code, $background)
+    {
+        DB::table('backgrounds')->where('code', $code)->delete();
+        return DB::table('backgrounds')->insert($background);
+    }
+
+    /**
+    * get Background Function
+    */
+    static public function getBackground($code)
+    {
+        $data = DB::table('backgrounds')->where('code', $code)->first();
+        if(isset($data) )
+        {    
+           return $data;
+        }else
+        {
+            return FALSE;
+        }
+    }
+
+    /**
+    * remove Background Function
+    */
+    static public function removeBackground($code)
+    {
+        DB::table('backgrounds')->where('code', $code)->delete();
+        return TRUE;
+    }
+
 }

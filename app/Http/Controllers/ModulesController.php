@@ -130,7 +130,10 @@ class ModulesController extends Controller
         $data = array();
         if($visible == 1)
         {
+            $code = 'hotel_facilties';
             $data['hotel_facilities'] = DB::table('hotel_facilties')->orderBy('id', 'desc')->get();
+            $background = DB::table('backgrounds')->where('code', $code)->first();
+            $data['background'] = (isset($background) ? $background->background : FALSE );
             return view('modules.hotel_facilities_section', $data);
         }
     }

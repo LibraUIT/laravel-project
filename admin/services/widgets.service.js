@@ -106,6 +106,33 @@ laravelAdminApp.factory('WidgetsServices', ['$http', function ($http) {
           });
     };
 
+    WidgetsServices.addBackgroundHotelFacilties = function (input) {
+        var params = [urlBaseApi, 'widgets', 'add_background_hotel_facilties'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
+    WidgetsServices.getBackgroundHotelFacilties = function () {
+        var params = [urlBaseApi, 'widgets', 'get_background_hotel_facilties' ].join('/')
+        return $http({
+            method: 'GET',
+            url: params,
+            data: {}
+          });
+    };
+
+    WidgetsServices.removeBackgroundHotelFacilties = function () {
+        var params = [urlBaseApi, 'widgets', 'remove_background_hotel_facilties'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: {}
+          });
+    };
+
     return WidgetsServices;
 
 }]);

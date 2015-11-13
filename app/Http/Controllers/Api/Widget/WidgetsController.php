@@ -242,4 +242,65 @@ class WidgetsController extends Controller
         }
         return response()->json($output);
     }
+
+    // Add Background Hotel Facilties Function
+    public function addBackgroundHotelFacilties()
+    {
+       $request_body = file_get_contents('php://input');
+       $res_params = explode('=', $request_body);
+       $output = array(
+                'status' => 'NO'
+            );
+        if( count($res_params) == 2 && $res_params[0] == 'background')
+        {
+            $code = 'hotel_facilties';
+            $background = array(
+                    'code'       => $code,
+                    'background' => urldecode($res_params[1])
+                );
+            $res = Widget::addBackground($code, $background);
+            if($res)
+            {
+               $output = array(
+                    'status' => 'OK'
+               ); 
+            }      
+        }
+        return response()->json($output);     
+    }
+
+    // Get Background Hotel Facilties Function
+    public function getBackgroundHotelFacilties()
+    {
+        $code = 'hotel_facilties';
+        $res = Widget::getBackground($code);
+        $output = array(
+                'status' => 'NO'
+            );
+        if($res && $res->background != '')
+        {
+            $output = array(
+                    'status' => 'OK',
+                    'data'   => $res
+               ); 
+        }
+        return response()->json($output); 
+    }
+
+    // Remove Background Hotel Facilties Function
+    public function removeBackgroundHotelFacilties()
+    {
+        $code = 'hotel_facilties';
+        $res = Widget::removeBackground($code);
+        $output = array(
+                'status' => 'NO'
+            );
+        if($res == TRUE)
+        {
+            $output = array(
+                    'status' => 'OK'
+               ); 
+        }
+        return response()->json($output); 
+    }
 }

@@ -231,6 +231,19 @@
                 text-align: center;
                 width: <?php echo $totalwidth; ?>%;
             }
+            @if($background != FALSE)
+            .hotel_facilities_area {
+                background: url({{URL::to('/').str_replace('..', '',$background)}}) no-repeat fixed 0 0;
+                background-size: cover;
+                background-position: fixed;
+            }
+            @else
+            .hotel_facilities_area {
+                background: none;
+                background-size: cover;
+                background-position: fixed;
+            }
+            @endif
         </style>
         <!-- end Hotel Facilities section -->
         

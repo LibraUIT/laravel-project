@@ -124,6 +124,15 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/widgets/edit_hotel_facilties', [
             'as' => 'edit_hotel_facilties','uses' => 'WidgetsController@editHotelFacilties'
         ]);
+        Route::post('/api/widgets/add_background_hotel_facilties', [
+            'as' => 'add_background_hotel_facilties','uses' => 'WidgetsController@addBackgroundHotelFacilties'
+        ]);
+        Route::get('/api/widgets/get_background_hotel_facilties', [
+            'as' => 'get_background_hotel_facilties','uses' => 'WidgetsController@getBackgroundHotelFacilties'
+        ]);
+        Route::post('/api/widgets/remove_background_hotel_facilties', [
+            'as' => 'remove_background_hotel_facilties','uses' => 'WidgetsController@removeBackgroundHotelFacilties'
+        ]);
     });
     Route::group(['namespace' => 'Setting'], function()
     {

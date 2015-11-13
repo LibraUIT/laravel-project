@@ -180,6 +180,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
                         $timeout(function() {
                             $scope.success = 0
                             $('.save').attr('disabled', '');
+                            $('.start').removeAttr('disabled');
                             getAllGalleryByPanigation(pagination);
                         }, 2000);  
                     }
@@ -285,6 +286,10 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
     $scope.createNewFaciltie = 0;
     var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
     getAllHotelFaciltiesByPanigation(pagination)
+    $scope.background = {
+        background : ''
+    }
+    getBackgroundHotelFacilties()
     $scope.createNewFacilties = function()
     {
         $scope.form = {
@@ -419,6 +424,26 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
         scrollToTop(); 
     }
 
+    $scope.submitBackground = function()
+    {
+        var form_string = $("#background" ).serialize();
+        WidgetsServices.addBackgroundHotelFacilties(form_string).success(function(res){
+            if(res.status == 'OK')
+            {
+                $scope.error1 = 0
+                $scope.success1 = 1
+                $timeout(function() {
+                    $scope.success1 = 0
+                    $scope.error1 = 0
+                }, 2000); 
+            }else
+            {
+                $scope.success1 = 0
+                $scope.error1 = 1
+            }
+        })
+    }
+
     // Function get all hotel facilties
     function getAllHotelFaciltiesByPanigation(pagination)
     {
@@ -431,6 +456,20 @@ laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $r
                 $scope.last_page     = res.last_page;
                 $scope.current_page  = res.current_page;
                 $scope.total         = Math.ceil(res.total / limit );
+                console.clear();
+            }
+        })
+    }
+
+    // Function get background hotel facilties
+    function getBackgroundHotelFacilties()
+    {
+        WidgetsServices.getBackgroundHotelFacilties().success(function(res){
+            if(res.status == 'OK')
+            {
+                $scope.background = {
+                    background : res.data.background
+                }
                 console.clear();
             }
         })

@@ -319,7 +319,17 @@
                             $('#'+$elementId).parent().parent().remove();
                             $isNotVisible();
                         });
-                        break;    
+                        break;
+                    case "remove_background_hotel_facilties":
+                        WidgetsServices.removeBackgroundHotelFacilties().success(function(res){
+                            $isNotVisible();
+                            if(res.status == 'OK')
+                            {
+                               $('#'+$elementId).parent().parent().find('img').attr('src', '../storage/app/default/images/image_not_found.jpg'); 
+                               $('#'+$elementId).parent().parent().find('input[type=text]').attr('value', '');
+                            }
+                        })
+                        break;        
                 }
             }
             $scope.confirmNo = function()

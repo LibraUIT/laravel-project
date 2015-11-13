@@ -1993,7 +1993,7 @@ section.content
 }
 .my-gallery img {
   width: 100%;
-  height: auto;
+  height: 240px;
 }
 .my-gallery figure {
   display: block;
