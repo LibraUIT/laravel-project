@@ -137,6 +137,32 @@
                 }
             })
 
+        // Content
+        .state('content', {
+            url: '/content',
+            templateUrl: 'views/layout/main.html',
+            controller: 'ContentController'
+        })
+
+            // Category Content
+            .state('content.category', {
+                url: '/category',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'hotel_facilties',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
+            
+
         // File manager
         .state('file_manager', {
             url: '/file_manager',
@@ -230,5 +256,5 @@ function clearConsole()
     console.clear();
     setTimeout(function(){ console.clear(); }, 5000);
 } 
-clearConsole();   
+//clearConsole();   
 

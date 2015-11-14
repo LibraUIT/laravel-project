@@ -144,4 +144,11 @@ Route::group(['namespace' => 'Api'], function()
             'as' => 'set_general','uses' => 'SettingsController@setGeneral'
         ]);
     });
+    Route::group(['namespace' => 'Content'], function()
+    {
+        // Controllers Within The "App\Http\Controllers\Api\Content" Namespace
+        Route::post('/api/content/add_category', [
+            'as' => 'add_category','uses' => 'ContentController@addCategory'
+        ]);
+    });
 });
