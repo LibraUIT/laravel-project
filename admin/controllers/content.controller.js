@@ -37,15 +37,41 @@ laravelAdminApp.controller("ContentController", function($scope, $rootScope, $ti
 * Content category controller
 */
 laravelAdminApp.controller("ContentCategoryController", function($scope, $rootScope, $timeout, ContentServices) {
+    $scope.showCreateCategory = 0
+    ContentServices.getParentCategory().success(function(res){
+       if(res.status == 'OK')
+       {
+            var defaultOption = { id : null, name : 'Select Parent Category' }
+            var parent_category = res.data
+            parent_category.push(defaultOption)
+            $scope.parent_category = {
+                selectedOption : {id: 'null', name: 'Select Parent Category'},
+                availableOptions : parent_category
+            }
+       }
+    })
     $scope.createNewCategory = function()
     {
-        console.log('ds')
+        $scope.showCreateCategory = 1
+    }
+    $scope.cancelNewCategory = function()
+    {
+        $scope.showCreateCategory = 0
     }
     $scope.submitCategory = function()
     {
         var form_string = $("#form" ).serialize();
+        $scope.refresh = 1
         ContentServices.addCategory(form_string).success(function(res){
-            console.log(res)
+            if(res.status == 'OK')
+            {
+                $scope.success = 1
+                $scope.refresh = 0
+                $timeout(function() {
+                    $scope.success = 0
+                    $scope.showCreateCategory = 0
+                }, 2000); 
+            }
         })
     }
     

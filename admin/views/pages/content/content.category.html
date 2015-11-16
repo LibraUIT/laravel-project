@@ -11,7 +11,11 @@
                    </button>
                 </div>
                 <div class="box-body">
-                   <form ng-submit="submitCategory()" id="form">
+                   <div ng-if="refresh == 1" class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                   </div>
+                   <div ng-if="success == 1"  alert-success ></div>
+                   <form ng-submit="submitCategory()" id="form" ng-if="showCreateCategory == 1">
                       <div class="row margin-bottomp-10px">
                         <span class="col-sm-2"><b>Name</b></span>
                         <div class="col-sm-10">
@@ -20,8 +24,11 @@
                       </div>
                       <div class="row margin-bottomp-10px">
                         <span class="col-sm-2"><b>Parent</b></span>
-                        <div class="col-sm-10">
-                          <input ng-model = "form.parent" type="text" name="parent" class="form-control" placeholder="Parent" required>
+                        <div class="col-sm-4">
+                          <select class="form-control" name="parent" 
+                          ng-options="option.name for option in parent_category.availableOptions track by option.id"
+                          ng-model="parent_category.selectedOption">
+                          </select>
                         </div>
                       </div>
                       <div class="row margin-bottomp-10px">

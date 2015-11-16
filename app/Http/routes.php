@@ -150,5 +150,8 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/content/add_category', [
             'as' => 'add_category','uses' => 'ContentController@addCategory'
         ]);
+        Route::get('/api/content/get_parent_category', [
+            'as' => 'get_parent_category','uses' => 'ContentController@getParentCategory'
+        ]);
     });
 });

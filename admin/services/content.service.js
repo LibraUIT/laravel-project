@@ -22,8 +22,8 @@ laravelAdminApp.factory('ContentServices', ['$http', function ($http) {
 	      });
     };
 
-    ContentServices.getGeneral = function () {
-        var params = [urlBaseApi, 'settings', 'get_general'].join('/')
+    ContentServices.getParentCategory = function () {
+        var params = [urlBaseApi, 'content', 'get_parent_category'].join('/')
         return $http({
             method: 'GET',
             url: params,

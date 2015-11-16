@@ -18,44 +18,11 @@ class Content extends Model
     }
 
     /**
-    * get Main slider config
+    * get parent category
     */
-    static public function getGeneral()
+    static public function getParentCategory()
     {
-        $data = DB::table('settings')->where('code', 'general')->first();
-        $config = array(
-                'sitetitle'     => '',
-                'tagline'       => '',
-                'description'   => '',
-                'email'         => '',
-                'address'       => '',
-                'numberphone'   => '',
-                'facebook'      => '',
-                'google'        => '',
-                'twitter'       => ''
-            );
-        if(isset($data) || $data != NULL)
-        {    
-           $config = array_merge( $config , unserialize($data->option));
-        }
-        $newconfig = array();
-        foreach($config as $k => $v)
-        {
-            $newconfig[$k] = urldecode($v);
-        }
-        return $newconfig;
-    }
-
-    /**
-    * set general
-    */
-    static public function setGeneral($input)
-    {
-        DB::table('settings')->where('code', 'general')->delete();
-        $create = array( 'code'     => 'general',
-                             'option'   => serialize($input)
-                             );
-        return DB::table('settings')->insert($create);
+        return DB::table('categorys')->whereNull('parent')->get();
     }
 
 }
