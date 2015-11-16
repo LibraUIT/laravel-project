@@ -153,5 +153,17 @@ Route::group(['namespace' => 'Api'], function()
         Route::get('/api/content/get_parent_category', [
             'as' => 'get_parent_category','uses' => 'ContentController@getParentCategory'
         ]);
+        Route::get('/api/content/get_all_category', [
+            'as' => 'get_all_category','uses' => 'ContentController@getAllCategory'
+        ]);
+        Route::post('/api/content/delete_category_by_id', [
+            'as' => 'delete_category_by_id','uses' => 'ContentController@deleteCategoryById'
+        ]);
+        Route::post('/api/content/get_category_by_id', [
+            'as' => 'get_category_by_id','uses' => 'ContentController@getCategoryById'
+        ]);
+        Route::post('/api/content/edit_category', [
+            'as' => 'edit_category','uses' => 'ContentController@editCategory'
+        ]);
     });
 });

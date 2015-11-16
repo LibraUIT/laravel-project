@@ -284,7 +284,7 @@
   };
 })
  // Directive using https://codyhouse.co/gem/simple-confirmation-popup/
- .directive('cdPopup', function(WidgetsServices, $route) {
+ .directive('cdPopup', function(WidgetsServices, ContentServices, $route) {
   return {
     restrict: 'A',
     transclude: true,
@@ -329,7 +329,17 @@
                                $('#'+$elementId).parent().parent().find('input[type=text]').attr('value', '');
                             }
                         })
-                        break;        
+                        break;
+                    case "category":
+                        var categoryId = parseInt(elements[1]);
+                        ContentServices.deleteCategoryById(categoryId).success(function(res){
+                            $isNotVisible();
+                            if(res.status == 'OK')
+                            {
+                               $('#'+$elementId).parent().parent().remove();
+                            }
+                        })
+                        break;            
                 }
             }
             $scope.confirmNo = function()

@@ -31,6 +31,43 @@ laravelAdminApp.factory('ContentServices', ['$http', function ($http) {
           });
     };
 
+    ContentServices.getAllCategory = function () {
+        var params = [urlBaseApi, 'content', 'get_all_category'].join('/')
+        return $http({
+            method: 'GET',
+            url: params,
+            data: {}
+          });
+    };
+
+    ContentServices.deleteCategoryById = function (input) {
+        var params = [urlBaseApi, 'content', 'delete_category_by_id'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
+    ContentServices.getCategoryById = function (input) {
+        var params = [urlBaseApi, 'content', 'get_category_by_id'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
+    ContentServices.editCategory = function (input) {
+        var params = [urlBaseApi, 'content', 'edit_category'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
+
     return ContentServices;
 
 }]);

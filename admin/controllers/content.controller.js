@@ -50,6 +50,7 @@ laravelAdminApp.controller("ContentCategoryController", function($scope, $rootSc
             }
        }
     })
+    categoryList()
     $scope.createNewCategory = function()
     {
         $scope.showCreateCategory = 1
@@ -57,22 +58,81 @@ laravelAdminApp.controller("ContentCategoryController", function($scope, $rootSc
     $scope.cancelNewCategory = function()
     {
         $scope.showCreateCategory = 0
+        $('.start, .edit').removeAttr('disabled')
     }
     $scope.submitCategory = function()
     {
+        var datatype = $('.save').attr('datatype');
         var form_string = $("#form" ).serialize();
         $scope.refresh = 1
-        ContentServices.addCategory(form_string).success(function(res){
+        switch(datatype)
+        {
+            case 'new':
+                ContentServices.addCategory(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.success = 1
+                        $scope.refresh = 0
+                        $timeout(function() {
+                            $scope.success = 0
+                            $scope.showCreateCategory = 0
+                        }, 2000); 
+                    }
+                })
+                break;
+            case 'edit':
+                var form_string = 'id=' + $scope.form.id + '&' +form_string
+                ContentServices.editCategory(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        categoryList()
+                        $scope.success = 1
+                        $scope.refresh = 0
+                        $timeout(function() {
+                            $scope.success = 0
+                            $scope.showCreateCategory = 0
+                            $('.save').attr('datatype', 'new')
+                            $('.start, .edit').removeAttr('disabled')
+                        }, 2000); 
+                    }
+                })
+                break;    
+        }
+            
+    }
+    $scope.editCategory =  function(input)
+    {
+        $('.start, .edit').attr('disabled', '')
+        var categoryId = parseInt( $(input).attr('id').split('-')[1] );
+        ContentServices.getCategoryById(categoryId).success(function(res){
             if(res.status == 'OK')
             {
-                $scope.success = 1
-                $scope.refresh = 0
+                $scope.showCreateCategory = 1
+                $scope.form = res.data
+                $scope.parent_category.selectedOption = {id: $scope.form.parent, name: 'Select Parent Category'}
                 $timeout(function() {
-                    $scope.success = 0
-                    $scope.showCreateCategory = 0
-                }, 2000); 
+                        $('.save').attr('datatype', 'edit')
+                        if($scope.form.status == 1)
+                        {
+                            $('input[type=checkbox]').iCheck('check');
+                        }else
+                        {
+                            $('input[type=checkbox]').iCheck('uncheck');
+                        }
+                    }, 0); 
             }
         })
+    }
+
+    // show category list
+    function categoryList()
+    {
+        ContentServices.getAllCategory().success(function(res){
+        if(res.status == 'OK')
+        {
+            $scope.categoryList = res.data
+        }
+    })
     }
     
 });

@@ -42,4 +42,81 @@ class ContentController extends Controller
             );
         return response()->json($output);
     }
+
+    // get all category
+    public function getAllCategory()
+    {
+        $category = Content::getAllCategory();
+        $output = array(
+                'status' => 'OK',
+                'data'   => $category
+            );
+        return response()->json($output);
+    }
+
+    // delete category by id
+    public function deleteCategoryById()
+    {
+        $request_body = file_get_contents('php://input');
+        $categoryId = (int) $request_body;
+        $res = Content::deleteCategoryById($categoryId);
+        $output = array(
+                'status' => 'No'
+            );
+        if($res == TRUE)
+        {
+            Content::deleteCategoryByParentId($categoryId);
+            $output = array(
+                'status' => 'OK'
+            );
+        }
+        return response()->json($output);
+    }
+
+    // get category by id
+    public function getCategoryById()
+    {
+        $request_body = file_get_contents('php://input');
+        $categoryId = (int) $request_body;
+        $res = Content::getCategoryById($categoryId);
+        $output = array(
+                'status' => 'No'
+            );
+        if($res)
+        {
+            $output = array(
+                'status' => 'OK',
+                'data'   => $res
+            );
+        }
+        return response()->json($output);
+    }
+
+    // update category by id
+    public function editCategory()
+    {
+        $request_body = file_get_contents('php://input');
+        $params = explode('&', $request_body);
+        $data = array();
+        $output = array(
+                'status' => 'NO'
+        );
+        if(count($params) > 0)
+        {
+            $categoryId             = (int) explode('=', $params[0])[1];
+            $data['name']           = urldecode( explode('=', $params[1])[1] );
+            $data['parent']         = explode('=', $params[2])[1];
+            if($data['parent'] == 'null' || $data['parent'] == 'NULL' || $data['parent'] == '' )
+            {
+                $data['parent'] = NULL;
+            }
+            $data['status']         =  ( isset($params[3]) ) ? 1 :  0;
+            $res = Content::editCategoryByID($data, $categoryId);
+        
+            $output = array(
+                'status' => 'OK'
+            );
+        }
+        return response()->json($output);
+    }
 }
