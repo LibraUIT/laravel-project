@@ -26,6 +26,12 @@ laravelAdminApp.controller("ContentController", function($scope, $rootScope, $ti
                 url: 'views/pages/content/content.category.html'};
                 $scope.breacum_active = 'Category'
     	        break;
+        case 'post':
+                $scope.subtemplate = {
+                name: 'content.post.html',
+                url: 'views/pages/content/content.post.html'};
+                $scope.breacum_active = 'Posts'
+                break;        
 
     }
                  
@@ -133,6 +139,44 @@ laravelAdminApp.controller("ContentCategoryController", function($scope, $rootSc
             $scope.categoryList = res.data
         }
     })
+    }
+    
+});
+
+/**
+* Content post controller
+*/
+laravelAdminApp.controller("ContentPostController", function($scope, $rootScope, $timeout, ContentServices) {
+    applyEditor()
+    var $modal = $('.modal') 
+    folder = 'post'
+    $scope.showCreatePost = 0
+    $scope.form = {
+        image : '../storage/app/default/images/image_not_found.jpg'
+    }
+    ContentServices.getAllCategory().success(function(res){
+       if(res.status == 'OK')
+       {
+            var defaultOption = { id : null, name : 'Select Parent Category' }
+            var parent_category = res.data
+            parent_category.push(defaultOption)
+            $scope.parent_category = {
+                selectedOption : {id: 'null', name: 'Select Parent Category'},
+                availableOptions : parent_category
+            }
+       }
+    })
+    $scope.showModal = function(input)
+    {
+        $modal.modal('show')
+        $viewImage = input
+    }
+
+    function applyEditor()
+    {
+        $timeout(function() {
+            CKEDITOR.replace('form_content');                  
+        }, 0); 
     }
     
 });

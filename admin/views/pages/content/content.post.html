@@ -1,0 +1,108 @@
+        <!-- Main content -->
+        <section  class="content" ng-controller="ContentPostController">
+          <div class="row">
+            <div class="col-md-12">
+              
+              <div class="box box-info">
+                <div class="box-header with-border">
+                   <button type="button" class="btn btn-success start" ng-click="createNewCategory()">
+                            <i class="fa fa-plus"></i>
+                            <span>Create New</span>
+                   </button>
+                </div>
+                <div class="box-body">
+                   <div ng-if="refresh == 1" class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                   </div>
+                   <div ng-if="success == 1"  alert-success ></div>
+                   <form id="form" ng-if="showCreatePost != 1">
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Title</b></span>
+                        <div class="col-sm-10">
+                          <input ng-model = "form.title" type="text" name="title" class="form-control" placeholder="Title" required>
+                        </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Category</b></span>
+                        <div class="col-sm-4">
+                          <select class="form-control" name="parent" 
+                          ng-options="option.name for option in parent_category.availableOptions track by option.id"
+                          ng-model="parent_category.selectedOption">
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Status</b></span>
+                        <div class="col-sm-10">
+                          <div class="checkbox icheck">
+                                    <label>
+                                      <input icheck ng-model="form.status" name="status" type="checkbox"> Active
+                                    </label>
+                                  </div>
+                        </div>
+                      </div>
+
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Content</b></span>
+                        <div class="col-sm-10">
+                          <textarea name="form_content" rows="10" class="form-control" ></textarea>
+                        </div>
+                      </div>
+
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Cover Image</b></span>
+                        <div class="col-sm-10">
+                            <a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:300px;height:150px;cursor: pointer;" src="{{form.image}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="{{form.image}}" style="display:none" type="text" name="image"></a>
+                        </div>
+                      </div>
+                      
+
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2"></div>
+                          <div class="col-sm-10">
+                            <input datatype="new" class="btn btn-primary save" type="submit" id="submit" value="Submit" />
+                          <button type="button" class="btn btn-danger" ng-click="cancelNewCategory()">
+                                <span>Cancel</span>
+                            </button>
+                          </div>
+                      </div> 
+                   </form>
+                   <hr>
+                   <table id="table" class="table table-bordered">
+                              <tbody><tr>
+                                <th style="width: 10px">#</th>
+                                <th style="width: 400px">Name</th>
+                                <th style="width: 400px">Parent</th>
+                                <th style="width: 130px">Status</th>
+                                <th style="width: 100px"></th>
+                              </tr>
+                              
+                            
+                            </tbody>
+                    </table>
+                    <hr> 
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+              
+            </div><!-- /.col (RIGHT) -->
+          
+
+        </section><!-- /.content -->
+        <!-- Modal -->
+        <div class="modal fade bs-example-modal-lg image_manager_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Image Manager</h4>
+                </div>
+                <div class="modal-body">
+                  <div image-manager class="image_manager" style="height:500px;overflow-x: hidden;overflow-y: auto;">
+                      
+                  </div>    
+                </div>                
+            </div>
+          </div>
+        </div>
+        <!-- End  modal -->

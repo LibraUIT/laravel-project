@@ -151,10 +151,28 @@
                     loadMyDirectives:function($ocLazyLoad){
                         return $ocLazyLoad.load(
                         {
-                            name:'hotel_facilties',
+                            name:'category',
                             files:[
                             'plugins/iCheck/square/blue.css',
                             'plugins/iCheck/icheck.min.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
+            // Post Content
+            .state('content.post', {
+                url: '/post',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'post',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js',
+                            'plugins/ckeditor/ckeditor.js'
                             ]
                         })
                     }
