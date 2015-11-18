@@ -165,5 +165,8 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/content/edit_category', [
             'as' => 'edit_category','uses' => 'ContentController@editCategory'
         ]);
+        Route::post('/api/content/add_post', [
+            'as' => 'add_post','uses' => 'ContentController@addPost'
+        ]);
     });
 });

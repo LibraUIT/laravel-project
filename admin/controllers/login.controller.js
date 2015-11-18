@@ -59,7 +59,8 @@ laravelAdminApp.controller("LoginController", function($scope, $rootScope, $time
 	            		vm.login_fail = 'Email or password not match !';
 	            	}else
 	            	{
-	            		$state.go('dashboard', {});
+	            		localStorage.setItem("usrloinid", vm.email ) 
+                        $state.go('dashboard', {});
 	            	}	            	
 	            }, 3000);
 

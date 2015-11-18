@@ -16,7 +16,7 @@
  var urlBase    = 'http://localhost/lar5';
  var urlBaseApi = [urlBase, 'api'].join('/');
  var folder , $modal, $viewImage, $elementId;
- var quan;
+ var quan ;
  localStorage.setItem("selectImage", "");
  
  /**

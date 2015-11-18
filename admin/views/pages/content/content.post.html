@@ -15,7 +15,7 @@
                       <i class="fa fa-refresh fa-spin"></i>
                    </div>
                    <div ng-if="success == 1"  alert-success ></div>
-                   <form id="form" ng-if="showCreatePost != 1">
+                   <form id="form" ng-submit="submitPostContent()" ng-if="showCreatePost != 1">
                       <div class="row margin-bottomp-10px">
                         <span class="col-sm-2"><b>Title</b></span>
                         <div class="col-sm-10">
@@ -25,27 +25,17 @@
                       <div class="row margin-bottomp-10px">
                         <span class="col-sm-2"><b>Category</b></span>
                         <div class="col-sm-4">
-                          <select class="form-control" name="parent" 
+                          <select class="form-control" name="category" 
                           ng-options="option.name for option in parent_category.availableOptions track by option.id"
                           ng-model="parent_category.selectedOption">
                           </select>
-                        </div>
-                      </div>
-                      <div class="row margin-bottomp-10px">
-                        <span class="col-sm-2"><b>Status</b></span>
-                        <div class="col-sm-10">
-                          <div class="checkbox icheck">
-                                    <label>
-                                      <input icheck ng-model="form.status" name="status" type="checkbox"> Active
-                                    </label>
-                                  </div>
                         </div>
                       </div>
 
                       <div class="row margin-bottomp-10px">
                         <span class="col-sm-2"><b>Content</b></span>
                         <div class="col-sm-10">
-                          <textarea name="form_content" rows="10" class="form-control" ></textarea>
+                          <textarea name="form_content" rows="10" class="form-control" required ></textarea>
                         </div>
                       </div>
 
@@ -56,6 +46,16 @@
                         </div>
                       </div>
                       
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Status</b></span>
+                        <div class="col-sm-10">
+                          <div class="checkbox icheck">
+                                    <label>
+                                      <input icheck ng-model="form.status" name="status" type="checkbox"> Active
+                                    </label>
+                                  </div>
+                        </div>
+                      </div>
 
                       <div class="row margin-bottomp-10px">
                           <div class="col-sm-2"></div>

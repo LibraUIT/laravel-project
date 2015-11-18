@@ -67,6 +67,15 @@ laravelAdminApp.factory('ContentServices', ['$http', function ($http) {
           });
     };
 
+    ContentServices.addPost = function (input) {
+        var params = [urlBaseApi, 'content', 'add_post'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
 
     return ContentServices;
 

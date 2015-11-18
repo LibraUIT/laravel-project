@@ -148,7 +148,7 @@ laravelAdminApp.controller("ContentCategoryController", function($scope, $rootSc
 */
 laravelAdminApp.controller("ContentPostController", function($scope, $rootScope, $timeout, ContentServices) {
     applyEditor()
-    var $modal = $('.modal') 
+    $modal = $('.modal') 
     folder = 'post'
     $scope.showCreatePost = 0
     $scope.form = {
@@ -170,6 +170,22 @@ laravelAdminApp.controller("ContentPostController", function($scope, $rootScope,
     {
         $modal.modal('show')
         $viewImage = input
+    }
+
+    $scope.submitPostContent = function()
+    {
+        var datatype = $('.save').attr('datatype');
+        var form_string = $("#form" ).serialize();
+        $scope.refresh = 1
+        switch(datatype)
+        {
+            case "new":
+                form_string = 'user=' + localStorage.getItem("usrloinid") + '&' + form_string
+                ContentServices.addPost(form_string).success(function(res){
+                    console.log(res)
+                })
+                break;
+        }
     }
 
     function applyEditor()

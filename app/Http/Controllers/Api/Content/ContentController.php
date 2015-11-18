@@ -119,4 +119,33 @@ class ContentController extends Controller
         }
         return response()->json($output);
     }
+
+    // add new post
+    public function addPost()
+    {
+        $request_body = file_get_contents('php://input');
+        $params = explode('&', $request_body);
+        $data = array();
+        $output = array(
+                'status' => 'NO'
+        );
+        if(count($params) > 4)
+        {
+            $data['author']          = urldecode( explode('=', $params[0])[1] );
+            $data['title']           = urldecode( explode('=', $params[1])[1] );
+            $data['category']        = explode('=', $params[2])[1];
+            if($data['category'] == 'null' || $data['category'] == 'NULL' || $data['category'] == '' )
+            {
+                $data['category'] = NULL;
+            }
+            $data['content']         = urldecode( explode('=', $params[3])[1] );
+            $data['cover']           = urldecode( explode('=', $params[4])[1] );
+            $data['status']         =  ( isset($params[5]) ) ? 1 :  0;
+            $res = Content::addPostContent($data);
+            $output = array(
+                'status' => 'OK'
+            );
+        }
+        return response()->json($data);
+    }
 }

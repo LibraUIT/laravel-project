@@ -82,4 +82,12 @@ class Content extends Model
     {
         return DB::table('categorys')->where('id', $id)->update($data);
     }
+
+    /**
+    * add new post
+    */
+    static public function addPostContent($data)
+    {
+        return DB::table('posts')->insert($data);
+    }
 }
