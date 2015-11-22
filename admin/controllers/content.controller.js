@@ -147,7 +147,8 @@ laravelAdminApp.controller("ContentCategoryController", function($scope, $rootSc
 * Content post controller
 */
 laravelAdminApp.controller("ContentPostController", function($scope, $rootScope, $timeout, ContentServices) {
-    applyEditor()
+    var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
+    getAllPostByPanigation(pagination)
     $modal = $('.modal') 
     folder = 'post'
     $scope.showCreatePost = 0
@@ -166,6 +167,15 @@ laravelAdminApp.controller("ContentPostController", function($scope, $rootScope,
             }
        }
     })
+    $scope.createNewPost = function()
+    {
+        $scope.showCreatePost = 1
+        applyEditor()
+    }
+    $scope.cancelNewPost = function()
+    {
+        $scope.showCreatePost = 0
+    }
     $scope.showModal = function(input)
     {
         $modal.modal('show')
@@ -182,7 +192,15 @@ laravelAdminApp.controller("ContentPostController", function($scope, $rootScope,
             case "new":
                 form_string = 'user=' + localStorage.getItem("usrloinid") + '&' + form_string
                 ContentServices.addPost(form_string).success(function(res){
-                    console.log(res)
+                    if(res.status == 'OK')
+                    {
+                        $scope.success = 1
+                        $scope.refresh = 0
+                        $timeout(function() {
+                            $scope.success = 0
+                            $scope.showCreatePost = 0
+                        }, 2000); 
+                    }
                 })
                 break;
         }
@@ -193,6 +211,22 @@ laravelAdminApp.controller("ContentPostController", function($scope, $rootScope,
         $timeout(function() {
             CKEDITOR.replace('form_content');                  
         }, 0); 
+    }
+
+    // Functions of gallery widget controller
+    function getAllPostByPanigation(pagination)
+    {
+        ContentServices.getAllPostContent(pagination).success(function(res){
+            if(res.data.length > 0)
+            {
+                $scope.posts = res.data;
+                if(res.prev_page_url != null ){ $scope.prev_page_url = res.prev_page_url }
+                if(res.next_page_url != null ){ $scope.next_page_url = res.next_page_url }
+                $scope.last_page     = res.last_page;
+                $scope.current_page  = res.current_page;
+                $scope.total         = Math.ceil(res.total / limit );
+            }
+        });
     }
     
 });

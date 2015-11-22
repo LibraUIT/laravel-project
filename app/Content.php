@@ -90,4 +90,32 @@ class Content extends Model
     {
         return DB::table('posts')->insert($data);
     }
+
+    /**
+    * delete post by id
+    */
+    static public function deletePostById($id)
+    {
+        DB::table('posts')->where('id', $id)->delete();
+        return TRUE;
+    }
+
+    /**
+    * edit post by id
+    */
+
+    static public function editPostById($data, $id)
+    {
+        return DB::table('posts')->where('id', $id)->update($data);
+    }
+
+    /**
+    * get all post
+    */
+
+    static public function getAllPost($limit = 1)
+    {
+        $posts = DB::table('posts')->orderBy('id', 'desc')->paginate($limit);      
+        return $posts->toJson();
+    }
 }

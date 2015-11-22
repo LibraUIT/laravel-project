@@ -148,4 +148,29 @@ class ContentController extends Controller
         }
         return response()->json($data);
     }
+
+    // delete post by id
+    public function deletePostById()
+    {
+        $request_body = file_get_contents('php://input');
+        $postId = (int) $request_body;
+        $output = array(
+                'status' => 'No'
+            );
+        $res = Content::deletePostById($postId);
+        if($res == TRUE)
+        {
+            $output = array(
+                'status' => 'OK'
+            );
+        }
+        return response()->json($output);
+    }
+
+    // Get all post content pagination
+    public function getAllPostContent()
+    {
+        $limit = $_GET['limit'];
+        return Content::getAllPost($limit);
+    }
 }

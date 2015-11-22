@@ -339,7 +339,17 @@
                                $('#'+$elementId).parent().parent().remove();
                             }
                         })
-                        break;            
+                        break;
+                    case "post":
+                        var postId = parseInt(elements[1]);
+                        ContentServices.deletePostById(postId).success(function(res){
+                            $isNotVisible();
+                            if(res.status == 'OK')
+                            {
+                               $('#'+$elementId).parent().parent().remove();
+                            }
+                        })
+                        break;                
                 }
             }
             $scope.confirmNo = function()

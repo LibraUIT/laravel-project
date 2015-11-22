@@ -76,6 +76,24 @@ laravelAdminApp.factory('ContentServices', ['$http', function ($http) {
           });
     };
 
+    ContentServices.getAllPostContent = function (input) {
+        var params = [urlBaseApi, 'content', 'get_all_post_content', input ].join('/')
+        return $http({
+            method: 'GET',
+            url: params,
+            data: {}
+          });
+    };
+
+    ContentServices.deletePostById = function (input) {
+        var params = [urlBaseApi, 'content', 'delete_post_by_id'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    };
+
 
     return ContentServices;
 
