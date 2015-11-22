@@ -93,6 +93,25 @@ laravelAdminApp.factory('ContentServices', ['$http', function ($http) {
             data: input
           });
     };
+    ContentServices.getPostById = function (input)
+    {
+        var params = [urlBaseApi, 'content', 'get_post_by_id'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    }
+
+    ContentServices.editPost = function(input)
+    {
+        var params = [urlBaseApi, 'content', 'edit_post'].join('/')
+        return $http({
+            method: 'POST',
+            url: params,
+            data: input
+          });
+    }
 
 
     return ContentServices;

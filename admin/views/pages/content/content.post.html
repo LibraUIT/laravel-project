@@ -35,14 +35,14 @@
                       <div class="row margin-bottomp-10px">
                         <span class="col-sm-2"><b>Content</b></span>
                         <div class="col-sm-10">
-                          <textarea name="form_content" rows="10" class="form-control" required ></textarea>
+                          <textarea ng-model="form.content" name="form_content" rows="10" class="form-control" required ></textarea>
                         </div>
                       </div>
 
                       <div class="row margin-bottomp-10px">
                         <span class="col-sm-2"><b>Cover Image</b></span>
                         <div class="col-sm-10">
-                            <a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:300px;height:150px;cursor: pointer;" src="{{form.image}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="{{form.image}}" style="display:none" type="text" name="image"></a>
+                            <a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:300px;height:150px;cursor: pointer;" src="{{form.cover}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="{{form.cover}}" style="display:none" type="text" name="image"></a>
                         </div>
                       </div>
                       
@@ -85,7 +85,7 @@
                                 <td ng-if="post.status == 0" style="vertical-align: middle;">Disabled</td>
                                 <td ng-if="post.status == 1" style="vertical-align: middle;">Active</td>
                                 <td style="vertical-align: middle;">
-                                  <button id="post-{{key}}" type="button" onclick="angular.element(this).scope().editPost(this)" data-toggle="tooltip" title="" class="btn btn-primary edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
+                                  <button id="post-{{post.id}}" type="button" onclick="angular.element(this).scope().editPost(this)" data-toggle="tooltip" title="" class="btn btn-primary edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
                                   <button id="post-{{post.id}}" type="button" onclick="angular.element(this).scope().showPopup(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
                                 </td>
                               </tr>

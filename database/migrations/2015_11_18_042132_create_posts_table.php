@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->text('cover');
             $table->boolean('status');
-            $table->integer('author');
+            $table->text('author');
             $table->timestamps();
         });
     }

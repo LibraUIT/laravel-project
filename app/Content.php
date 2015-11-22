@@ -118,4 +118,13 @@ class Content extends Model
         $posts = DB::table('posts')->orderBy('id', 'desc')->paginate($limit);      
         return $posts->toJson();
     }
+
+    /**
+    * get post by id
+    */
+    static public function getPostById($id)
+    {
+        return DB::table('posts')->where('id', $id)->first();
+    }
+
 }

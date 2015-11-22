@@ -173,4 +173,54 @@ class ContentController extends Controller
         $limit = $_GET['limit'];
         return Content::getAllPost($limit);
     }
+
+    // get post by id
+    public function getPostById()
+    {
+        $request_body = file_get_contents('php://input');
+        $postId = (int) $request_body;
+        $res = Content::getPostById($postId);
+        $output = array(
+                'status' => 'No'
+            );
+        if($res)
+        {
+            $output = array(
+                'status' => 'OK',
+                'data'   => $res
+            );
+        }
+        return response()->json($output);
+    }
+
+    // update post by id
+    public function editPost()
+    {
+        $request_body = file_get_contents('php://input');
+        $params = explode('&', $request_body);
+        $data = array();
+        $output = array(
+                'status' => 'NO'
+        );
+        if(count($params) > 5)
+        {
+            $postId                 = (int) explode('=', $params[0])[1];
+            //$data['author']          = urldecode( explode('=', $params[1])[1] );
+            $data['title']           = urldecode( explode('=', $params[2])[1] );
+            $data['category']        = explode('=', $params[3])[1];
+            if($data['category'] == 'null' || $data['category'] == 'NULL' || $data['category'] == '' )
+            {
+                $data['category'] = NULL;
+            }
+            $data['content']         = urldecode( explode('=', $params[4])[1] );
+            $data['cover']           = urldecode( explode('=', $params[5])[1] );
+            $data['status']         =  ( isset($params[6]) ) ? 1 :  0;
+            $res = Content::editPostByID($data, $postId);
+        
+            $output = array(
+                'status' => 'OK'
+            );
+        }
+        return response()->json($output);
+    }
 }

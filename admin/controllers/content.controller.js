@@ -59,6 +59,7 @@ laravelAdminApp.controller("ContentCategoryController", function($scope, $rootSc
     categoryList()
     $scope.createNewCategory = function()
     {
+        $('.save').attr('datatype', 'new')
         $scope.showCreateCategory = 1
     }
     $scope.cancelNewCategory = function()
@@ -153,7 +154,7 @@ laravelAdminApp.controller("ContentPostController", function($scope, $rootScope,
     folder = 'post'
     $scope.showCreatePost = 0
     $scope.form = {
-        image : '../storage/app/default/images/image_not_found.jpg'
+        cover : '../storage/app/default/images/image_not_found.jpg'
     }
     ContentServices.getAllCategory().success(function(res){
        if(res.status == 'OK')
@@ -169,12 +170,14 @@ laravelAdminApp.controller("ContentPostController", function($scope, $rootScope,
     })
     $scope.createNewPost = function()
     {
+        $('.save').attr('datatype', 'new')
         $scope.showCreatePost = 1
         applyEditor()
     }
     $scope.cancelNewPost = function()
     {
         $scope.showCreatePost = 0
+        $('.start, .edit').removeAttr('disabled')
     }
     $scope.showModal = function(input)
     {
@@ -199,11 +202,56 @@ laravelAdminApp.controller("ContentPostController", function($scope, $rootScope,
                         $timeout(function() {
                             $scope.success = 0
                             $scope.showCreatePost = 0
-                        }, 2000); 
+                        }, 2000);
+
                     }
                 })
                 break;
+            case 'edit':
+                var form_string = 'id=' + $scope.form.id + '&user=' + localStorage.getItem("usrloinid") + '&' +form_string
+                ContentServices.editPost(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        getAllPostByPanigation(pagination)
+                        $scope.success = 1
+                        $scope.refresh = 0
+                        $timeout(function() {
+                            $scope.success = 0
+                            $scope.showCreatePost = 0
+                            $('.save').attr('datatype', 'new')
+                            $('.start, .edit').removeAttr('disabled')
+                        }, 2000);
+                    }
+                })
+                break;      
         }
+        getAllPostByPanigation(pagination) 
+    }
+
+    $scope.editPost = function(input)
+    {
+        $('.start, .edit').attr('disabled', '')
+        var postId = parseInt( $(input).attr('id').split('-')[1] );
+        ContentServices.getPostById(postId).success(function(res){
+            if(res.status == 'OK')
+            {
+                $scope.showCreatePost = 1
+                $scope.form = res.data
+                $scope.form.content = $scope.form.content.replace('<p>', '');
+                $scope.form.content = $scope.form.content.replace('</p>', '');
+                $scope.parent_category.selectedOption = {id: $scope.form.category, name: 'Select Parent Category'}
+                $timeout(function() {
+                        $('.save').attr('datatype', 'edit')
+                        if($scope.form.status == 1)
+                        {
+                            $('input[type=checkbox]').iCheck('check');
+                        }else
+                        {
+                            $('input[type=checkbox]').iCheck('uncheck');
+                        }
+                    }, 0); 
+            }
+        })
     }
 
     function applyEditor()

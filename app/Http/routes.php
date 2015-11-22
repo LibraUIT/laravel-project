@@ -174,5 +174,11 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/content/delete_post_by_id', [
             'as' => 'delete_post_by_id','uses' => 'ContentController@deletePostById'
         ]);
+        Route::post('/api/content/get_post_by_id', [
+            'as' => 'get_post_by_id','uses' => 'ContentController@getPostById'
+        ]);
+        Route::post('/api/content/edit_post', [
+            'as' => 'edit_post','uses' => 'ContentController@editPost'
+        ]);
     });
 });
