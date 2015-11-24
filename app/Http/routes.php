@@ -50,6 +50,10 @@ Route::get('/404', [
 	'as' => '404','uses' => 'PagesController@page_404'
 ]);
 
+Route::get('/news', [
+    'as' => 'news','uses' => 'PagesController@page_news'
+]);
+
 Route::group(['namespace' => 'Api'], function()
 {
     // Controllers Within The "App\Http\Controllers\Api" Namespace

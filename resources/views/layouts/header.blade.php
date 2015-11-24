@@ -58,7 +58,7 @@
                                           <li role="presentation"><a role="menuitem" tabindex="-1" href="{{$page_404_url}}">404 Page</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="blog.html">News</a></li>
+                                    <li @if(session('active_menu') == 'news') class="active_menu" @endif ><a href="{{$news_url}}">News</a></li>
                                     <li @if(session('active_menu') == 'contact') class="active_menu" @endif ><a href="{{$contact_url}}">Contacts</a></li>
                                   </ul>
                                   <div class="emergency_number">

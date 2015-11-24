@@ -72,4 +72,15 @@ class PagesController extends Controller
 		Request::session()->put('active_menu', '404');
         return view('pages.404', $this->data);
 	}
+
+	/**
+	* Show the news template
+	*/
+	public function page_news()
+	{
+		$this->data['heading_title'] = $this->config['site_name'].' | News';
+		Request::session()->put('active_menu', 'news');
+		$this->data['modules'][] = app('App\Http\Controllers\ModulesController')->news($visible = 1);
+        return view('pages.news', $this->data);
+	}
 }

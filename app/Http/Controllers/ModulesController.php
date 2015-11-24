@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Layout;
 use App\Widget;
+use App\Content;
 use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -314,6 +315,15 @@ class ModulesController extends Controller
     public function pswp()
     {
         return view('modules.pswp');
+    }
+
+    /**
+    * Show the news module
+    */
+    public function news($visible = 0)
+    {
+        $data['posts'] = json_decode( Content::getAllPost(10) );
+        return view('modules.news', $data);
     }
 
 }

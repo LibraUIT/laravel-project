@@ -48,6 +48,7 @@ class CommonController extends Controller
         $data['about_url'] = action('PagesController@about');
         $data['page_404_url'] = action('PagesController@page_404');
         $data['gallery_url'] = action('PagesController@gallery');
+        $data['news_url'] = action('PagesController@page_news');
         return view('layouts.header', $data);
     }
 
