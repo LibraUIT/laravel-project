@@ -115,7 +115,10 @@ class Content extends Model
 
     static public function getAllPost($limit = 1)
     {
-        $posts = DB::table('posts')->orderBy('id', 'desc')->paginate($limit);      
+        $posts = DB::table('posts')
+        ->join('users', 'users.email', '=', 'posts.author')
+        ->select('posts.*', 'users.name')
+        ->orderBy('id', 'desc')->paginate($limit);      
         return $posts->toJson();
     }
 

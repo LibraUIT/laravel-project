@@ -35,4 +35,36 @@
 		@endif		
 	</div>
 	@endif
+	<div class="row">
+		<div class="col-sm-8 no-padding">
+			@if(count($posts->data) > 0)
+			@foreach($posts->data as $post)
+				<div class="newsBlock">
+					<div class="newsBlock-Title">
+						<a href="">{{$post->title}}</a>
+					</div>
+					<div class="newsBlock-Detail">
+						<div class="newsBlock-Detail-top">
+							<span>By <a href=""><b>{{$post->name}}</b></a> at <a href="#">{{\Carbon\Carbon::createFromTimeStamp(strtotime($post->updated_at))->diffForHumans()}}</a>  </span>
+						</div>
+						<div class="newsBlock-Detail-content">
+							<a href="">
+							<img class="newsBlock-image" src="{{URL::to('/').str_replace('..', '',$post->cover)}}">
+							</a>
+						</div>
+						<div class="newsBlock-text">
+							<div align="left">
+								{{$post->content}}
+							</div>
+						</div>
+					</div>
+				</div>
+			@endforeach		
+			@endif
+		</div>
+		<div class="col-sm-4">
+			
+		</div>
+	</div>
+
 </div>	

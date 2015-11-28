@@ -2035,4 +2035,72 @@ section.content
 .no-padding{
 	padding: 0 !important;
 }
+.newsBlock
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #dcdcdc;
+}
+.newsBlock-Title
+{
+	background: #F1F1EC;
+    border-color: #dcdcdc;
+    border-image: none;
+    border-style: none none solid;
+    -webkit-border-top-left-radius: 2px;
+    -moz-border-radius-topleft: 2px;
+    -khtml-border-top-left-radius: 2px;
+    border-top-left-radius: 2px;
+    -webkit-border-top-right-radius: 2px;
+    -moz-border-radius-topright: 2px;
+    -khtml-border-top-right-radius: 2px;
+    border-top-right-radius: 2px;
+    border-width: 0 0 1px;
+    color: #666;
+    font-size: 16px;
+    margin: 0 0px 15px;
+    padding: 10px 15px;
+}
+.newsBlock-Title a
+{
+	font-size: 24px;
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    color: #333;
+}
+.newsBlock-Title a:hover
+{
+	text-decoration: underline;
+}
+.newsBlock-Detail
+{
+	font-size: 15px;
+    line-height: 1.4;
+    width: 96%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+.newsBlock-image
+{
+	max-width: 100%;
+}
+.newsBlock-Detail-top
+{
+	margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #d7edfc;
+}
+.newsBlock-text
+{
+	color: #333;
+}
+.newsBlock-Detail-top
+{
+	color: #333;
+}
+.newsBlock-Detail-top a
+{
+	color: rgb(23,96,147);
+}
+
 
