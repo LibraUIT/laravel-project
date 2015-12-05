@@ -98,7 +98,9 @@
         <!--[if lte IE 8]>
             <script type="text/javascript" src="js/ie-opacity-polyfill.js"></script>
         <![endif]-->
-
+        <!-- React js -->
+        <script src="{{ asset('public/js/reactjs/react.js')}}"></script>
+        <script src="{{ asset('public/js/reactjs/react-dom.js')}}"></script>
         <!-- my js -->
         <script src="{{ asset('public/js/main.js')}}"></script>
         <script src="{{ asset('public/js/pinterest.js')}}"></script>
