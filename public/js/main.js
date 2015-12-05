@@ -1,7 +1,6 @@
 (function ($) {
 	"use strict";
 
-
 jQuery(document).ready(function($){
 	
 	// showcase slider
