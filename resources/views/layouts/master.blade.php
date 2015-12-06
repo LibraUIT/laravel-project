@@ -19,7 +19,7 @@
 
         <!-- fontawesome -->
 		<link rel="stylesheet" href="{{ asset('public/css/font-awesome.css') }}" />
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- bootstrap -->
 		<link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css')}}" />
 

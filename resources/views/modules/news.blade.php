@@ -62,8 +62,23 @@
 			@endforeach		
 			@endif
 		</div>
-		<div class="col-sm-4">
-			
+		<div class="col-sm-4 no-padding-right">
+			<div class="adBlock">
+					<h3>advertisement</h3>
+			</div>
+			<div class="categoryBlock">
+				<div class="newsBlock-Title">
+						<h5>Categories</h5>
+				</div class="newsBlock-Detail">
+					<ul class="news-categories-list">
+						@foreach($categories as $k => $v)
+						<li class="news-categories-item"><a href="#" id="news-categorie-{{$v->id}}"><i class="fa fa-folder-o"></i> {{$v->name}}</a></li>
+						@endforeach
+					</ul>
+				<div>
+					
+				</div>
+			</div>
 		</div>
 	</div>
 
