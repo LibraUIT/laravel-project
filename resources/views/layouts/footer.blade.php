@@ -1,3 +1,8 @@
+        <!-- Scroll To Top -->
+        <!-- https://codyhouse.co/gem/back-to-top/ -->
+        <a href="#0" class="cd-top">Top</a>
+        <script src="{{ asset('public/js/scroll-to-top.js')}}"></script>
+        <!-- End Scroll To Top -->
         <!-- start footer -->
         <footer class="footer_area">
             <div class="container">

@@ -19,7 +19,7 @@
 
         <!-- fontawesome -->
 		<link rel="stylesheet" href="{{ asset('public/css/font-awesome.css') }}" />
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- bootstrap -->
 		<link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css')}}" />
 
@@ -99,8 +99,8 @@
             <script type="text/javascript" src="js/ie-opacity-polyfill.js"></script>
         <![endif]-->
         <!-- React js -->
-        <script src="{{ asset('public/js/reactjs/react.js')}}"></script>
-        <script src="{{ asset('public/js/reactjs/react-dom.js')}}"></script>
+        <script src="{{ asset('public/reactjs/react.js')}}"></script>
+        <script src="{{ asset('public/reactjs/react-dom.js')}}"></script>
         <!-- my js -->
         <script src="{{ asset('public/js/main.js')}}"></script>
         <script src="{{ asset('public/js/pinterest.js')}}"></script>

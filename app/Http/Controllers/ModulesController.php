@@ -322,6 +322,7 @@ class ModulesController extends Controller
     */
     public function news($visible = 0)
     {
+        $data['categories'] = Content::getAllCategory();
         $data['posts'] = json_decode( Content::getAllPost(10) );
         return view('modules.news', $data);
     }
