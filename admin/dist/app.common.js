@@ -16,6 +16,7 @@
  var urlBase    = 'http://localhost/lar5';
  var urlBaseApi = [urlBase, 'api'].join('/');
  var folder , $modal, $viewImage, $elementId;
+ var quan ;
  localStorage.setItem("selectImage", "");
  
  /**
@@ -25,17 +26,24 @@
  		'oc.lazyLoad',
  		'ui.router',
         'ngRoute',
-        'datatables'
- ]).config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider', function($stateProvider,$urlRouterProvider,$ocLazyLoadProvider){
+        'datatables',
+        'satellizer',
+        'ngMessages'
+ ]).config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $authProvider){
+    
+    /**
+    * config authenticate api
+    */
+    $authProvider.loginUrl = urlBase + '/api/authenticate';
 
- 	$ocLazyLoadProvider.config({
-      debug:true,
+    $ocLazyLoadProvider.config({
+      debug:false,
       events:true,
     });
  	/**
  	* Default route for laravelAdminApp
  	*/
- 	$urlRouterProvider.otherwise('/dashboard');
+ 	$urlRouterProvider.otherwise('/login');
 
  	$stateProvider
 
@@ -112,6 +120,67 @@
                 url: '/gallery'
             })
 
+            // Hotel Facilties widget
+            .state('widgets.hotel_facilties', {
+                url: '/hotel_facilties',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'hotel_facilties',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
+        // Content
+        .state('content', {
+            url: '/content',
+            templateUrl: 'views/layout/main.html',
+            controller: 'ContentController'
+        })
+
+            // Category Content
+            .state('content.category', {
+                url: '/category',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'category',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
+            // Post Content
+            .state('content.post', {
+                url: '/post',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'post',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js',
+                            'plugins/ckeditor/ckeditor.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
+            
+
         // File manager
         .state('file_manager', {
             url: '/file_manager',
@@ -171,3 +240,39 @@ function FileManager($scope)
         $modal.modal('hide');
     }
 }
+
+
+// Validate Email function
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
+
+// Scroll to top
+function scrollToTop()
+{
+    $("html, body").animate({
+        scrollTop: 0
+    }, 600);
+}
+
+
+function checkIssetRow()
+    {
+        var countItem = $('.rowitem').length;
+        if(countItem > 1)
+        {
+            $('.save').removeAttr('disabled')
+        }else
+        {
+            $('.save').attr('disabled', '')
+        }
+    }
+// Clear console after 5s    
+function clearConsole()
+{
+    console.clear();
+    setTimeout(function(){ console.clear(); }, 5000);
+} 
+//clearConsole();   
+

@@ -10,7 +10,7 @@
                             <i class="fa fa-plus"></i>
                             <span>Create New</span>
                         </button>
-                        <button disabled type="button" class="btn btn-primary save" ng-click="saveNewGallery()">
+                        <button disabled datatype="new" type="button" class="btn btn-primary save" ng-click="saveNewGallery()">
                             <i class="fa fa-floppy-o"></i>
                             <span>Save changes</span>
                         </button>                      
@@ -30,11 +30,11 @@
                         </table>
                     </form>
                     
-                    <table class="row-border hover table table-bordered">
+                    <table ng-if="gallerys" class="row-border hover table table-bordered">
                         <thead>
                           <tr>
                               <th>Title</th>
-                              <th style="width: 130px">Image</th>
+                              <th style="width: 130px;text-align:center">Image</th>
                               <th style="width: 50px"></th>
                           </tr>
                         </thead>
@@ -42,7 +42,7 @@
                           <tr ng-repeat="(key, gallery) in gallerys  | orderBy: '-id' " >
                               <td style="vertical-align: middle;">{{gallery.title}}</td>
                               <td style="vertical-align: middle;">
-                                  <a onclick="angular.element(this).scope().editGallery(this)" id="gallery-{{gallery.id}}" data-toggle="image" class="img-thumbnail" data-original-title="" title="">
+                                  <a onclick="angular.element(this).scope().editGallery(this)" id="gallery-{{gallery.id}}" data-toggle="tooltip" class="img-thumbnail" data-original-title="Edit" gallery-title="{{gallery.title}}">
                                   <img style="width:100px;height:100px;cursor: pointer;" src="{{gallery.image}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg">
                                   </a>
                               </td>
@@ -53,8 +53,10 @@
                         </tbody>
                     </table>             
                 </div><!-- /.box-body -->
-                <div class="box-footer clearfix">
+                <div ng-if="gallerys" class="box-footer clearfix">
                   <!-- Pagination -->
+                  <div class="row">
+                  <div class="col-sm-3">
                   <ul class="pagination pagination-sm no-margin pull-left">
                     <li>
                         <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="prev_page_url" data-ng-class="{'disabled': !prev_page_url}" data ="{{prev_page_url}}" href="#">«</a>
@@ -84,6 +86,12 @@
                         <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="next_page_url" data-ng-class="{'disabled': !next_page_url}" data = "{{next_page_url}}" href="#">»</a>
                     </li>
                   </ul>
+                  </div>
+                  <div class="col-sm-3" style="padding-top: 7px;">
+                    Page <b>{{current_page}}</b> of <b>{{total}}</b>
+                  </div>
+                  </div>
+
                   <!-- End pagination -->
                 </div>
               </div><!-- /.box -->

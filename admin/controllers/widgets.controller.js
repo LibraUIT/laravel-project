@@ -25,14 +25,21 @@ laravelAdminApp.controller("WidgetsController", function($scope, $rootScope, $ti
                 name: 'widgets.main_slider.html',
                 url: 'views/pages/widgets/widgets.main_slider.html'};
                 $scope.breacum_active = 'Main slider'
-    	break;
+    	        break;
 
         case 'gallery':
                 $scope.subtemplate = {
                 name: 'widgets.gallery.html',
                 url: 'views/pages/widgets/widgets.gallery.html'};
                 $scope.breacum_active = 'Gallery'
-        break;
+                break;
+
+        case 'hotel_facilties':
+                $scope.subtemplate = {
+                name: 'widgets.hotel_facilties.html',
+                url: 'views/pages/widgets/widgets.hotel_facilties.html'};
+                $scope.breacum_active = 'Hotel facilties'
+                break;
 
     }
                  
@@ -93,6 +100,7 @@ laravelAdminApp.controller("MainSliderWidgetController", function($scope, $rootS
                        $scope.success = 0
                     }, 2000);
             }
+            scrollToTop(); 
         });
     }
     WidgetsServices.getMainSlider().success(function(res){
@@ -111,6 +119,7 @@ laravelAdminApp.controller("MainSliderWidgetController", function($scope, $rootS
 * Gallery widget controller
 */
 laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScope, $timeout ,WidgetsServices, DTOptionsBuilder, DTColumnBuilder , DTColumnDefBuilder ) {
+    var galleryId, galleryImg, galleryTitle;
     $modal = $('.image_manager_modal')
     folder = 'gallery'
     var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
@@ -140,6 +149,14 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
     {
         $(input).parent().parent().remove();
         checkIssetRow();
+        var datatype = $('.save').attr('datatype');
+        switch(datatype)
+        {
+            case "edit":
+                $('.start').removeAttr('disabled');
+                $('.save').attr('datatype', 'new');
+                break;
+        }
     }
     $scope.showModal = function(input)
     {
@@ -150,18 +167,68 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
     {
         $scope.refresh = 1
         var form_string = $("#form" ).serialize();
-        WidgetsServices.addGallery(form_string).success(function(res){
-            if(res.status == 'OK')
-            {
-                $scope.refresh = 0
-                $scope.success = 1
-                $(".rowitem2").remove()
-                $timeout(function() {
-                    $scope.success = 0
-                    getAllGalleryByPanigation(pagination);
-                }, 2000);  
-            }
-        });
+        var datatype = $('.save').attr('datatype');
+        switch(datatype)
+        {
+            case "new":
+                WidgetsServices.addGallery(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.refresh = 0
+                        $scope.success = 1
+                        $(".rowitem2").remove()
+                        $timeout(function() {
+                            $scope.success = 0
+                            $('.save').attr('disabled', '');
+                            $('.start').removeAttr('disabled');
+                            getAllGalleryByPanigation(pagination);
+                        }, 2000);  
+                    }
+                    scrollToTop(); 
+                });
+                break;
+            case "edit":
+                form_string = form_string + '&id=' + galleryId;
+                WidgetsServices.editGallery(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.refresh = 0
+                        $scope.success = 1
+                        $(".rowitem2").remove()
+                        $timeout(function() {
+                            $scope.success = 0
+                            $('.start').removeAttr('disabled');
+                            $('.save').attr('disabled', '');
+                            $('.save').attr('datatype', 'new');
+                            getAllGalleryByPanigation(pagination);
+                        }, 2000); 
+                        
+                    }
+                    scrollToTop(); 
+                });
+                break;    
+        }
+        
+    }
+
+    $scope.editGallery = function(input)
+    {
+        var datatype = $('.save').attr('datatype');
+        if(datatype == 'new')
+        {
+            galleryId = parseInt( $(input).attr('id').split('-')[1] );
+            galleryImg = $(input).find('img').attr('src');
+            galleryTitle = $(input).attr('gallery-title');
+            $(rowHTML(0, galleryTitle, '', galleryImg )).insertAfter( $(".rowitem").last());
+            checkIssetRow();
+            $('.save').attr('datatype', 'edit');
+            $('.start').attr('disabled', '');
+            scrollToTop();
+        }else
+        {
+            event.preventDefault();
+        }
+        
     }
 
     $scope.goToPage = function(input)
@@ -170,6 +237,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
         var p = $(input).attr('data');
         pagination = '?limit=' + limit +'&page=' + p;
         getAllGalleryByPanigation(pagination);
+        scrollToTop(); 
     }
     $scope.nextOrPrev =  function(input)
     {
@@ -177,6 +245,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
         var p = $(input).attr('data').split('=');
         pagination = '?limit=' + limit +'&page=' + parseInt(p[1]);
         getAllGalleryByPanigation(pagination);
+        scrollToTop(); 
     }
     
     // Functions of gallery widget controller
@@ -190,7 +259,7 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
                 if(res.next_page_url != null ){ $scope.next_page_url = res.next_page_url }
                 $scope.last_page     = res.last_page;
                 $scope.current_page  = res.current_page;
-                $scope.total         = Math.floor(res.total / limit );
+                $scope.total         = Math.ceil(res.total / limit );
             }
         });
     }
@@ -206,3 +275,207 @@ laravelAdminApp.controller("GalleryWidgetController", function($scope, $rootScop
         }
     }
 });
+
+/**
+* Hotel facilties widget controller
+*/
+laravelAdminApp.controller("HotelFaciltiesWidgetController", function($scope, $rootScope, $timeout ,WidgetsServices ) {
+    var resultHTML = '', rowId = 1;
+    $modal = $('.image_manager_modal')
+    folder = 'facilties'
+    $scope.createNewFaciltie = 0;
+    var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
+    getAllHotelFaciltiesByPanigation(pagination)
+    $scope.background = {
+        background : ''
+    }
+    getBackgroundHotelFacilties()
+    $scope.createNewFacilties = function()
+    {
+        $scope.form = {
+        name : '',
+        icon : '../storage/app/default/images/image_not_found.jpg',
+        image : '../storage/app/default/images/image_not_found.jpg',
+        big_heading : '',
+        small_heading : '',
+        description : '',
+        start : '19:00',
+        end : '22:00',
+        charge : 15,
+        status : 0
+    }
+        $('#submit').attr('datatype', 'save');
+        $scope.createNewFaciltie = 1;
+        $scope.error   = 0;
+        $scope.success = 0
+        scrollToTop();
+        console.clear();
+    }
+    $scope.cancelNewFacilties = function()
+    {
+        $('#submit').attr('datatype', 'save');
+        $('.edit, .start').removeAttr('disabled');
+        $scope.createNewFaciltie = 0;
+        $scope.error   = 0;
+        $scope.success = 0
+        scrollToTop();
+    }
+
+    $scope.showModal = function(input)
+    {
+        $modal.modal('show')
+        $viewImage = input
+    }
+
+    $scope.submitFacilties = function()
+    {
+        var datatype = $('#submit').attr('datatype');
+        var form_string = $("#form" ).serialize();
+        $scope.refresh = 1
+        switch(datatype)
+        {
+            case 'save':
+                WidgetsServices.addHotelFacilties(form_string).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.refresh = 0
+                        $scope.success = 1
+                        $timeout(function() {
+                            $scope.success = 0
+                            getAllHotelFaciltiesByPanigation(pagination)
+                            $scope.createNewFaciltie = 0;
+                        }, 2000); 
+                    }else
+                    {
+                        $scope.refresh = 0
+                        $scope.error   = 1
+                        
+                    }
+                    scrollToTop();
+                });
+            break;
+
+            case 'edit':
+                var hotel_faciltie_id = $scope.form.id;
+                WidgetsServices.editHotelFacilties(form_string, hotel_faciltie_id).success(function(res){
+                    if(res.status == 'OK')
+                    {
+                        $scope.refresh = 0
+                        $scope.success = 1
+                        $timeout(function() {
+                            $scope.success = 0
+                            $scope.error = 0
+                            getAllHotelFaciltiesByPanigation(pagination)
+                         
+                        }, 2000); 
+                        
+                    }else
+                    {
+                        $scope.refresh = 0
+                        $scope.error   = 1
+                        $scope.success = 0
+                        
+                    }
+                    scrollToTop();
+                });
+            break;
+        }
+        
+    }
+
+    $scope.editHotelFacilties = function(input)
+    {
+        $('.edit, .start').attr('disabled', '');
+        var hotelFaciltiesKey = parseInt( $(input).attr('id').split('-')[1] );
+        $scope.$apply(function() {
+            var hotel_faciltie = $scope.hotel_facilties[hotelFaciltiesKey];
+            $scope.form = hotel_faciltie;
+            $scope.createNewFaciltie = 1;
+            $timeout(function() {
+                $('#submit').attr('datatype', 'edit');
+                if($scope.form.status == 1)
+                {
+                    $('input[type=checkbox]').iCheck('check');
+                }else
+                {
+                    $('input[type=checkbox]').iCheck('uncheck');
+                }
+            }, 0);   
+        });
+        scrollToTop();
+    }
+
+    
+
+    $scope.goToPage = function(input)
+    {   
+        event.preventDefault();
+        var p = $(input).attr('data');
+        pagination = '?limit=' + limit +'&page=' + p;
+        getAllHotelFaciltiesByPanigation(pagination);
+        scrollToTop(); 
+    }
+    $scope.nextOrPrev =  function(input)
+    {
+        event.preventDefault();
+        var p = $(input).attr('data').split('=');
+        pagination = '?limit=' + limit +'&page=' + parseInt(p[1]);
+        getAllHotelFaciltiesByPanigation(pagination);
+        scrollToTop(); 
+    }
+
+    $scope.submitBackground = function()
+    {
+        var form_string = $("#background" ).serialize();
+        WidgetsServices.addBackgroundHotelFacilties(form_string).success(function(res){
+            if(res.status == 'OK')
+            {
+                $scope.error1 = 0
+                $scope.success1 = 1
+                $timeout(function() {
+                    $scope.success1 = 0
+                    $scope.error1 = 0
+                }, 2000); 
+            }else
+            {
+                $scope.success1 = 0
+                $scope.error1 = 1
+            }
+        })
+    }
+
+    // Function get all hotel facilties
+    function getAllHotelFaciltiesByPanigation(pagination)
+    {
+        WidgetsServices.getAllHotelFacilties(pagination).success(function(res){
+            if(res.data.length > 0)
+            {
+                $scope.hotel_facilties = res.data;
+                if(res.prev_page_url != null ){ $scope.prev_page_url = res.prev_page_url }
+                if(res.next_page_url != null ){ $scope.next_page_url = res.next_page_url }
+                $scope.last_page     = res.last_page;
+                $scope.current_page  = res.current_page;
+                $scope.total         = Math.ceil(res.total / limit );
+                console.clear();
+            }
+        })
+    }
+
+    // Function get background hotel facilties
+    function getBackgroundHotelFacilties()
+    {
+        WidgetsServices.getBackgroundHotelFacilties().success(function(res){
+            if(res.status == 'OK')
+            {
+                $scope.background = {
+                    background : res.data.background
+                }
+                console.clear();
+            }
+        })
+    }
+    
+});
+
+
+

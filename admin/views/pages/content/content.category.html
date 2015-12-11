@@ -1,0 +1,107 @@
+        <!-- Main content -->
+        <section  class="content" ng-controller="ContentCategoryController" >
+          <div class="row">
+            <div class="col-md-12">
+              
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                   <button type="button" class="btn btn-success start" ng-click="createNewCategory()">
+                            <i class="fa fa-plus"></i>
+                            <span>Create New</span>
+                   </button>
+                </div>
+                <div class="box-body">
+                   <div ng-if="refresh == 1" class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                   </div>
+                   <div ng-if="success == 1"  alert-success ></div>
+                   <form ng-submit="submitCategory()" id="form" ng-if="showCreateCategory == 1">
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Name</b></span>
+                        <div class="col-sm-10">
+                          <input ng-model = "form.name" type="text" name="name" class="form-control" placeholder="Name" required>
+                        </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Parent</b></span>
+                        <div class="col-sm-4">
+                          <select class="form-control" name="parent" 
+                          ng-options="option.name for option in parent_category.availableOptions track by option.id"
+                          ng-model="parent_category.selectedOption">
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Status</b></span>
+                        <div class="col-sm-10">
+                          <div class="checkbox icheck">
+                                    <label>
+                                      <input icheck ng-model="form.status" name="status" type="checkbox"> Active
+                                    </label>
+                                  </div>
+                        </div>
+                      </div>
+
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2"></div>
+                          <div class="col-sm-10">
+                            <input datatype="new" class="btn btn-primary save" type="submit" id="submit" value="Submit" />
+                          <button type="button" class="btn btn-danger" ng-click="cancelNewCategory()">
+                                <span>Cancel</span>
+                            </button>
+                          </div>
+                      </div> 
+                   </form>
+                   <hr>
+                   <table id="table" class="table table-bordered">
+                              <tbody><tr>
+                                <th style="width: 10px">#</th>
+                                <th style="width: 400px">Name</th>
+                                <th style="width: 400px">Parent</th>
+                                <th style="width: 130px">Status</th>
+                                <th style="width: 100px"></th>
+                              </tr>
+                              <tr ng-repeat="(key, category) in categoryList  | orderBy: '-id' ">
+                                <td>{{key+1}}</td>
+                                <td>{{category.name}}</td>
+                                <td>{{category.parent}}</td>
+                                <td ng-if="category.status == 1">Actived</td>
+                                <td ng-if="category.status != 1">Disabled</td>
+                                <td style="vertical-align: middle;">
+                                  <button id="category-{{category.id}}" type="button" onclick="angular.element(this).scope().editCategory(this)" data-toggle="tooltip" title="" class="btn btn-primary edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
+                                  <button id="category-{{category.id}}" type="button" onclick="angular.element(this).scope().showPopup(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                              </tr>
+                            
+                            </tbody>
+                    </table>
+                    <hr> 
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+              
+            </div><!-- /.col (RIGHT) -->
+          
+
+        </section><!-- /.content -->
+
+
+        <!-- Modal -->
+        <div class="modal fade bs-example-modal-lg image_manager_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Image Manager</h4>
+                </div>
+                <div class="modal-body">
+                  <div image-manager class="image_manager" style="height:500px;overflow-x: hidden;overflow-y: auto;">
+                      
+                  </div>    
+                </div>                
+            </div>
+          </div>
+        </div>
+        <!-- End  modal -->
+        <!-- Cd popup -->
+        <div cd-popup></div>

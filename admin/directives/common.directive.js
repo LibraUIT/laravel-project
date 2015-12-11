@@ -19,7 +19,7 @@
 	    scope: {},
 	    link: function(scope, element, attrs)
 	    {
-	    	/**
+            /**
 	    	* Toggle control-siderbar-dark function
 	    	*/
 	    	scope.headerSlidebarToggle = function()
@@ -34,6 +34,7 @@
 	    		}
 	    		
 	    	}
+
 	    },
 	    template: 
 	    "<div class=\"wrapper\">"+
@@ -42,13 +43,21 @@
  	}
  })
  // Column Left Menu
- .directive('columnLeft', function($rootScope, $location, $route) {
+ .directive('columnLeft', function($rootScope, $location, $route , $auth, $state) {
     return {
         restrict: 'A',
         transclude: true,
         scope: {},
         link: function(scope, element, attrs)
         {
+            /**
+            * Check isset Authenticate
+            */
+            if($auth.isAuthenticated() != true)
+            {
+                $state.go('login', {});
+            }
+            
             scope.loadView = function(input)
             {
               $rootScope.$apply(function() {
@@ -275,17 +284,18 @@
   };
 })
  // Directive using https://codyhouse.co/gem/simple-confirmation-popup/
- .directive('cdPopup', function(WidgetsServices) {
+ .directive('cdPopup', function(WidgetsServices, ContentServices, $route) {
   return {
     restrict: 'A',
     transclude: true,
         link: function($scope, element, attrs)
         {
-                
+            var $isVisible = function(){ $('.cd-popup').addClass('is-visible'); }    
+            var $isNotVisible = function(){ $('.cd-popup').removeClass('is-visible'); }
             $scope.showPopup = function(input)
             {
                 $elementId = $(input).attr('id');
-                $('.cd-popup').addClass('is-visible');
+                $isVisible();
             }
             
             $scope.confirmYes = function()
@@ -294,18 +304,58 @@
                 var elements = $elementId.split('-');
                 switch(elements[0])
                 {
-                    case "gallery":
+                    case "gallery": // Delete gallery 
                         var galleryId = parseInt(elements[1]);
                         WidgetsServices.deleteGallery(galleryId).success(function(res){
                             console.log(res);
+                            $('#'+$elementId).parent().parent().remove();
+                            $isNotVisible();
                         });
                         break;
+                    case "hotel_faciltie":
+                        var hotel_faciltieId = parseInt(elements[1]);
+                        WidgetsServices.deleteHotelFacilties(hotel_faciltieId).success(function(res){
+                            console.log(res);
+                            $('#'+$elementId).parent().parent().remove();
+                            $isNotVisible();
+                        });
+                        break;
+                    case "remove_background_hotel_facilties":
+                        WidgetsServices.removeBackgroundHotelFacilties().success(function(res){
+                            $isNotVisible();
+                            if(res.status == 'OK')
+                            {
+                               $('#'+$elementId).parent().parent().find('img').attr('src', '../storage/app/default/images/image_not_found.jpg'); 
+                               $('#'+$elementId).parent().parent().find('input[type=text]').attr('value', '');
+                            }
+                        })
+                        break;
+                    case "category":
+                        var categoryId = parseInt(elements[1]);
+                        ContentServices.deleteCategoryById(categoryId).success(function(res){
+                            $isNotVisible();
+                            if(res.status == 'OK')
+                            {
+                               $('#'+$elementId).parent().parent().remove();
+                            }
+                        })
+                        break;
+                    case "post":
+                        var postId = parseInt(elements[1]);
+                        ContentServices.deletePostById(postId).success(function(res){
+                            $isNotVisible();
+                            if(res.status == 'OK')
+                            {
+                               $('#'+$elementId).parent().parent().remove();
+                            }
+                        })
+                        break;                
                 }
             }
             $scope.confirmNo = function()
             {
                 event.preventDefault();
-                $('.cd-popup').removeClass('is-visible');
+                $isNotVisible();
             }
 
             jQuery(document).ready(function($){
@@ -319,13 +369,13 @@
             $('.cd-popup').on('click', function(event){
                 if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
                     event.preventDefault();
-                    $(this).removeClass('is-visible');
+                    $isNotVisible();
                 }
             });
             //close popup when clicking the esc keyboard button
             $(document).keyup(function(event){
                 if(event.which=='27'){
-                    $('.cd-popup').removeClass('is-visible');
+                    $isNotVisible();
                 }
             });
           });

@@ -17,7 +17,7 @@
                                     <span class="icon-bar"></span>
                                   </button>
                                   <div class="site_logo fix">
-                                      <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$home_url}}"><img src="{{asset('public/images/site-logo.png')}}" alt="Trips"></a>
+                                      <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$home_url}}"><img src="{{asset($site_logo)}}" title="{{$site_title}}" alt="{{$site_title}}"></a>
                                       <div class="header_login floatleft">
                                           <ul>
                                               @if(Auth::check())
@@ -45,7 +45,7 @@
                                     </li>-->
                                     <li @if(session('active_menu') == 'home') class="active_menu" @endif ><a href="{{$home_url}}">Home</a></li>        
                                     <li><a href="accomodation.html">Accomodation</a></li>
-                                    <li><a href="gallery.html">Gallery</a></li>
+                                    <li @if(session('active_menu') == 'gallery') class="active_menu" @endif><a href="{{$gallery_url}}">Gallery</a></li>
                                     <li role="presentation" class="dropdown">
                                         <a id="drop2" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                           Features
@@ -58,7 +58,7 @@
                                           <li role="presentation"><a role="menuitem" tabindex="-1" href="{{$page_404_url}}">404 Page</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="blog.html">News</a></li>
+                                    <li @if(session('active_menu') == 'news') class="active_menu" @endif ><a href="{{$news_url}}">News</a></li>
                                     <li @if(session('active_menu') == 'contact') class="active_menu" @endif ><a href="{{$contact_url}}">Contacts</a></li>
                                   </ul>
                                   <div class="emergency_number">

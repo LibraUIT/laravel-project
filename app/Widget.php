@@ -45,6 +45,15 @@ class Widget extends Model
     }
 
     /**
+    * edit gallery
+    */
+
+    static public function editGallery($data, $id)
+    {
+        return DB::table('gallerys')->where('id', $id)->update($data);
+    }
+
+    /**
     * get all gallery
     */
 
@@ -61,6 +70,67 @@ class Widget extends Model
     {
         $gallerys = DB::table('gallerys')->orderBy('id', 'desc')->paginate($limit);      
         return $gallerys;
+    }
+
+    /**
+    * add new hotel facilties
+    */
+
+    static public function addHotelFacilties($input)
+    {
+        return DB::table('hotel_facilties')->insert($input);
+    }
+
+    /**
+    * get all hotel facilties
+    */
+
+    static public function getAllHotelFacilties($limit = 1)
+    {
+        $gallerys = DB::table('hotel_facilties')->orderBy('id', 'desc')->paginate($limit);      
+        return $gallerys->toJson();
+    }
+
+    /**
+    * edit hotel facilties
+    */
+
+    static public function editHotelFacilties($data, $id)
+    {
+        return DB::table('hotel_facilties')->where('id', $id)->update($data);
+    }
+
+    /**
+    * add Background Function
+    */
+    static public function addBackground($code, $background)
+    {
+        DB::table('backgrounds')->where('code', $code)->delete();
+        return DB::table('backgrounds')->insert($background);
+    }
+
+    /**
+    * get Background Function
+    */
+    static public function getBackground($code)
+    {
+        $data = DB::table('backgrounds')->where('code', $code)->first();
+        if(isset($data) )
+        {    
+           return $data;
+        }else
+        {
+            return FALSE;
+        }
+    }
+
+    /**
+    * remove Background Function
+    */
+    static public function removeBackground($code)
+    {
+        DB::table('backgrounds')->where('code', $code)->delete();
+        return TRUE;
     }
 
 }
