@@ -8,6 +8,7 @@ use App\User;
 use App\Layout;
 use App\Widget;
 use App\Content;
+use App\Catalog;
 use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -325,6 +326,16 @@ class ModulesController extends Controller
         $data['categories'] = Content::getAllCategory();
         $data['posts'] = json_decode( Content::getAllPost(10) );
         return view('modules.news', $data);
+    }
+
+    /**
+    * Show the catalog module
+    */
+    public function catalog($visible = 0)
+    {
+        $data['products']       = json_decode( Catalog::getAllProduct(6) );
+        $data['bestsellers']    = json_decode( Catalog::getAllProductBestSeller(6) );
+        return view('modules.catalog', $data);
     }
 
 }

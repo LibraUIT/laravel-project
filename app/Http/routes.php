@@ -14,7 +14,7 @@
 /*Route::get('/', function () {
     return view('welcome');
 });*/
-Route::get('/', [
+Route::get('/home', [
     'as' => 'home', 'uses' => 'HomeController@index'
 ]);
 
@@ -52,6 +52,10 @@ Route::get('/404', [
 
 Route::get('/news', [
     'as' => 'news','uses' => 'PagesController@page_news'
+]);
+
+Route::get('/', [
+    'as' => 'catalog','uses' => 'PagesController@page_catalog'
 ]);
 
 Route::group(['namespace' => 'Api'], function()

@@ -122,6 +122,19 @@ class Catalog extends Model
         return $posts->toJson();
     }
 
+     /**
+    * get all product best seller
+    */
+
+    static public function getAllProductBestSeller($limit = 1)
+    {
+        $posts = DB::table('catalog_products')
+        ->join('users', 'users.email', '=', 'catalog_products.author')
+        ->select('catalog_products.*', 'users.name')
+        ->orderBy('id', 'asc')->paginate($limit);      
+        return $posts->toJson();
+    }
+
     /**
     * get post by id
     */

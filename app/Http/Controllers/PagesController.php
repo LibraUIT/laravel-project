@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Catalog;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 
@@ -49,7 +50,7 @@ class PagesController extends Controller
 	{
 		$this->data['heading_title'] = $this->config['site_name'].' | About Us';
 		Request::session()->put('active_menu', 'about');
-        return view('pages.about', $this->data);
+    return view('pages.about', $this->data);
 	}
 
 	/**
@@ -60,7 +61,7 @@ class PagesController extends Controller
 		$this->data['heading_title'] = $this->config['site_name'].' | Gallery';
 		Request::session()->put('active_menu', 'gallery');
 		$this->data['modules'][] = app('App\Http\Controllers\ModulesController')->pinterest($visible = 1);
-        return view('pages.gallery', $this->data);
+    return view('pages.gallery', $this->data);
 	}
 
 	/**
@@ -70,7 +71,7 @@ class PagesController extends Controller
 	{
 		$this->data['heading_title'] = $this->config['site_name'].' | 404 Page Not Found';
 		Request::session()->put('active_menu', '404');
-        return view('pages.404', $this->data);
+    return view('pages.404', $this->data);
 	}
 
 	/**
@@ -81,6 +82,19 @@ class PagesController extends Controller
 		$this->data['heading_title'] = $this->config['site_name'].' | News';
 		Request::session()->put('active_menu', 'news');
 		$this->data['modules'][] = app('App\Http\Controllers\ModulesController')->news($visible = 1);
-        return view('pages.news', $this->data);
+    return view('pages.news', $this->data);
+	}
+
+	/**
+	* Show the catalog template
+	*/
+	public function page_catalog()
+	{
+		$this->data['categories'] = Catalog::getAllCategory();
+		$this->data['heading_title'] = $this->config['site_name'].' | Catalog';
+		Request::session()->put('active_menu', 'catalog');
+		$this->data['slider'] = app('App\Http\Controllers\ModulesController')->main_slider($visible = 1);
+		$this->data['modules'][] = app('App\Http\Controllers\ModulesController')->catalog($visible = 1);
+    return view('pages.catalog', $this->data);
 	}
 }
