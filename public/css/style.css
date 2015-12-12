@@ -2443,4 +2443,44 @@ section.content
   -moz-border-radius: 3px 0 0 3px;
   border-radius: 3px 0 0 3px;
 }
+h1.product-title
+{
+    font-size: 38px;
+    font-weight: normal;
+    color: #333;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+h4.product-price
+{
+	font-size: 26px;
+  color: #d61414;
+}
+p.product-content
+{
+	font-size: 16px;
+    line-height: 28px;
+    text-align: justify;
+    color: #333;
+}
+a.btn-empty
+{
+		border: none;
+    border-radius: 0;
+    color: #FFF;
+    font-family: "Lora",serif;
+    font-size: 14px;
+    padding: 8px 17px;
+    background-color: #d9534f
+}
+a.btn-checkout
+{
+		border: none;
+    border-radius: 0;
+    color: #FFF;
+    font-family: "Lora",serif;
+    font-size: 14px;
+    padding: 8px 17px;
+    background-color: #88d54f;
+}
 

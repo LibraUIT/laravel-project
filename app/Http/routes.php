@@ -58,6 +58,22 @@ Route::get('/', [
     'as' => 'catalog','uses' => 'PagesController@page_catalog'
 ]);
 
+Route::get('/catalog/{id}/{name}', [
+    'as' => 'catalog','uses' => 'PagesController@page_catalog_product'
+])->where(['id' => '[0-9]+', 'name' => '[A-Za-z].+']);
+
+Route::get('/catalog/cart/{id}', [
+    'as' => 'catalog_cart_add','uses' => 'PagesController@page_catalog_cart'
+])->where(['id' => '[0-9]+']);
+
+Route::get('/catalog/cart', [
+    'as' => 'catalog_cart','uses' => 'PagesController@page_catalog_cart_show'
+]);
+
+Route::get('/catalog/empty_cart', [
+    'as' => 'catalog_cart_empty','uses' => 'PagesController@empty_cart'
+]);
+
 Route::group(['namespace' => 'Api'], function()
 {
     // Controllers Within The "App\Http\Controllers\Api" Namespace

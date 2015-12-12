@@ -97,4 +97,82 @@ class PagesController extends Controller
 		$this->data['modules'][] = app('App\Http\Controllers\ModulesController')->catalog($visible = 1);
     return view('pages.catalog', $this->data);
 	}
+
+	/**
+	* Show the catalog product template
+	*/
+	public function page_catalog_product($id, $name)
+	{
+		$this->data['product'] = $product = Catalog::getProductById($id);
+		if(!$product)
+		{
+			return redirect()->action('PagesController@page_catalog');
+		}
+		$this->data['heading_title'] = $product->title;
+		$this->data['categories'] = Catalog::getAllCategory();
+		Request::session()->put('active_menu', 'catalog');
+		$this->data['products']       = json_decode( Catalog::getAllProduct(6) );
+		$this->data['modules'] = array();
+		return view('pages.catalog_product', $this->data);
+	}
+	/**
+	* Show the catalog cart template
+	*/
+	public function page_catalog_cart($id = NULL)
+	{
+		$product = Catalog::getProductById($id);
+		if(!$product)
+		{
+			return redirect()->action('PagesController@page_catalog');
+		}
+		$this->data['heading_title'] = $this->config['site_name'].' | Cart';
+		Request::session()->put('active_menu', 'catalog');
+		$item = array(
+				$id => $product
+			);
+		if( session('catalog_cart') )
+		{
+			$item = session('catalog_cart');
+			$isset = array_key_exists ( $id ,  $item );
+			if(!$isset)
+			{
+				$item[$id] = $product;
+				Request::session()->put('catalog_cart', $item);
+			}
+		}else
+		{
+			Request::session()->put('catalog_cart', $item);
+		}
+		$this->data['cart'] = array();
+		if(session('catalog_cart'))
+		{
+			$this->data['cart'] = session('catalog_cart');
+		}
+		
+		return view('pages.catalog_cart', $this->data);
+	}
+
+	/**
+	* Empty cart
+	*/
+	public function empty_cart()
+	{
+		Request::session()->forget('catalog_cart');
+		return redirect()->action('PagesController@page_catalog_cart_show');
+	}
+	/**
+	* Show cart template
+	*/
+	public function page_catalog_cart_show()
+	{
+		$this->data['heading_title'] = $this->config['site_name'].' | Cart';
+		Request::session()->put('active_menu', 'catalog');
+		$this->data['cart'] = array();
+		if(session('catalog_cart'))
+		{
+			$this->data['cart'] = session('catalog_cart');
+		}
+		
+		return view('pages.catalog_cart', $this->data);
+	}
 }
