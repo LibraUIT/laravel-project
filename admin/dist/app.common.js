@@ -179,7 +179,48 @@
                 }
             })
 
-            
+         // Catalog
+        .state('catalog', {
+            url: '/catalog',
+            templateUrl: 'views/layout/main.html',
+            controller: 'CatalogController'
+        })
+
+            // Category Content
+            .state('catalog.category', {
+                url: '/category',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'category',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
+            // Product Catalog
+            .state('catalog.product', {
+                url: '/product',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'product',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js',
+                            'plugins/ckeditor/ckeditor.js'
+                            ]
+                        })
+                    }
+                }
+            })
+ 
 
         // File manager
         .state('file_manager', {

@@ -56,6 +56,15 @@
                 <li><a onclick="angular.element(this).scope().loadView(this)" ui-sref="content.post"><i class="fa fa-circle-o"></i>Post</a></li>
               </ul>
             </li>
+            <li id="catalog" class="treeview">
+              <a>
+                <i class="fa fa-cart-plus"></i> <span>Catalog</span><i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a onclick="angular.element(this).scope().loadView(this)" ui-sref="catalog.category"><i class="fa fa-circle-o"></i>Category</a></li>
+                <li><a onclick="angular.element(this).scope().loadView(this)" ui-sref="catalog.product"><i class="fa fa-circle-o"></i>Product</a></li>
+              </ul>
+            </li>
             <li id="settings" class="treeview">
               <a>
                 <i class="fa fa-cogs"></i>

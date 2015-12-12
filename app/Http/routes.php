@@ -185,4 +185,41 @@ Route::group(['namespace' => 'Api'], function()
             'as' => 'edit_post','uses' => 'ContentController@editPost'
         ]);
     });
+    Route::group(['namespace' => 'Catalog'], function()
+    {
+        // Controllers Within The "App\Http\Controllers\Api\Catalog" Namespace
+        Route::post('/api/catalog/add_category', [
+            'as' => 'add_category','uses' => 'CatalogController@addCategory'
+        ]);
+        Route::get('/api/catalog/get_parent_category', [
+            'as' => 'get_parent_catalog_category','uses' => 'CatalogController@getParentCategory'
+        ]);
+        Route::get('/api/catalog/get_all_category', [
+            'as' => 'get_all_catalog_category','uses' => 'CatalogController@getAllCategory'
+        ]);
+        Route::post('/api/catalog/delete_category_by_id', [
+            'as' => 'delete_catalog_category_by_id','uses' => 'CatalogController@deleteCategoryById'
+        ]);
+        Route::post('/api/catalog/get_category_by_id', [
+            'as' => 'get_catalog_category_by_id','uses' => 'CatalogController@getCategoryById'
+        ]);
+        Route::post('/api/catalog/edit_category', [
+            'as' => 'edit_catalog_category','uses' => 'CatalogController@editCategory'
+        ]);
+        Route::post('/api/catalog/add_product', [
+            'as' => 'add_product','uses' => 'CatalogController@addProduct'
+        ]);
+        Route::get('/api/catalog/get_all_product_catalog', [
+            'as' => 'get_all_product_catalog','uses' => 'CatalogController@getAllProductCatalog'
+        ]);
+        Route::post('/api/catalog/get_product_by_id', [
+            'as' => 'get_product_by_id','uses' => 'CatalogController@getProductById'
+        ]);
+        Route::post('/api/catalog/delete_product_by_id', [
+            'as' => 'delete_product_by_id','uses' => 'CatalogController@deleteProductById'
+        ]);
+        Route::post('/api/catalog/edit_product', [
+            'as' => 'edit_product','uses' => 'CatalogController@editProduct'
+        ]);
+    });
 });
