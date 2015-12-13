@@ -38,5 +38,15 @@ class Order extends Model
         ->get();;
     }
 
+    /**
+    * get all order
+    */
+
+    static public function getAllOrderCatalog($limit = 1)
+    {
+        $orders = DB::table('orders')->orderBy('id', 'desc')->paginate($limit);      
+        return $orders->toJson();
+    }
+
 
 }

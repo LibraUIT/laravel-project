@@ -1,0 +1,89 @@
+        <!-- Main content -->
+        <section  class="content" ng-controller="CatalogOrderController">
+          <div class="row">
+            <div class="col-md-12">
+              
+              <div class="box box-info">
+                <div class="box-header with-border">
+                </div>
+                <div class="box-body">
+                   <div ng-if="refresh == 1" class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                   </div>
+                   <table id="table" class="table table-bordered">
+                              <tbody><tr>
+                                <th style="width: 10px">#</th>
+                                <th style="width: 200px;text-align:center">Date created</th>
+                                <th style="width: 200px">Customer</th>
+                                <th style="width:100px">Phone</th>
+                                <th style="width:100px">Email</th>
+                                <th style="width: 130px">Status</th>
+                              </tr>
+                              <tr ng-repeat="(key, order) in orders  | orderBy: '-id' " >  
+                                <td style="vertical-align: middle;">
+                                  {{key + 1}}
+                                </td>
+                                <td style="vertical-align: middle;text-align:center">
+                                 {{order.created_at}}
+                                </td>
+                                <td style="vertical-align: middle;">{{order.user_name}}</td>
+                                <td style="vertical-align: middle;">{{order.user_phone}}</td>
+                                <td style="vertical-align: middle;">{{order.user_email}}</td>
+                                <td ng-if="order.status == 3" style="vertical-align: middle;">Done</td>
+                                <td ng-if="order.status == 2" style="vertical-align: middle;">Proccessing</td>
+                                <td ng-if="order.status == 1" style="vertical-align: middle;">Pendding</td>
+                               
+                              </tr>
+                            
+                            </tbody>
+                    </table>
+                    <hr> 
+
+                </div><!-- /.box-body -->
+                <div ng-if="posts" class="box-footer clearfix">
+                  <!-- Pagination -->
+                  <div class="row">
+                  <div class="col-sm-3">
+                  <ul class="pagination pagination-sm no-margin pull-left">
+                    <li>
+                        <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="prev_page_url" data-ng-class="{'disabled': !prev_page_url}" data ="{{prev_page_url}}" href="#">«</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="1" href="#">First</a>
+                    </li>
+                    <li ng-if="current_page > 2">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page - 2}}" href="#">{{current_page - 2}}</a>
+                    </li>
+                    <li ng-if="current_page > 1">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page - 1}}" href="#">{{current_page - 1}}</a>
+                    </li>
+                    <li>
+                        <a my-link="current_page" style="background-color: #F5F5F5" data-ng-class="{'disabled': current_page}">{{current_page}}</a>
+                    </li>
+                    <li ng-if="current_page + 1 < total">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page + 1}}" href="#">{{current_page + 1}}</a>
+                    </li>
+                    <li ng-if="current_page + 2 < total ">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page + 2}}" href="#">{{current_page + 2}}</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{total}}" href="#">Last</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="next_page_url" data-ng-class="{'disabled': !next_page_url}" data = "{{next_page_url}}" href="#">»</a>
+                    </li>
+                  </ul>
+                  </div>
+                  <div class="col-sm-3" style="padding-top: 7px;">
+                    Page <b>{{current_page}}</b> of <b>{{total}}</b>
+                  </div>
+                  </div>
+
+                  <!-- End pagination -->
+                </div>
+              </div><!-- /.box -->
+              
+            </div><!-- /.col (RIGHT) -->
+          
+
+        </section><!-- /.content -->

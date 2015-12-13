@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Catalog;
 
+use App\Order;
 use App\Catalog;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
@@ -224,5 +225,11 @@ class CatalogController extends Controller
             );
         }
         return response()->json($output);
+    }
+    // Get all post content pagination
+    public function getAllOrderCatalog()
+    {
+        $limit = $_GET['limit'];
+        return Order::getAllOrderCatalog($limit);
     }
 }

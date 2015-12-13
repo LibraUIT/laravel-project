@@ -220,6 +220,24 @@
                     }
                 }
             })
+
+            // Orders Catalog
+            .state('catalog.order', {
+                url: '/order',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'order',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js',
+                            'plugins/ckeditor/ckeditor.js'
+                            ]
+                        })
+                    }
+                }
+            })
  
 
         // File manager

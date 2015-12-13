@@ -110,7 +110,7 @@ class Catalog extends Model
     }
 
     /**
-    * get all post
+    * get all product
     */
 
     static public function getAllProduct($limit = 1)

@@ -113,6 +113,15 @@ laravelAdminApp.factory('CatalogServices', ['$http', function ($http) {
           });
     }
 
+    CatalogServices.getAllOrderCatalog = function (input) {
+        var params = [urlBaseApi, 'catalog', 'get_all_order_catalog', input ].join('/')
+        return $http({
+            method: 'GET',
+            url: params,
+            data: {}
+          });
+    };
+
 
     return CatalogServices;
 

@@ -32,7 +32,12 @@ laravelAdminApp.controller("CatalogController", function($scope, $rootScope, $ti
                 url: 'views/pages/catalog/catalog.product.html'};
                 $scope.breacum_active = 'Product'
                 break;        
-
+        case 'order':
+                $scope.subtemplate = {
+                name: 'catalog.order.html',
+                url: 'views/pages/catalog/catalog.order.html'};
+                $scope.breacum_active = 'Order'
+                break;         
     }
                  
 
@@ -278,6 +283,39 @@ laravelAdminApp.controller("CatalogProductController", function($scope, $rootSco
     }
     
 });
+
+/**
+* Catalog order controller
+*/
+laravelAdminApp.controller("CatalogOrderController", function($scope, $rootScope, $timeout, CatalogServices) {
+    var curentPage = 1 , limit = 5 , pagination = '?limit=' + limit +'&page=' + curentPage;
+    getAllOrderByPanigation(pagination)
+    $modal = $('.modal') 
+    $scope.showModal = function(input)
+    {
+        $modal.modal('show')
+        $viewImage = input
+    }
+
+    // Functions of gallery widget controller
+    function getAllOrderByPanigation(pagination)
+    {
+        CatalogServices.getAllOrderCatalog(pagination).success(function(res){
+            if(res.data.length > 0)
+            {
+                $scope.orders = res.data;
+                if(res.prev_page_url != null ){ $scope.prev_page_url = res.prev_page_url }
+                if(res.next_page_url != null ){ $scope.next_page_url = res.next_page_url }
+                $scope.last_page     = res.last_page;
+                $scope.current_page  = res.current_page;
+                $scope.total         = Math.ceil(res.total / limit );
+            }
+        });
+    }
+    
+});
+
+
 
 
 

@@ -257,5 +257,8 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/catalog/edit_product', [
             'as' => 'edit_product','uses' => 'CatalogController@editProduct'
         ]);
+        Route::get('/api/catalog/get_all_order_catalog', [
+            'as' => 'get_all_order_catalog','uses' => 'CatalogController@getAllOrderCatalog'
+        ]);
     });
 });
