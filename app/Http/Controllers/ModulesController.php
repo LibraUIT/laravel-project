@@ -245,7 +245,7 @@ class ModulesController extends Controller
                                 'password' => bcrypt(Request::input('password'))
                  );
                 User::create($insert);
-                return redirect('login')->with('success_message', trans('messages.user_created_success'));
+                return redirect('auth/login')->with('success_message', trans('messages.user_created_success'));
             }else
             {
                 $data['error_message'] = trans('messages.user_exists');
