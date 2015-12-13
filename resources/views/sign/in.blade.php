@@ -9,6 +9,11 @@
 		{{-- End include modules --}}
 		<section class="form-customer">
 			<div class="container div-customer-form">
+				@if(session('message_error'))
+				<div class="content-message">
+        <span class="help-inline"><label for="email" class="error"><i class="fa fa-exclamation-circle"></i>&nbsp;{{session('message_error')}}</label></span>
+        </div>
+        @endif
 				{!! $module_button_login_facebook !!}
 		        <div class="hr">
 		            <div class="inner">{{ trans('form.text_or')}}</div>

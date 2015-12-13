@@ -23,7 +23,7 @@
 		  	 			<th style="vertical-align: middle;"><img style="width:180px;" src="{{URL::to('/').str_replace('..', '',$v->image)}}"></th>
 		  	 			<th style="vertical-align: middle;"><a target="_blank" href="{{url('catalog', $parameters = [$v->id, str_slug($v->title, '-').'.html'], $secure = null)}}">{{$v->title}}</a></th>
 		  	 			<th style="vertical-align: middle;">$ {{$v->price}}</th>
-		  	 			<th style="vertical-align: middle;"></th>
+		  	 			<th style="vertical-align: middle;"><a href="{{url('catalog/cart_delete', $parameters = [$v->id], $secure = null)}}" class="btn-empty">Delete</a></th>
 		  	 		</tr>	
 		  	 	<?php $i++; $price = $price + $v->price; ?>	
 		  	 	@endforeach
@@ -36,7 +36,8 @@
 		  	 		<th colspan="3"></th>
 		  	 		<th colspan="2" class="text-right" style="vertical-align: middle;">
 		  	 			<a href="{{url('catalog/empty_cart', $parameters = [], $secure = null)}}" class="btn-empty">Empty Cart</a>
-		  	 			<a href="#" class="btn-checkout">Checkout</a>
+		  	 			<a href="{{url('/', $parameters = [], $secure = null)}}" class="btn-continue">Continue Shopping</a>
+		  	 			<a href="{{url('catalog/cart_checkout', $parameters = [], $secure = null)}}" class="btn-checkout">Checkout</a>
 		  	 		</th>
 		  	 	</tr>
 		  	 </tbody> 
@@ -45,7 +46,7 @@
 			@else
 			<h6>Empty cart !</h6>
 			<br />
-			<a href="{{url('/', $parameters = [], $secure = null)}}" class="btn-checkout">Continue</a>
+			<a href="{{url('/', $parameters = [], $secure = null)}}" class="btn-continue">Continue Shopping</a>
 			@endif
 		</div>
 	</section>

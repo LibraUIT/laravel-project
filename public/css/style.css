@@ -2483,4 +2483,22 @@ a.btn-checkout
     padding: 8px 17px;
     background-color: #88d54f;
 }
+a.btn-continue
+{
+		border: none;
+    border-radius: 0;
+    color: #FFF;
+    font-family: "Lora",serif;
+    font-size: 14px;
+    padding: 8px 17px;
+    background-color: #09f;
+}
+.content-message
+{
+	text-align: center;
+}
+.marin-top-10px
+{
+	margin-top: 10px;
+}
 

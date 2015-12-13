@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use App\Order;
 use App\Catalog;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
@@ -106,7 +107,7 @@ class PagesController extends Controller
 		$this->data['product'] = $product = Catalog::getProductById($id);
 		if(!$product)
 		{
-			return redirect()->action('PagesController@page_catalog');
+			return redirect()->action('PagesController@page_404');
 		}
 		$this->data['heading_title'] = $product->title;
 		$this->data['categories'] = Catalog::getAllCategory();
@@ -153,6 +154,21 @@ class PagesController extends Controller
 	}
 
 	/**
+	* Delete item in cart
+	*/
+	public function page_catalog_cart_delete($id)
+	{
+		$item = session('catalog_cart');
+		$isset = array_key_exists ( $id ,  $item );
+		if($isset)
+		{
+			unset($item[$id]);
+			Request::session()->put('catalog_cart', $item);
+		}
+		return redirect()->action('PagesController@page_catalog_cart_show');
+	}
+
+	/**
 	* Empty cart
 	*/
 	public function empty_cart()
@@ -166,7 +182,7 @@ class PagesController extends Controller
 	public function page_catalog_cart_show()
 	{
 		$this->data['heading_title'] = $this->config['site_name'].' | Cart';
-		Request::session()->put('active_menu', 'catalog');
+		Request::session()->put('active_menu', 'catalog_cart');
 		$this->data['cart'] = array();
 		if(session('catalog_cart'))
 		{
@@ -175,4 +191,88 @@ class PagesController extends Controller
 		
 		return view('pages.catalog_cart', $this->data);
 	}
+	/**
+	* Show the checkout page
+	*/
+	public function page_cart_checkout()
+	{
+		if(!Auth::check())
+		{
+			Request::session()->flash('message_error', 'Please login to continue !');
+			Request::session()->put('url_to_redirect', 'PagesController@page_cart_checkout');
+			return redirect()->action('SignController@in');
+		}else
+		{ 
+      $this->data['fullname'] = Auth::user()->name;
+      $this->data['email']    = Auth::user()->email;
+			$this->data['heading_title'] = $this->config['site_name'].' | Checkout';
+			Request::session()->put('active_menu', 'catalog_cart');
+			$this->data['cart'] = array();
+			if(session('catalog_cart'))
+			{
+				$this->data['cart'] = session('catalog_cart');
+			}
+			$this->data['form_action'] = action('PagesController@page_cart_checkout_confirm');
+			return view('pages.catalog_cart_checkout', $this->data);
+		}
+	}
+	
+
+	/**
+	* Cofirm checkout
+	*/
+	public function page_cart_checkout_confirm()
+	{
+		if( Request::method() == 'POST'  && Request::input('_token') == Request::session()->token() )
+		{
+			if(!Auth::check())
+			{
+				Request::session()->flash('message_error', 'Please login to continue !');
+				Request::session()->put('url_to_redirect', 'PagesController@page_cart_checkout');
+				return redirect()->action('SignController@in');
+			}else
+			{ 
+	      $params = Request::all();
+	      $order = array(
+	      		'user_id' => Auth::user()->id,
+	      		'user_name' => $params['fullname'],
+	      		'user_email' => $params['email'],
+	      		'user_phone' => $params['phone'],
+	      		'user_address' => $params['address'],
+	      		'cart' => serialize(session('catalog_cart'))
+
+	      	);
+	      Order::addOrder($order);
+	      Request::session()->forget('catalog_cart');
+	      Request::session()->flash('message_success', 'Thank you! Checkout has been success. We will contact with you after.');
+	      return redirect()->action('PagesController@page_profile');
+				
+			}
+		}else
+		{
+			return redirect()->action('PagesController@page_404');
+		}
+		
+	}
+
+	/**
+	* show the profile page template
+	*/
+	public function page_profile()
+	{
+		if(!Auth::check())
+		{
+			Request::session()->flash('message_error', 'Please login to continue !');
+			Request::session()->put('url_to_redirect', 'PagesController@page_profile');
+			return redirect()->action('SignController@in');
+		}else
+		{
+			$this->data['heading_title'] = $this->config['site_name'].' | Profile';
+			$this->data['profile'] = Auth::user();
+			$this->data['orders'] = Order::getAllOrderByUserId(Auth::user()->id);
+			Request::session()->forget('active_menu');
+			return view('pages.profile', $this->data);
+		}
+	}
+
 }

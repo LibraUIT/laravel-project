@@ -59,7 +59,6 @@
         {!! app('App\Http\Controllers\ModulesController')->loader() !!} 
         
         {!! $header !!}
-
         @yield('main_content')
 
         {!! $footer !!}

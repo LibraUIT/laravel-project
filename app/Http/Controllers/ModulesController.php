@@ -191,6 +191,12 @@ class ModulesController extends Controller
             }
            if (Auth::attempt(['email' => Request::input('email'), 'password' => Request::input('password')])) {
                 // Authentication passed...
+                if(session('url_to_redirect'))
+                {
+                    $url_to_redirect = session('url_to_redirect');
+                    Request::session()->forget('url_to_redirect');
+                    return redirect()->action($url_to_redirect);
+                }
                 return redirect()->action('HomeController@index');
             }
 

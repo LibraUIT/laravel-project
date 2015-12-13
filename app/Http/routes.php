@@ -74,6 +74,22 @@ Route::get('/catalog/empty_cart', [
     'as' => 'catalog_cart_empty','uses' => 'PagesController@empty_cart'
 ]);
 
+Route::get('/catalog/cart_checkout', [
+    'as' => 'catalog_cart_checkout','uses' => 'PagesController@page_cart_checkout'
+]);
+
+Route::get('/catalog/cart_delete/{id}', [
+    'as' => 'catalog_cart_delete','uses' => 'PagesController@page_catalog_cart_delete'
+])->where(['id' => '[0-9]+']);
+
+Route::post('/catalog/cart_checkout_confirm', [
+    'as' => 'catalog_cart_checkout_confirm','uses' => 'PagesController@page_cart_checkout_confirm'
+]);
+
+Route::get('/profile', [
+    'as' => 'page_profile','uses' => 'PagesController@page_profile'
+]);
+
 Route::group(['namespace' => 'Api'], function()
 {
     // Controllers Within The "App\Http\Controllers\Api" Namespace

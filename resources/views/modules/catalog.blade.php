@@ -10,7 +10,7 @@
 					<img class="product-item-image" src="{{URL::to('/').str_replace('..', '',$v->image)}}">
 					<h5>{{$v->title}}</h5>
 					<b>$ {{$v->price}}</b>
-					<button class="btn btn-primary">Add to cart</button>
+					<a href="{{url('catalog/cart', $parameters = [$v->id], $secure = null)}}" class="btn btn-primary" class="btn btn-primary">Add to cart</a>
 					</a>
 				</div>
 				@endforeach
