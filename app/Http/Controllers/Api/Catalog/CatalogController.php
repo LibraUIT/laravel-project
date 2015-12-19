@@ -22,6 +22,7 @@ class CatalogController extends Controller
         {
             $data['name']           = urldecode( explode('=', $params[0])[1] );
             $data['parent']         = urldecode( explode('=', $params[1])[1] );
+            if ( $data['parent'] == 0) {  $data['parent'] = NULL; }
             $data['status']         =  ( isset($params[2]) ) ? 1 :  0;
             $res = Catalog::addCategory($data);
             if($res)
@@ -60,10 +61,10 @@ class CatalogController extends Controller
     {
         $request_body = file_get_contents('php://input');
         $categoryId = (int) $request_body;
-        $res = Catalog::deleteCategoryById($categoryId);
         $output = array(
                 'status' => 'No'
             );
+        $res = Catalog::deleteCategoryById($categoryId);
         if($res == TRUE)
         {
             Catalog::deleteCategoryByParentId($categoryId);

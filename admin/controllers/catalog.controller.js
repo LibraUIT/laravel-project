@@ -88,6 +88,7 @@ laravelAdminApp.controller("CatalogCategoryController", function($scope, $rootSc
                         $timeout(function() {
                             $scope.success = 0
                             $scope.showCreateCategory = 0
+                            categoryList()
                         }, 2000); 
                     }
                 })
@@ -105,6 +106,7 @@ laravelAdminApp.controller("CatalogCategoryController", function($scope, $rootSc
                             $scope.showCreateCategory = 0
                             $('.save').attr('datatype', 'new')
                             $('.start, .edit').removeAttr('disabled')
+                            categoryList()
                         }, 2000); 
                     }
                 })
