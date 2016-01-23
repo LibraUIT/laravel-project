@@ -6,11 +6,11 @@
         <title>{{$heading_title}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="{{ asset('public/images/favicon.ico')}}" sizes="16x16">
+        <link rel="icon" href="{{ asset($site_favicon)}}" sizes="16x16">
 
-        <meta name="description" content="Free Web tutorials">
-        <meta name="keywords" content="HTML,CSS,XML,JavaScript">
-        <meta name="author" content="Hege Refsnes">
+        <meta name="description" content="{{$description}}">
+        <meta name="keywords" content="{{$tagline}}">
+        <meta name="author" content="Quan Nguyen">
 		
         <!-- fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>
@@ -19,7 +19,7 @@
 
         <!-- fontawesome -->
 		<link rel="stylesheet" href="{{ asset('public/css/font-awesome.css') }}" />
-
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- bootstrap -->
 		<link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css')}}" />
 
@@ -50,6 +50,8 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <!-- jquery library -->
+        <script src="{{ asset('public/js/jquery-1.11.2.min.js')}}"></script>
 
     </head>
     <body id="home_one">
@@ -62,10 +64,6 @@
 
         {!! $footer !!}
 		
-		
-		
-        <!-- jquery library -->
-        <script src="{{ asset('public/js/jquery-1.11.2.min.js')}}"></script>
         <!-- bootstrap -->
         <script src="{{ asset('public/js/bootstrap.min.js')}}"></script>
 		<!-- rev slider -->
@@ -100,11 +98,13 @@
         <!--[if lte IE 8]>
             <script type="text/javascript" src="js/ie-opacity-polyfill.js"></script>
         <![endif]-->
-
-
-
+        <!-- React js -->
+        <script src="{{ asset('public/reactjs/react.js')}}"></script>
+        <script src="{{ asset('public/reactjs/react-dom.js')}}"></script>
         <!-- my js -->
         <script src="{{ asset('public/js/main.js')}}"></script>
+        <script src="{{ asset('public/js/pinterest.js')}}"></script>
+
 		
     </body>
 </html>

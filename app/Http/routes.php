@@ -38,6 +38,10 @@ Route::match(['get', 'post'], '/contact', [
 	'as' => 'contact', 'uses' => 'PagesController@contact'
 ]);
 
+Route::get('/gallery', [
+    'as' => 'gallery','uses' => 'PagesController@gallery'
+]);
+
 Route::get('/about', [
 	'as' => 'about','uses' => 'PagesController@about'
 ]);
@@ -46,9 +50,24 @@ Route::get('/404', [
 	'as' => '404','uses' => 'PagesController@page_404'
 ]);
 
+Route::get('/news', [
+    'as' => 'news','uses' => 'PagesController@page_news'
+]);
+
 Route::group(['namespace' => 'Api'], function()
 {
     // Controllers Within The "App\Http\Controllers\Api" Namespace
+
+    Route::group(['namespace' => 'Authenticate'], function()
+    {
+        // Controllers Within The "App\Http\Controllers\Api\Authenticate" Namespace
+        Route::post('/api/token', [
+            'as' => 'api_token','uses' => 'AuthenticateController@getToken'
+        ]);
+        Route::post('/api/authenticate', [
+            'as' => 'api_authenticate','uses' => 'AuthenticateController@login'
+        ]);
+    });
 
     Route::group(['namespace' => 'Layout'], function()
     {
@@ -88,11 +107,35 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/widgets/add_gallery', [
             'as' => 'add_gallery','uses' => 'WidgetsController@addGallery'
         ]);
+        Route::post('/api/widgets/edit_gallery', [
+            'as' => 'edit_gallery','uses' => 'WidgetsController@editGallery'
+        ]);
+        Route::post('/api/widgets/delete_gallery_by_id', [
+            'as' => 'delete_gallery_by_id','uses' => 'WidgetsController@delGalleryById'
+        ]);
         Route::get('/api/widgets/get_all_gallery', [
             'as' => 'get_all_gallery','uses' => 'WidgetsController@getAllGallery'
         ]);
-        Route::get('/api/widgets/get_pagination_gallery', [
-            'as' => 'get_pagination_gallery','uses' => 'WidgetsController@getPaginationGallery'
+        Route::post('/api/widgets/add_hotel_facilties', [
+            'as' => 'add_hotel_facilties','uses' => 'WidgetsController@addHotelFacilties'
+        ]);
+        Route::get('/api/widgets/get_all_hotel_facilties', [
+            'as' => 'get_all_hotel_facilties','uses' => 'WidgetsController@getAllHotelFacilties'
+        ]);
+        Route::post('/api/widgets/delete_hotel_facilties_by_id', [
+            'as' => 'delete_hotel_facilties_by_id','uses' => 'WidgetsController@delHotelFaciltiesById'
+        ]);
+        Route::post('/api/widgets/edit_hotel_facilties', [
+            'as' => 'edit_hotel_facilties','uses' => 'WidgetsController@editHotelFacilties'
+        ]);
+        Route::post('/api/widgets/add_background_hotel_facilties', [
+            'as' => 'add_background_hotel_facilties','uses' => 'WidgetsController@addBackgroundHotelFacilties'
+        ]);
+        Route::get('/api/widgets/get_background_hotel_facilties', [
+            'as' => 'get_background_hotel_facilties','uses' => 'WidgetsController@getBackgroundHotelFacilties'
+        ]);
+        Route::post('/api/widgets/remove_background_hotel_facilties', [
+            'as' => 'remove_background_hotel_facilties','uses' => 'WidgetsController@removeBackgroundHotelFacilties'
         ]);
     });
     Route::group(['namespace' => 'Setting'], function()
@@ -103,6 +146,43 @@ Route::group(['namespace' => 'Api'], function()
         ]);
         Route::post('/api/settings/set_general', [
             'as' => 'set_general','uses' => 'SettingsController@setGeneral'
+        ]);
+    });
+    Route::group(['namespace' => 'Content'], function()
+    {
+        // Controllers Within The "App\Http\Controllers\Api\Content" Namespace
+        Route::post('/api/content/add_category', [
+            'as' => 'add_category','uses' => 'ContentController@addCategory'
+        ]);
+        Route::get('/api/content/get_parent_category', [
+            'as' => 'get_parent_category','uses' => 'ContentController@getParentCategory'
+        ]);
+        Route::get('/api/content/get_all_category', [
+            'as' => 'get_all_category','uses' => 'ContentController@getAllCategory'
+        ]);
+        Route::post('/api/content/delete_category_by_id', [
+            'as' => 'delete_category_by_id','uses' => 'ContentController@deleteCategoryById'
+        ]);
+        Route::post('/api/content/get_category_by_id', [
+            'as' => 'get_category_by_id','uses' => 'ContentController@getCategoryById'
+        ]);
+        Route::post('/api/content/edit_category', [
+            'as' => 'edit_category','uses' => 'ContentController@editCategory'
+        ]);
+        Route::post('/api/content/add_post', [
+            'as' => 'add_post','uses' => 'ContentController@addPost'
+        ]);
+        Route::get('/api/content/get_all_post_content', [
+            'as' => 'get_all_post_content','uses' => 'ContentController@getAllPostContent'
+        ]);
+        Route::post('/api/content/delete_post_by_id', [
+            'as' => 'delete_post_by_id','uses' => 'ContentController@deletePostById'
+        ]);
+        Route::post('/api/content/get_post_by_id', [
+            'as' => 'get_post_by_id','uses' => 'ContentController@getPostById'
+        ]);
+        Route::post('/api/content/edit_post', [
+            'as' => 'edit_post','uses' => 'ContentController@editPost'
         ]);
     });
 });

@@ -1,0 +1,163 @@
+        <!-- Main content -->
+        <section  class="content" ng-controller="ContentPostController">
+          <div class="row">
+            <div class="col-md-12">
+              
+              <div class="box box-info">
+                <div class="box-header with-border">
+                   <button type="button" class="btn btn-success start" ng-click="createNewPost()">
+                            <i class="fa fa-plus"></i>
+                            <span>Create New</span>
+                   </button>
+                </div>
+                <div class="box-body">
+                   <div ng-if="refresh == 1" class="overlay">
+                      <i class="fa fa-refresh fa-spin"></i>
+                   </div>
+                   <div ng-if="success == 1"  alert-success ></div>
+                   <form id="form" ng-submit="submitPostContent()" ng-if="showCreatePost == 1">
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Title</b></span>
+                        <div class="col-sm-10">
+                          <input ng-model = "form.title" type="text" name="title" class="form-control" placeholder="Title" required>
+                        </div>
+                      </div>
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Category</b></span>
+                        <div class="col-sm-4">
+                          <select class="form-control" name="category" 
+                          ng-options="option.name for option in parent_category.availableOptions track by option.id"
+                          ng-model="parent_category.selectedOption">
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Content</b></span>
+                        <div class="col-sm-10">
+                          <textarea ng-model="form.content" name="form_content" rows="10" class="form-control" required ></textarea>
+                        </div>
+                      </div>
+
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Cover Image</b></span>
+                        <div class="col-sm-10">
+                            <a onclick="angular.element(this).scope().showModal(this)" id="thumb-image0" data-toggle="image" class="img-thumbnail" data-original-title="" title=""><img style="width:300px;height:150px;cursor: pointer;" src="{{form.cover}}" alt="" title="" data-placeholder="../storage/app/default/images/image_not_found.jpg"><input value="{{form.cover}}" style="display:none" type="text" name="image"></a>
+                        </div>
+                      </div>
+                      
+                      <div class="row margin-bottomp-10px">
+                        <span class="col-sm-2"><b>Status</b></span>
+                        <div class="col-sm-10">
+                          <div class="checkbox icheck">
+                                    <label>
+                                      <input icheck ng-model="form.status" name="status" type="checkbox"> Active
+                                    </label>
+                                  </div>
+                        </div>
+                      </div>
+
+                      <div class="row margin-bottomp-10px">
+                          <div class="col-sm-2"></div>
+                          <div class="col-sm-10">
+                            <input datatype="new" class="btn btn-primary save" type="submit" id="submit" value="Submit" />
+                          <button type="button" class="btn btn-danger" ng-click="cancelNewPost()">
+                                <span>Cancel</span>
+                            </button>
+                          </div>
+                      </div> 
+                   </form>
+                   <hr>
+                   <table id="table" class="table table-bordered">
+                              <tbody><tr>
+                                <th style="width: 10px">#</th>
+                                <th style="width: 400px">Title</th>
+                                <th style="width: 400px">Author</th>
+                                <th style="width: 130px">Status</th>
+                                <th style="width: 100px"></th>
+                              </tr>
+                              <tr ng-repeat="(key, post) in posts  | orderBy: '-id' " >  
+                                <td style="vertical-align: middle;">
+                                  {{key + 1}}
+                                </td>
+                                <td style="vertical-align: middle;">{{post.title}}</td>
+                                <td style="vertical-align: middle;">{{post.author}}</td>
+                                <td ng-if="post.status == 0" style="vertical-align: middle;">Disabled</td>
+                                <td ng-if="post.status == 1" style="vertical-align: middle;">Active</td>
+                                <td style="vertical-align: middle;">
+                                  <button id="post-{{post.id}}" type="button" onclick="angular.element(this).scope().editPost(this)" data-toggle="tooltip" title="" class="btn btn-primary edit" data-original-title="Edit"><i class="fa fa-pencil"></i></button>
+                                  <button id="post-{{post.id}}" type="button" onclick="angular.element(this).scope().showPopup(this)" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                              </tr>
+                            
+                            </tbody>
+                    </table>
+                    <hr> 
+
+                </div><!-- /.box-body -->
+                <div ng-if="posts" class="box-footer clearfix">
+                  <!-- Pagination -->
+                  <div class="row">
+                  <div class="col-sm-3">
+                  <ul class="pagination pagination-sm no-margin pull-left">
+                    <li>
+                        <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="prev_page_url" data-ng-class="{'disabled': !prev_page_url}" data ="{{prev_page_url}}" href="#">«</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="1" href="#">First</a>
+                    </li>
+                    <li ng-if="current_page > 2">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page - 2}}" href="#">{{current_page - 2}}</a>
+                    </li>
+                    <li ng-if="current_page > 1">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page - 1}}" href="#">{{current_page - 1}}</a>
+                    </li>
+                    <li>
+                        <a my-link="current_page" style="background-color: #F5F5F5" data-ng-class="{'disabled': current_page}">{{current_page}}</a>
+                    </li>
+                    <li ng-if="current_page + 1 < total">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page + 1}}" href="#">{{current_page + 1}}</a>
+                    </li>
+                    <li ng-if="current_page + 2 < total ">
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{current_page + 2}}" href="#">{{current_page + 2}}</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().goToPage(this)" data ="{{total}}" href="#">Last</a>
+                    </li>
+                    <li>
+                        <a onclick="angular.element(this).scope().nextOrPrev(this)" my-link="next_page_url" data-ng-class="{'disabled': !next_page_url}" data = "{{next_page_url}}" href="#">»</a>
+                    </li>
+                  </ul>
+                  </div>
+                  <div class="col-sm-3" style="padding-top: 7px;">
+                    Page <b>{{current_page}}</b> of <b>{{total}}</b>
+                  </div>
+                  </div>
+
+                  <!-- End pagination -->
+                </div>
+              </div><!-- /.box -->
+              
+            </div><!-- /.col (RIGHT) -->
+          
+
+        </section><!-- /.content -->
+        <!-- Modal -->
+        <div class="modal fade bs-example-modal-lg image_manager_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">Image Manager</h4>
+                </div>
+                <div class="modal-body">
+                  <div image-manager class="image_manager" style="height:500px;overflow-x: hidden;overflow-y: auto;">
+                      
+                  </div>    
+                </div>                
+            </div>
+          </div>
+        </div>
+        <!-- End  modal -->
+        <!-- Cd popup -->
+        <div cd-popup></div>

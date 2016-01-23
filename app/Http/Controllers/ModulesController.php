@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Layout;
 use App\Widget;
+use App\Content;
 use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -127,9 +128,14 @@ class ModulesController extends Controller
     */
     public function hotel_facilities_section($visible = 0)
     {
+        $data = array();
         if($visible == 1)
         {
-            return view('modules.hotel_facilities_section');
+            $code = 'hotel_facilties';
+            $data['hotel_facilities'] = DB::table('hotel_facilties')->orderBy('id', 'desc')->get();
+            $background = DB::table('backgrounds')->where('code', $code)->first();
+            $data['background'] = (isset($background) ? $background->background : FALSE );
+            return view('modules.hotel_facilities_section', $data);
         }
     }
 
@@ -297,8 +303,28 @@ class ModulesController extends Controller
     {
         if($visible == 1)
         {
-            return view('modules.pinterest');
+            $data['gallerys'] = DB::table('gallerys')->orderBy('id', 'desc')->get();
+            $data['pswp']     = app('App\Http\Controllers\ModulesController')->pswp();
+            return view('modules.pinterest', $data);
         }        
+    }
+
+    /**
+    * Show the pswp template
+    */
+    public function pswp()
+    {
+        return view('modules.pswp');
+    }
+
+    /**
+    * Show the news module
+    */
+    public function news($visible = 0)
+    {
+        $data['categories'] = Content::getAllCategory();
+        $data['posts'] = json_decode( Content::getAllPost(10) );
+        return view('modules.news', $data);
     }
 
 }

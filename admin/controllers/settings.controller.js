@@ -37,6 +37,13 @@ laravelAdminApp.controller("SettingsController", function($scope, $rootScope, $t
 * Main slider widget controller
 */
 laravelAdminApp.controller("GeneralSettingsController", function($scope, $rootScope, $timeout, SettingsServices ) {
+    folder = 'setting'
+    $modal = $('.image_manager_modal')
+    $scope.showModal = function(input)
+    {
+        $modal.modal('show')
+        $viewImage = input
+    }
     $scope.submit = function()
     {
         var form_string = $("#form" ).serialize();
