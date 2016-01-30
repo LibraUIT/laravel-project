@@ -11,7 +11,7 @@
         <meta name="description" content="{{$description}}">
         <meta name="keywords" content="{{$tagline}}">
         <meta name="author" content="Quan Nguyen">
-		
+
         <!-- fonts -->
 		<link href='http://fonts.googleapis.com/css?family=Playfair+Display:400,700,900' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Karla:700,400' rel='stylesheet' type='text/css'>
@@ -37,7 +37,7 @@
         <link rel="stylesheet" href="{{ asset('public/css/lightslider.css')}}">
         <!-- Theme -->
         <link rel="stylesheet" href="{{ asset('public/css/reset.css')}}">
-        
+
         <!-- custom css -->
 		<link rel="stylesheet" href="{{ asset('public/css/style.css')}}" />
         <!-- responsive -->
@@ -56,14 +56,14 @@
     </head>
     <body id="home_one">
 
-        {!! app('App\Http\Controllers\ModulesController')->loader() !!} 
-        
+        {!! app('App\Http\Controllers\ModulesController')->loader() !!}
+
         {!! $header !!}
 
         @yield('main_content')
 
         {!! $footer !!}
-		
+
         <!-- bootstrap -->
         <script src="{{ asset('public/js/bootstrap.min.js')}}"></script>
 		<!-- rev slider -->
@@ -81,7 +81,7 @@
         <script src="{{ asset('public/js/owl.carousel.min.js')}}"></script>
         <!-- lightslider -->
         <script src="{{ asset('public/js/lightslider.js')}}"></script>
-        
+
         <!-- wow Animation -->
         <script src="{{ asset('public/js/wow.min.js')}}"></script>
         <!--Activating WOW Animation only for modern browser-->
@@ -92,7 +92,7 @@
         <!--Oh Yes, IE 9+ Supports animation, lets activate for IE 9+-->
         <!--[if gte IE 9]>
             <script type="text/javascript">new WOW().init();</script>
-        <![endif]-->         
+        <![endif]-->
 
         <!--Opacity & Other IE fix for older browser-->
         <!--[if lte IE 8]>
@@ -104,7 +104,9 @@
         <!-- my js -->
         <script src="{{ asset('public/js/main.js')}}"></script>
         <script src="{{ asset('public/js/pinterest.js')}}"></script>
+        <!-- chat -->
+        <script src="{{ asset('public/js/chat.js')}}"></script>
 
-		
+
     </body>
 </html>

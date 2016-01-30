@@ -13,7 +13,7 @@ class CommonController extends Controller
     public function get_config()
     {
         /**
-        * get setting config 
+        * get setting config
         */
         $set = Setting::getGeneral();
         $config = array();

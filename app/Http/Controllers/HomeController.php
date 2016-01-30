@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Request;
 
 class HomeController extends Controller
 {
-    
+
     protected $config;
     protected $data;
     public function __construct()
     {
-        
+
         $this->config = app('App\Http\Controllers\CommonController')->get_config();
         $this->data['site_favicon'] =$this->config['site_favicon'];
         $this->data['tagline'] = $this->config['site_tagline'];
@@ -27,15 +27,15 @@ class HomeController extends Controller
     }
 
     /**
-    * Show the home template 
+    * Show the home template
     */
     public function index()
     {
         $this->data['heading_title'] =$this->config['site_name'];
         Request::session()->put('active_menu', 'home');
-        
+
         /**
-        * Include modules template 
+        * Include modules template
         */
         $this->data['modules'] = array();
         $config_modules = Layout::getHomePageConfig();
