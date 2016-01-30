@@ -3,6 +3,7 @@ Laravel Booking is an website using laravel framework, angularjs, reactjs, ratch
 - **Author:** Quan Nguyen ( Libra - )
 - **Website:** [https://librauit.wordpress.com/](https://librauit.wordpress.com/)
 - **Version:** 1.0.1
+
 # Install
 - Apache
 - Mysql
