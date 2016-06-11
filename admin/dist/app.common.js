@@ -13,12 +13,12 @@
  /**
  * Global varibles
  */
- var urlBase    = 'http://localhost/lar5';
+ var urlBase    = 'http://localhost:8000';
  var urlBaseApi = [urlBase, 'api'].join('/');
  var folder , $modal, $viewImage, $elementId;
  var quan ;
  localStorage.setItem("selectImage", "");
- 
+
  /**
  * Create new Angularjs App
  */
@@ -30,7 +30,7 @@
         'satellizer',
         'ngMessages'
  ]).config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $authProvider){
-    
+
     /**
     * config authenticate api
     */
@@ -77,7 +77,7 @@
         			})
         		}
         	}
- 			
+
  		})
 
         // Layout Options
@@ -238,7 +238,7 @@
                     }
                 }
             })
- 
+
 
         // File manager
         .state('file_manager', {
@@ -327,11 +327,10 @@ function checkIssetRow()
             $('.save').attr('disabled', '')
         }
     }
-// Clear console after 5s    
+// Clear console after 5s
 function clearConsole()
 {
     console.clear();
     setTimeout(function(){ console.clear(); }, 5000);
-} 
-//clearConsole();   
-
+}
+//clearConsole();

@@ -129,7 +129,7 @@ Route::group(['namespace' => 'Api'], function()
         Route::post('/api/file_manager/delete_single_file', [
             'as' => 'delete_single_file','uses' => 'FilemanagerController@deleteSingleFile'
         ]);
-        
+
     });
     Route::group(['namespace' => 'Widget'], function()
     {
