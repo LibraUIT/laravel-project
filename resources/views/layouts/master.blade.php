@@ -18,30 +18,30 @@
         <link href='http://fonts.googleapis.com/css?family=Lora:400,700' rel='stylesheet' type='text/css'>
 
         <!-- fontawesome -->
-		<link rel="stylesheet" href="{{ asset('public/css/font-awesome.css') }}" />
+		<link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- bootstrap -->
-		<link rel="stylesheet" href="{{ asset('public/css/bootstrap.min.css')}}" />
+		<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}" />
 
         <!-- uikit -->
-        <link rel="stylesheet" href="{{ asset('public/css/uikit.min.css')}}" />
+        <link rel="stylesheet" href="{{ asset('css/uikit.min.css')}}" />
 
         <!-- animate -->
-        <link rel="stylesheet" href="{{ asset('public/css/animate.css')}}" />
-        <link rel="stylesheet" href="{{ asset('public/css/datepicker.css')}}" />
+        <link rel="stylesheet" href="{{ asset('css/animate.css')}}" />
+        <link rel="stylesheet" href="{{ asset('css/datepicker.css')}}" />
         <!-- Owl carousel 2 css -->
-        <link rel="stylesheet" href="{{ asset('public/css/owl.carousel.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/owl.carousel.css')}}">
         <!-- rev slider -->
-        <link rel="stylesheet" href="{{ asset('public/css/settings.css')}}" />
+        <link rel="stylesheet" href="{{ asset('css/settings.css')}}" />
         <!-- lightslider -->
-        <link rel="stylesheet" href="{{ asset('public/css/lightslider.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/lightslider.css')}}">
         <!-- Theme -->
-        <link rel="stylesheet" href="{{ asset('public/css/reset.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/reset.css')}}">
 
         <!-- custom css -->
-		<link rel="stylesheet" href="{{ asset('public/css/style.css')}}" />
+		<link rel="stylesheet" href="{{ asset('css/style.css')}}" />
         <!-- responsive -->
-		<link rel="stylesheet" href="{{ asset('public/css/responsive.css')}}" />
+		<link rel="stylesheet" href="{{ asset('css/responsive.css')}}" />
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,7 +51,7 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         <!-- jquery library -->
-        <script src="{{ asset('public/js/jquery-1.11.2.min.js')}}"></script>
+        <script src="{{ asset('js/jquery-1.11.2.min.js')}}"></script>
 
     </head>
     <body id="home_one">
@@ -65,25 +65,25 @@
         {!! $footer !!}
 
         <!-- bootstrap -->
-        <script src="{{ asset('public/js/bootstrap.min.js')}}"></script>
+        <script src="{{ asset('js/bootstrap.min.js')}}"></script>
 		<!-- rev slider -->
-        <script src="{{ asset('public/js/jquery.themepunch.plugins.min.js')}}"></script>
-        <script src="{{ asset('public/js/jquery.themepunch.revolution.js')}}"></script>
-        <script src="{{ asset('public/js/rs.home.js')}}"></script>
+        <script src="{{ asset('js/jquery.themepunch.plugins.min.js')}}"></script>
+        <script src="{{ asset('js/jquery.themepunch.revolution.js')}}"></script>
+        <script src="{{ asset('js/rs.home.js')}}"></script>
         <!-- uikit -->
-        <script src="{{ asset('public/js/uikit.min.js')}}"></script>
+        <script src="{{ asset('js/uikit.min.js')}}"></script>
         <!-- easing -->
-		<script src="{{ asset('public/js/jquery.easing.1.3.min.js')}}"></script>
-        <script src="{{ asset('public/js/datepicker.js')}}"></script>
+		<script src="{{ asset('js/jquery.easing.1.3.min.js')}}"></script>
+        <script src="{{ asset('js/datepicker.js')}}"></script>
         <!-- scroll up -->
-        <script src="{{ asset('public/js/jquery.scrollUp.min.js')}}"></script>
+        <script src="{{ asset('js/jquery.scrollUp.min.js')}}"></script>
         <!-- owlcarousel -->
-        <script src="{{ asset('public/js/owl.carousel.min.js')}}"></script>
+        <script src="{{ asset('js/owl.carousel.min.js')}}"></script>
         <!-- lightslider -->
-        <script src="{{ asset('public/js/lightslider.js')}}"></script>
+        <script src="{{ asset('js/lightslider.js')}}"></script>
 
         <!-- wow Animation -->
-        <script src="{{ asset('public/js/wow.min.js')}}"></script>
+        <script src="{{ asset('js/wow.min.js')}}"></script>
         <!--Activating WOW Animation only for modern browser-->
         <!--[if !IE]><!-->
         <script type="text/javascript">new WOW().init();</script>
@@ -99,13 +99,13 @@
             <script type="text/javascript" src="js/ie-opacity-polyfill.js"></script>
         <![endif]-->
         <!-- React js -->
-        <script src="{{ asset('public/reactjs/react.js')}}"></script>
-        <script src="{{ asset('public/reactjs/react-dom.js')}}"></script>
+        <script src="{{ asset('reactjs/react.js')}}"></script>
+        <script src="{{ asset('reactjs/react-dom.js')}}"></script>
         <!-- my js -->
-        <script src="{{ asset('public/js/main.js')}}"></script>
-        <script src="{{ asset('public/js/pinterest.js')}}"></script>
+        <script src="{{ asset('js/main.js')}}"></script>
+        <script src="{{ asset('js/pinterest.js')}}"></script>
         <!-- chat -->
-        <script src="{{ asset('public/js/chat.js')}}"></script>
+        <script src="{{ asset('js/chat.js')}}"></script>
 
 
     </body>

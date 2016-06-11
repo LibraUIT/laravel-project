@@ -1,7 +1,7 @@
         <!-- Scroll To Top -->
         <!-- https://codyhouse.co/gem/back-to-top/ -->
         <a href="#0" class="cd-top">Top</a>
-        <script src="{{ asset('public/js/scroll-to-top.js')}}"></script>
+        <script src="{{ asset('js/scroll-to-top.js')}}"></script>
         <!-- End Scroll To Top -->
         <!-- start footer -->
         <footer class="footer_area">
@@ -11,7 +11,7 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="footer_widget">
                                 <div class="footer_logo">
-                                    <a href="#"><img src="{{asset('public/images/footer-logo-one.png')}}" alt=""></a>
+                                    <a href="#"><img src="{{asset('images/footer-logo-one.png')}}" alt=""></a>
                                 </div>
                                 <p>Lorem ipsum dolor sit amet, conser adipiscing elit. In consectetur tincidunt dolor.</p>
                                 <ul>
@@ -31,7 +31,7 @@
                                             <li><a href="#">Food & Drinks</a></li>
                                             <li><a href="#">Beach Venues</a></li>
                                             <li><a href="#">Amenities</a></li>
-                                        </ul>  
+                                        </ul>
                                     </div>
                                     <div class="col-lg-6 col-md-6 sol-sm-6">
                                         <ul>
@@ -48,7 +48,7 @@
                             <div class="footer_widget">
                                 <h5>We Are Global</h5>
                                 <div class="footer_map">
-                                    <a href="#"><img src="{{asset('public/images/footer-map-two.jpg')}}" alt=""></a>
+                                    <a href="#"><img src="{{asset('images/footer-map-two.jpg')}}" alt=""></a>
                                 </div>
                             </div>
                         </div>

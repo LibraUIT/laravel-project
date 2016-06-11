@@ -17,8 +17,8 @@ class CommonController extends Controller
         */
         $set = Setting::getGeneral();
         $config = array();
-        $config['site_logo']        = str_replace('..', '', $set['image']) ;
-        $config['site_favicon']     = str_replace('..', '', $set['favicon']) ;
+        $config['site_logo']        = isset($set['image']) ? str_replace('..', '', $set['image']) : "" ;
+        $config['site_favicon']     = isset($set['favicon']) ? str_replace('..', '', $set['favicon']) : "" ;
         $config['site_name']        = $set['sitetitle'];
         $config['site_tagline']     = $set['tagline'];
         $config['site_description'] = $set['description'];
