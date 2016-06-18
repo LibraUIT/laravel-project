@@ -13,7 +13,7 @@
  /**
  * Global varibles
  */
- var urlBase    = 'http://localhost:8000';
+ var urlBase    = 'https://shopping-minhquan4080.c9users.io';
  var urlBaseApi = [urlBase, 'api'].join('/');
  var folder , $modal, $viewImage, $elementId;
  var quan ;
@@ -334,3 +334,29 @@ function clearConsole()
     setTimeout(function(){ console.clear(); }, 5000);
 }
 //clearConsole();
+function loadModalOrderDetails(ele, event) {
+    var id = $(ele).attr('data-id');
+    var url = [urlBaseApi, 'catalog', 'order', 'get'].join('/');
+    $.ajax({
+      url: url,
+      type: 'GET',
+      data: {id: id},
+      success: function(res) {
+        if (res) {
+           var dataOrderDetails = res;
+           $('.modal-title').text('Order No.' + dataOrderDetails.id);
+           $('#orderName').text(dataOrderDetails.user_name);
+           $('#orderAddress').text(dataOrderDetails.user_address);
+           $('#orderEmail').text(dataOrderDetails.user_email);
+           $('#orderPhone').text(dataOrderDetails.user_phone);
+           $('#orderPrice').text(dataOrderDetails.price);
+           $('#orderStatus').text(dataOrderDetails.status);
+           $('#orderCart').text(dataOrderDetails.cart);
+           $('#modal-order-detail').modal('show'); 
+        }
+      },
+      error: function(e) {
+
+      }
+    });
+}

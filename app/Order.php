@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model 
 {
-
     /**
     * add new order
     */
@@ -35,7 +34,7 @@ class Order extends Model
     {
         return DB::table('orders')->where('user_id', $id) 
         ->orderBy('id', 'desc')
-        ->get();;
+        ->get();
     }
 
     /**
@@ -46,6 +45,11 @@ class Order extends Model
     {
         $orders = DB::table('orders')->orderBy('id', 'desc')->paginate($limit);      
         return $orders->toJson();
+    }
+    
+    static public function getOrderById($id)
+    {
+        return DB::table('orders')->where('id', $id)->first();
     }
 
 

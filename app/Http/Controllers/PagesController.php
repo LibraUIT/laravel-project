@@ -239,7 +239,8 @@ class PagesController extends Controller
 	      		'user_email' => $params['email'],
 	      		'user_phone' => $params['phone'],
 	      		'user_address' => $params['address'],
-	      		'cart' => serialize(session('catalog_cart'))
+	      		'cart' => serialize(session('catalog_cart')),
+	      		''
 
 	      	);
 	      Order::addOrder($order);

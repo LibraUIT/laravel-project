@@ -22,7 +22,7 @@ class CatalogController extends Controller
         {
             $data['name']           = urldecode( explode('=', $params[0])[1] );
             $data['parent']         = urldecode( explode('=', $params[1])[1] );
-            if ( $data['parent'] == 0) {  $data['parent'] = NULL; }
+            if ( $data['parent'] == 0) {  $data['parent'] = 0; }
             $data['status']         =  ( isset($params[2]) ) ? 1 :  0;
             $res = Catalog::addCategory($data);
             if($res)
@@ -232,5 +232,36 @@ class CatalogController extends Controller
     {
         $limit = $_GET['limit'];
         return Order::getAllOrderCatalog($limit);
+    }
+    
+    public function getCatalogOrder() {
+        $request_body = file_get_contents('php://input');
+        $id = $_GET['id'];
+        $order = Order::getOrderById($id);
+        $cart_info = unserialize($order->cart);
+        $price = 0;
+        $cart = '';
+  		foreach($cart_info as $key => $item)
+  		{
+			$price = $price + $item->price;
+			$cart .= $item->title."-".$item->price."VND, ";
+  		}
+  		if($order->status == 1) {
+  		    $status = 'Pendding';
+  		} else {
+  		    $status = 'Proccessing';
+  		}
+        $data = array(
+            'id' => $order->id,
+            'user_id' => $order->user_id,
+            'user_name' => $order->user_name,
+            'user_email' => $order->user_email,
+            'user_phone' => $order->user_phone,
+            'user_address' => $order->user_address,
+            'price' => $price,
+            'cart' => $cart,
+            'status' => $status
+            );
+        return response()->json($data);
     }
 }
