@@ -13,7 +13,7 @@
  /**
  * Global varibles
  */
- var urlBase    = window.location.protocol;
+ var urlBase    = 'https://shopping-minhquan4080.c9users.io';
  var urlBaseApi = [urlBase, 'api'].join('/');
  var folder , $modal, $viewImage, $elementId;
  var quan ;
