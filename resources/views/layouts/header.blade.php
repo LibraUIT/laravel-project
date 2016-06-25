@@ -17,11 +17,7 @@
                                     <span class="icon-bar"></span>
                                   </button>
                                   <div class="site_logo fix">
-<<<<<<< HEAD
-                                      <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$catalog_url}}"><img src="{{asset($site_logo)}}" title="{{$site_title}}" alt="{{$site_title}}"></a>
-=======
                                       <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$catalog_url}}"><img src="{{secure_asset($site_logo)}}" title="{{$site_title}}" alt="{{$site_title}}"></a>
->>>>>>> 486a3c4474ad1099b2f518e00d87fb9166303443
                                       <div class="header_login floatleft">
                                           <ul>
                                               @if(Auth::check())

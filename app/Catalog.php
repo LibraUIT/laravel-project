@@ -143,7 +143,7 @@ class Catalog extends Model
         return DB::table('catalog_products')->where('id', $id)->first();
     }
 
-    static public function getAllProductByCategory($id, $limit = 1)
+    static public function getAllProductByCategory($id, $limit = 100)
     {
         $posts = DB::table('catalog_products')
         ->select('*')
