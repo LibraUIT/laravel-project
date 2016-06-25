@@ -6,7 +6,7 @@ use DB;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Catalog extends Model 
+class Catalog extends Model
 {
 
     /**
@@ -118,7 +118,7 @@ class Catalog extends Model
         $posts = DB::table('catalog_products')
         ->join('users', 'users.email', '=', 'catalog_products.author')
         ->select('catalog_products.*', 'users.name')
-        ->orderBy('id', 'desc')->paginate($limit);      
+        ->orderBy('id', 'desc')->paginate($limit);
         return $posts->toJson();
     }
 
@@ -131,7 +131,7 @@ class Catalog extends Model
         $posts = DB::table('catalog_products')
         ->join('users', 'users.email', '=', 'catalog_products.author')
         ->select('catalog_products.*', 'users.name')
-        ->orderBy('id', 'asc')->paginate($limit);      
+        ->orderBy('id', 'asc')->paginate($limit);
         return $posts->toJson();
     }
 
@@ -141,6 +141,15 @@ class Catalog extends Model
     static public function getProductById($id)
     {
         return DB::table('catalog_products')->where('id', $id)->first();
+    }
+
+    static public function getAllProductByCategory($id, $limit = 1)
+    {
+        $posts = DB::table('catalog_products')
+        ->select('*')
+        ->where('category', $id)
+        ->orderBy('id', 'desc')->paginate($limit);
+        return $posts->toJson();
     }
 
 }

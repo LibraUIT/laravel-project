@@ -17,7 +17,7 @@
                                     <span class="icon-bar"></span>
                                   </button>
                                   <div class="site_logo fix">
-                                      <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$home_url}}"><img src="{{asset($site_logo)}}" title="{{$site_title}}" alt="{{$site_title}}"></a>
+                                      <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$catalog_url}}"><img src="{{asset($site_logo)}}" title="{{$site_title}}" alt="{{$site_title}}"></a>
                                       <div class="header_login floatleft">
                                           <ul>
                                               @if(Auth::check())
@@ -43,7 +43,7 @@
                                           <li role="presentation"><a role="menuitem" tabindex="-1" href="index-two.html">Home Page two</a></li>
                                         </ul>
                                     </li>-->
-                                    <li @if(session('active_menu') == 'home') class="active_menu" @endif ><a href="{{$home_url}}">Home</a></li>
+                                    <li @if(session('active_menu') == 'home') class="active_menu" @endif ><a href="{{$catalog_url}}">Home</a></li>
                                     <li><a href="accomodation.html">Accomodation</a></li>
                                     <li @if(session('active_menu') == 'gallery') class="active_menu" @endif><a href="{{$gallery_url}}">Gallery</a></li>
                                     <!--<li role="presentation" class="dropdown">

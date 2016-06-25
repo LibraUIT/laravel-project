@@ -8,7 +8,7 @@
 						<div class="navigation">
 						  <ul>
 						  	@foreach($categories as $k => $v)
-						  	<li> <a href="#">{{$v->name}}</a>
+						  	<li> <a href="{{url('catalog/category', $parameters = [$v->id], $secure = null)}}">{{$v->name}}</a>
 						  	</li>
 						  	@endforeach
 						    <!--<li class="has-sub"> <a href="#">Menu 1</a>

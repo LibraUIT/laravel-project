@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Request;
 
 class PagesController extends Controller
 {
-	
+
 	protected $config;
     protected $data;
     public function __construct()
     {
-        
+
         $this->config = app('App\Http\Controllers\CommonController')->get_config();
         $this->data['site_favicon'] =$this->config['site_favicon'];
         $this->data['tagline'] = $this->config['site_tagline'];
@@ -100,6 +100,18 @@ class PagesController extends Controller
 	}
 
 	/**
+	* Show catalog category
+	*/
+	public function page_catalog_category($id)
+	{
+		$this->data['category'] = $category = Catalog::getCategoryById($id);
+		$this->data['heading_title'] = $this->config['site_name'].' | '.$category->name;
+		$this->data['products'] = json_decode(Catalog::getAllProductByCategory($category->id));
+		Request::session()->put('active_menu', 'catalog');
+    return view('pages.catalog_category', $this->data);
+	}
+
+	/**
 	* Show the catalog product template
 	*/
 	public function page_catalog_product($id, $name)
@@ -149,7 +161,7 @@ class PagesController extends Controller
 		{
 			$this->data['cart'] = session('catalog_cart');
 		}
-		
+
 		return view('pages.catalog_cart', $this->data);
 	}
 
@@ -188,7 +200,7 @@ class PagesController extends Controller
 		{
 			$this->data['cart'] = session('catalog_cart');
 		}
-		
+
 		return view('pages.catalog_cart', $this->data);
 	}
 	/**
@@ -202,7 +214,7 @@ class PagesController extends Controller
 			Request::session()->put('url_to_redirect', 'PagesController@page_cart_checkout');
 			return redirect()->action('SignController@in');
 		}else
-		{ 
+		{
       $this->data['fullname'] = Auth::user()->name;
       $this->data['email']    = Auth::user()->email;
 			$this->data['heading_title'] = $this->config['site_name'].' | Checkout';
@@ -216,7 +228,7 @@ class PagesController extends Controller
 			return view('pages.catalog_cart_checkout', $this->data);
 		}
 	}
-	
+
 
 	/**
 	* Cofirm checkout
@@ -231,7 +243,7 @@ class PagesController extends Controller
 				Request::session()->put('url_to_redirect', 'PagesController@page_cart_checkout');
 				return redirect()->action('SignController@in');
 			}else
-			{ 
+			{
 	      $params = Request::all();
 	      $order = array(
 	      		'user_id' => Auth::user()->id,
@@ -246,13 +258,13 @@ class PagesController extends Controller
 	      Request::session()->forget('catalog_cart');
 	      Request::session()->flash('message_success', 'Thank you! Checkout has been success. We will contact with you after.');
 	      return redirect()->action('PagesController@page_profile');
-				
+
 			}
 		}else
 		{
 			return redirect()->action('PagesController@page_404');
 		}
-		
+
 	}
 
 	/**

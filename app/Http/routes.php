@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -90,7 +89,11 @@ Route::get('/profile', [
     'as' => 'page_profile','uses' => 'PagesController@page_profile'
 ]);
 
-Route::group(['namespace' => 'Api'], function()
+Route::get('/catalog/category/{id}', [
+    'as' => 'catalog_category', 'uses' => 'PagesController@page_catalog_category'
+]);
+
+Route::group(['middleware' => ['cors'], 'namespace' => 'Api'], function()
 {
     // Controllers Within The "App\Http\Controllers\Api" Namespace
 
