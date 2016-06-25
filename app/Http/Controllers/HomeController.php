@@ -52,5 +52,4 @@ class HomeController extends Controller
         */
         return view('home.home', $this->data);
     }
-
 }

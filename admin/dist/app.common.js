@@ -13,12 +13,12 @@
  /**
  * Global varibles
  */
- var urlBase    = 'http://localhost/lar5';
+ var urlBase    = 'https://shopping-minhquan4080.c9users.io';
  var urlBaseApi = [urlBase, 'api'].join('/');
  var folder , $modal, $viewImage, $elementId;
  var quan ;
  localStorage.setItem("selectImage", "");
- 
+
  /**
  * Create new Angularjs App
  */
@@ -30,7 +30,7 @@
         'satellizer',
         'ngMessages'
  ]).config(['$stateProvider','$urlRouterProvider','$ocLazyLoadProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, $authProvider){
-    
+
     /**
     * config authenticate api
     */
@@ -77,7 +77,7 @@
         			})
         		}
         	}
- 			
+
  		})
 
         // Layout Options
@@ -179,7 +179,66 @@
                 }
             })
 
-            
+         // Catalog
+        .state('catalog', {
+            url: '/catalog',
+            templateUrl: 'views/layout/main.html',
+            controller: 'CatalogController'
+        })
+
+            // Category Content
+            .state('catalog.category', {
+                url: '/category',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'category',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
+            // Product Catalog
+            .state('catalog.product', {
+                url: '/product',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'product',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js',
+                            'plugins/ckeditor/ckeditor.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
+            // Orders Catalog
+            .state('catalog.order', {
+                url: '/order',
+                resolve: {
+                    loadMyDirectives:function($ocLazyLoad){
+                        return $ocLazyLoad.load(
+                        {
+                            name:'order',
+                            files:[
+                            'plugins/iCheck/square/blue.css',
+                            'plugins/iCheck/icheck.min.js',
+                            'plugins/ckeditor/ckeditor.js'
+                            ]
+                        })
+                    }
+                }
+            })
+
 
         // File manager
         .state('file_manager', {
@@ -268,11 +327,36 @@ function checkIssetRow()
             $('.save').attr('disabled', '')
         }
     }
-// Clear console after 5s    
+// Clear console after 5s
 function clearConsole()
 {
     console.clear();
     setTimeout(function(){ console.clear(); }, 5000);
-} 
-//clearConsole();   
+}
+//clearConsole();
+function loadModalOrderDetails(ele, event) {
+    var id = $(ele).attr('data-id');
+    var url = [urlBaseApi, 'catalog', 'order', 'get'].join('/');
+    $.ajax({
+      url: url,
+      type: 'GET',
+      data: {id: id},
+      success: function(res) {
+        if (res) {
+           var dataOrderDetails = res;
+           $('.modal-title').text('Order No.' + dataOrderDetails.id);
+           $('#orderName').text(dataOrderDetails.user_name);
+           $('#orderAddress').text(dataOrderDetails.user_address);
+           $('#orderEmail').text(dataOrderDetails.user_email);
+           $('#orderPhone').text(dataOrderDetails.user_phone);
+           $('#orderPrice').text(dataOrderDetails.price);
+           $('#orderStatus').text(dataOrderDetails.status);
+           $('#orderCart').text(dataOrderDetails.cart);
+           $('#modal-order-detail').modal('show'); 
+        }
+      },
+      error: function(e) {
 
+      }
+    });
+}

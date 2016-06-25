@@ -1,0 +1,21 @@
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+        <h4>This is simple shopping cart</h4>
+        </section>
+        <section class="content-header">
+          <h1>
+            {{breacum_active}}
+            <small>manament</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li><a href="#/content">Catalog</a></li>
+            <li class="active">{{breacum_active}}</li>
+          </ol>
+        </section>
+
+        <div ng-include="subtemplate.url"></div>
+
+      </div><!-- /.content-wrapper -->

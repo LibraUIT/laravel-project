@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Illuminate\Routing\Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 
@@ -80,7 +81,7 @@ class SignController extends Controller
         return view('sign.forgot', $this->data);
     }
 
-    public function out()
+    public function out(Route $route)
     {
         Auth::logout();
         return redirect()->action('HomeController@index');

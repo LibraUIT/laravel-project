@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api\Content;
+namespace App\Http\Controllers\Api\Catalog;
 
-use App\Content;
+use App\Order;
+use App\Catalog;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Request;
 
-class ContentController extends Controller
+class CatalogController extends Controller
 {
     // Add new Category function
     public function addCategory()
@@ -21,8 +22,9 @@ class ContentController extends Controller
         {
             $data['name']           = urldecode( explode('=', $params[0])[1] );
             $data['parent']         = urldecode( explode('=', $params[1])[1] );
+            if ( $data['parent'] == 0) {  $data['parent'] = 0; }
             $data['status']         =  ( isset($params[2]) ) ? 1 :  0;
-            $res = Content::addCategory($data);
+            $res = Catalog::addCategory($data);
             if($res)
             {
                 $output = array(
@@ -35,7 +37,7 @@ class ContentController extends Controller
     //get parent category
     public function getParentCategory()
     {
-        $parent = Content::getParentCategory();
+        $parent = Catalog::getParentCategory();
         $output = array(
                 'status' => 'OK',
                 'data'   => $parent
@@ -46,7 +48,7 @@ class ContentController extends Controller
     // get all category
     public function getAllCategory()
     {
-        $category = Content::getAllCategory();
+        $category = Catalog::getAllCategory();
         $output = array(
                 'status' => 'OK',
                 'data'   => $category
@@ -59,13 +61,13 @@ class ContentController extends Controller
     {
         $request_body = file_get_contents('php://input');
         $categoryId = (int) $request_body;
-        $res = Content::deleteCategoryById($categoryId);
         $output = array(
                 'status' => 'No'
             );
+        $res = Catalog::deleteCategoryById($categoryId);
         if($res == TRUE)
         {
-            Content::deleteCategoryByParentId($categoryId);
+            Catalog::deleteCategoryByParentId($categoryId);
             $output = array(
                 'status' => 'OK'
             );
@@ -78,7 +80,7 @@ class ContentController extends Controller
     {
         $request_body = file_get_contents('php://input');
         $categoryId = (int) $request_body;
-        $res = Content::getCategoryById($categoryId);
+        $res = Catalog::getCategoryById($categoryId);
         $output = array(
                 'status' => 'No'
             );
@@ -111,7 +113,7 @@ class ContentController extends Controller
                 $data['parent'] = NULL;
             }
             $data['status']         =  ( isset($params[3]) ) ? 1 :  0;
-            $res = Content::editCategoryByID($data, $categoryId);
+            $res = Catalog::editCategoryByID($data, $categoryId);
         
             $output = array(
                 'status' => 'OK'
@@ -121,7 +123,7 @@ class ContentController extends Controller
     }
 
     // add new post
-    public function addPost()
+    public function addProduct()
     {
         $request_body = file_get_contents('php://input');
         $params = explode('&', $request_body);
@@ -139,9 +141,10 @@ class ContentController extends Controller
                 $data['category'] = NULL;
             }
             $data['content']         = urldecode( explode('=', $params[3])[1] );
-            $data['cover']           = urldecode( explode('=', $params[4])[1] );
-            $data['status']         =  ( isset($params[5]) ) ? 1 :  0;
-            $res = Content::addPostContent($data);
+            $data['image']           = urldecode( explode('=', $params[4])[1] );
+            $data['price']           = urldecode( explode('=', $params[5])[1] );
+            $data['status']          =  ( isset($params[6]) ) ? 1 :  0;
+            $res = Catalog::addProductCatalog($data);
             $output = array(
                 'status' => 'OK'
             );
@@ -150,14 +153,14 @@ class ContentController extends Controller
     }
 
     // delete post by id
-    public function deletePostById()
+    public function deleteProductById()
     {
         $request_body = file_get_contents('php://input');
         $postId = (int) $request_body;
         $output = array(
                 'status' => 'No'
             );
-        $res = Content::deletePostById($postId);
+        $res = Catalog::deleteProductById($postId);
         if($res == TRUE)
         {
             $output = array(
@@ -168,18 +171,18 @@ class ContentController extends Controller
     }
 
     // Get all post content pagination
-    public function getAllPostContent()
+    public function getAllProductCatalog()
     {
         $limit = $_GET['limit'];
-        return Content::getAllPost($limit);
+        return Catalog::getAllProduct($limit);
     }
 
     // get post by id
-    public function getPostById()
+    public function getProductById()
     {
         $request_body = file_get_contents('php://input');
         $postId = (int) $request_body;
-        $res = Content::getPostById($postId);
+        $res = Catalog::getProductById($postId);
         $output = array(
                 'status' => 'No'
             );
@@ -194,7 +197,7 @@ class ContentController extends Controller
     }
 
     // update post by id
-    public function editPost()
+    public function editProduct()
     {
         $request_body = file_get_contents('php://input');
         $params = explode('&', $request_body);
@@ -213,14 +216,52 @@ class ContentController extends Controller
                 $data['category'] = NULL;
             }
             $data['content']         = urldecode( explode('=', $params[4])[1] );
-            $data['cover']           = urldecode( explode('=', $params[5])[1] );
-            $data['status']         =  ( isset($params[6]) ) ? 1 :  0;
-            $res = Content::editPostByID($data, $postId);
+            $data['image']           = urldecode( explode('=', $params[5])[1] );
+            $data['price']           = urldecode( explode('=', $params[6])[1] );
+            $data['status']         =  ( isset($params[7]) ) ? 1 :  0;
+            $res = Catalog::editProductByID($data, $postId);
         
             $output = array(
                 'status' => 'OK'
             );
         }
         return response()->json($output);
+    }
+    // Get all post content pagination
+    public function getAllOrderCatalog()
+    {
+        $limit = $_GET['limit'];
+        return Order::getAllOrderCatalog($limit);
+    }
+    
+    public function getCatalogOrder() {
+        $request_body = file_get_contents('php://input');
+        $id = $_GET['id'];
+        $order = Order::getOrderById($id);
+        $cart_info = unserialize($order->cart);
+        $price = 0;
+        $cart = '';
+  		foreach($cart_info as $key => $item)
+  		{
+			$price = $price + $item->price;
+			$cart .= $item->title."-".$item->price."VND, ";
+  		}
+  		if($order->status == 1) {
+  		    $status = 'Pendding';
+  		} else {
+  		    $status = 'Proccessing';
+  		}
+        $data = array(
+            'id' => $order->id,
+            'user_id' => $order->user_id,
+            'user_name' => $order->user_name,
+            'user_email' => $order->user_email,
+            'user_phone' => $order->user_phone,
+            'user_address' => $order->user_address,
+            'price' => $price,
+            'cart' => $cart,
+            'status' => $status
+            );
+        return response()->json($data);
     }
 }

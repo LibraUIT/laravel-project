@@ -1,3 +1,13 @@
+## 🏩🏩🏩Hotel Booking
+### sub version
+- Booking
+- News
+- Shopping cart
+- Social
+
+# Admin account:
+ - quanmn.libra@gmail.com
+ - 123456
 # Hotel Booking
 Laravel Booking is an website using laravel framework, angularjs, reactjs, ratchet.
 - **Author:** Quan Nguyen ( Libra - )
@@ -14,4 +24,3 @@ Laravel Booking is an website using laravel framework, angularjs, reactjs, ratch
 - Run chat-server : 'php bin/chat-server.php'
 # User Test
 - Admin : admin@example.com - password
-
