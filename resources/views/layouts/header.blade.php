@@ -17,7 +17,11 @@
                                     <span class="icon-bar"></span>
                                   </button>
                                   <div class="site_logo fix">
+<<<<<<< HEAD
                                       <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$catalog_url}}"><img src="{{asset($site_logo)}}" title="{{$site_title}}" alt="{{$site_title}}"></a>
+=======
+                                      <a id="brand" class="clearfix navbar-brand border-right-whitesmoke" href="{{$catalog_url}}"><img src="{{secure_asset($site_logo)}}" title="{{$site_title}}" alt="{{$site_title}}"></a>
+>>>>>>> 486a3c4474ad1099b2f518e00d87fb9166303443
                                       <div class="header_login floatleft">
                                           <ul>
                                               @if(Auth::check())
@@ -64,7 +68,7 @@
                                      <li @if(session('active_menu') == 'catalog_cart') class="active_menu" @endif ><a href="{{$cart_url}}">Cart</a></li>
                                   </ul>
                                   <div class="emergency_number">
-                                      <a href="tel:1234567890"><img src="{{asset('images/call-icon.png')}}" alt="">123 456 7890</a>
+                                      <a href="tel:1234567890"><img src="{{secure_asset('pulic/images/call-icon.png')}}" alt="">123 456 7890</a>
                                   </div>
                                 </div><!-- /.navbar-collapse -->
                             </nav>

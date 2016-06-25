@@ -263,5 +263,8 @@ Route::group(['middleware' => ['cors'], 'namespace' => 'Api'], function()
         Route::get('/api/catalog/get_all_order_catalog', [
             'as' => 'get_all_order_catalog','uses' => 'CatalogController@getAllOrderCatalog'
         ]);
+        Route::get('/api/catalog/order/get', [
+            'as' => 'catalog_order_get','uses' => 'CatalogController@getCatalogOrder'
+        ]);
     });
 });
